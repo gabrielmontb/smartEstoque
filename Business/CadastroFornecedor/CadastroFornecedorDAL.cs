@@ -14,6 +14,12 @@ namespace SmartEstoque.Business
             string query = new CadastroFornecedorDALSQL().inserirFornecedor();
             var command = new NpgsqlCommand(query, conn);
             command.Parameters.AddWithValue("@DESFRNPRD", objInserir.DESFRNPRD);
+            command.Parameters.AddWithValue("@TELCTOFRN", objInserir.TELCTOFRN);
+            command.Parameters.AddWithValue("@TELCTOFRNSEC", objInserir.TELCTOFRNSEC);
+            command.Parameters.AddWithValue("@NOMRSPFRN", objInserir.NOMRSPFRN);
+            command.Parameters.AddWithValue("@DESENDFRN", objInserir.DESENDFRN);
+            command.Parameters.AddWithValue("@DESCIDFRN", objInserir.DESCIDFRN);
+            command.Parameters.AddWithValue("@DESESTAFRN", objInserir.DESESTAFRN);
             return (command.ExecuteNonQuery() == 1);
         } 
         public bool alterarFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
@@ -22,6 +28,12 @@ namespace SmartEstoque.Business
             string query = new CadastroFornecedorDALSQL().alterarFornecedor();
             var command = new NpgsqlCommand(query, conn);
             command.Parameters.AddWithValue("@DESFRNPRD", objInserir.DESFRNPRD);
+            command.Parameters.AddWithValue("@TELCTOFRN", objInserir.TELCTOFRN);
+            command.Parameters.AddWithValue("@TELCTOFRNSEC", objInserir.TELCTOFRNSEC);
+            command.Parameters.AddWithValue("@NOMRSPFRN", objInserir.NOMRSPFRN);
+            command.Parameters.AddWithValue("@DESENDFRN", objInserir.DESENDFRN);
+            command.Parameters.AddWithValue("@DESCIDFRN", objInserir.DESCIDFRN);
+            command.Parameters.AddWithValue("@DESESTAFRN", objInserir.DESESTAFRN);
             command.Parameters.AddWithValue("@CODFRNPRD", objInserir.CODFRNPRD);
             return (command.ExecuteNonQuery() == 1);
         }  
@@ -54,7 +66,18 @@ namespace SmartEstoque.Business
             NpgsqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
-                retorno.Add(new obterFornecedor { CODFRNPRD = dr.GetInt32(0), DESFRNPRD = dr.GetString(1), DATCAD = dr.GetString(2), DATDST = dr.IsDBNull(3) ? "" : dr.GetString(3) });
+                retorno.Add(new obterFornecedor {
+                    CODFRNPRD = dr.GetInt32(0)
+                    , DESFRNPRD = dr.GetString(1)
+                    , DATCAD = dr.GetString(2)
+                    , DATDST = dr.IsDBNull(3) ? "" : dr.GetString(3)
+                    , TELCTOFRN = dr.GetString(4)
+                    , TELCTOFRNSEC = dr.GetString(5)
+                    , NOMRSPFRN = dr.GetString(6)
+                    , DESENDFRN = dr.GetString(7)
+                    , DESCIDFRN = dr.GetString(8)
+                    , DESESTAFRN = dr.GetString(9)
+                });
             }
             return retorno;
         }

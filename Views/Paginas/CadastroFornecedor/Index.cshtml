@@ -2,8 +2,15 @@
     ViewData["Title"] = "Fornecedor - ";
 }
 @*<style type="text/css">
-    .dt-buttons {
-        float: right !important;
+    .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
 }
 </style>*@
 
@@ -18,9 +25,9 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodGrpPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. grupo" style="width: 25%;" />
+        <input id="txtCodFrnPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Fornecedor" style="width: 25%;" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesGrpPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Grupo" />
+        <input id="txtDesFrnPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Fornecedor" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <select id="ddlStatus" class="form-control">
             <option value="0" selected="selected">Selecione um status...</option>
@@ -33,7 +40,7 @@
         </button>
     </div>
     <div class="row">
-         <button class="btn btn-success" id="btnNovoGrupo" onclick="cadastrarNovoGrupo()" style="width: 100px">
+         <button class="btn btn-success" id="btnNovoFornecedor" onclick="cadastrarNovoFornecedor()" style="width: 100px">
             Novo
         </button>
     </div>
@@ -56,24 +63,89 @@
     <form action="#" id="frmCadastro" novalidate="novalidate">
         <div class="tgv-cabecalho-container">
             <div class="col-md-6 titulo-tela">
-                <strong class="strong-cabecalho-tgv">Cadastro do grupo</strong>
+                <strong class="strong-cabecalho-tgv">Cadastro do Fornecedor</strong>
             </div>
             <div class="col-md-6 tgv-crud-log-text divShowHide">
-                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodGrpPrd" class="input-span-title" value="" readonly/></span>                
+                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodFrnPrd" class="input-span-title" value="" readonly/></span>                
             </div>
         </div>
         <div class="tgv-crud-container tgv-mat-closer">           
-            <div id="divFunInserir" class="col-md-12 nopaddingright" style="display: none; display: flex;">
-                <div class="form-group col-md-3">
-                    <label for="input-text-1" style="margin-bottom: 0px;">
-                        <strong class="strong-min-tgv">Descrição:</strong>
-                    </label>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input list="select" name="txtDescricaoGrupo" id="txtDescricaoGrupo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                        <datalist id="select" disabled></datalist>
-                        <label class="mdl-textfield__label" for="txtDescricaoGrupo" disabled></label>
-                    </div>
-                </div>              
+            <div id="divFunInserir" class="col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Descrição:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtDescricaoFornecedor" id="txtDescricaoFornecedor" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtDescricaoFornecedor" ></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Telefone principal:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtTelefonePrincipal" id="txtTelefonePrincipal" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtTelefonePrincipal" ></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Telefone Secundário:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtTelefoneSecundario" id="txtTelefoneSecundario" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtTelefoneSecundario" ></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Responsável:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtResponsavel" id="txtResponsavel" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtResponsavel" ></label>
+                        </div>
+                    </div>       
+
+                </div>  
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Endereço:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtEndereco" id="txtEndereco" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtEndereco" ></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Cidade:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtCidade" id="txtCidade" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtCidade" ></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Estado:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtEstado" id="txtEstado" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="2">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtEstado" ></label>
+                        </div>
+                    </div> 
+                </div>
             </div>
 
         </div>
@@ -81,11 +153,11 @@
 
         <div class="row tgv-button-toolbar" style="margin-left: 500px;">
             <span>
-                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="InserirGrupo()">
+                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="InserirFornecedor()">
                     <i class="fas fa-save"></i> 
                     Salvar
                 </button>
-                <button id="btnEditarCadastro" type="button" class="btn btn-success" onclick="alterarGrupo()">
+                <button id="btnEditarCadastro" type="button" class="btn btn-success" onclick="alterarFornecedor()">
                     <i class="fas fa-save"></i>
                     Salvar
                 </button>

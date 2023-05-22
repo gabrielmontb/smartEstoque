@@ -1,68 +1,76 @@
 ﻿<script>
 
-    var cadastrarNovoGrupo = function () {
+    var cadastrarNovoFornecedor = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
         $("#divCadastro").show();
         $(".divShowHide").hide();        
-        $("#txtDescricaoGrupo").val('');
+        $("#txtDescricaoFornecedor").val('');
     }   
-    var InserirGrupo = function () {
+    var InserirFornecedor = function () {
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/inserirFornecedor")',
             async: false,
-            data: { DESGRPPRD: $("#txtDescricaoGrupo").val() },
+            data: { 
+                  DESFRNPRD: $("#txtDescricaoFornecedor").val()
+                , TELCTOFRN: $("#txtTelefonePrincipal").val()
+                , TELCTOFRNSEC: $("#txtTelefoneSecundario").val()
+                , NOMRSPFRN: $("#txtResponsavel").val()
+                , DESENDFRN: $("#txtEndereco").val()
+                , DESCIDFRN: $("#txtCidade").val()
+                , DESESTAFRN: $("#txtEstado").val()
+            },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Grupo inserido com sucesso!")
+                    swal("Sucesso!", "Fornecedor inserido com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroFornecedor").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao inserir Grupo!")
+                    swal("Verifique!", "Houve um erro ao inserir Fornecedor!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
         });
     }   
-    var AtivarGrupo = function (CODGRPPRD) {
+    var AtivarFornecedor = function (CODFRNPRD) {
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/ativarFornecedor")',
             async: false,
-            data: { CODGRPPRD: CODGRPPRD },
+            data: { CODFRNPRD: CODFRNPRD },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Grupo ativado com sucesso!")
+                    swal("Sucesso!", "Fornecedor ativado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroFornecedor").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao ativar Grupo!")
+                    swal("Verifique!", "Houve um erro ao ativar Fornecedor!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
         });
     }       
-    var DesativarGrupo = function (CODGRPPRD) {
+    var DesativarFornecedor = function (CODFRNPRD) {
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/desativarFornecedor")',
             async: false,
-            data: { CODGRPPRD: CODGRPPRD },
+            data: { CODFRNPRD: CODFRNPRD },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Grupo desativado com sucesso!")
+                    swal("Sucesso!", "Fornecedor desativado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroFornecedor").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao desativar Grupo!")
+                    swal("Verifique!", "Houve um erro ao desativar Fornecedor!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -71,24 +79,30 @@
     var pesquisar = function () {
         $("#grdCadastroFornecedor").DataTable().ajax.reload();
     }   
-    var alterarGrupo = function () {
+    var alterarFornecedor = function () {
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/alterarFornecedor")',
             async: false,
             data: { 
-                DESGRPPRD: $("#txtDescricaoGrupo").val(),
-                CODGRPPRD: $("#txtCodGrpPrd").val()
+                  DESFRNPRD: $("#txtDescricaoFornecedor").val()
+                , CODFRNPRD: $("#txtCodFrnPrd").val()
+                , TELCTOFRN: $("#txtTelefonePrincipal").val()
+                , TELCTOFRNSEC: $("#txtTelefoneSecundario").val()
+                , NOMRSPFRN: $("#txtResponsavel").val()
+                , DESENDFRN: $("#txtEndereco").val()
+                , DESCIDFRN: $("#txtCidade").val()
+                , DESESTAFRN: $("#txtEstado").val()
             },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Grupo alterado com sucesso!")
+                    swal("Sucesso!", "Fornecedor alterado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroFornecedor").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao alterar Grupo!")
+                    swal("Verifique!", "Houve um erro ao alterar Fornecedor!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -98,7 +112,13 @@
         $("#divPesquisa").show();
         $("#btnEditarCadastro").hide();
         $("#divCadastro").hide();
-        $("#txtDescricaoGrupo").val('');
+        $("#txtDescricaoFornecedor").val('');
+        $("#txtTelefonePrincipal").val('');
+        $("#txtTelefoneSecundario").val('');
+        $("#txtResponsavel").val('');
+        $("#txtEndereco").val('');
+        $("#txtCidade").val('');
+        $("#txtEstado").val('');
     });
     $(document).ready(function () {
         // Inicialize o DataTable
@@ -109,8 +129,8 @@
                     return json;
                 },
                 "data": function (d) {
-                    d.DESGRPPRD = $("#txtDesGrpPrdFil").val();
-                    d.CODGRPPRD = $("#txtCodGrpPrdFil").val();
+                    d.DESFRNPRD = $("#txtDesFrnPrdFil").val();
+                    d.CODFRNPRD = $("#txtCodFrnPrdFil").val();
                     d.STATUS = $("#ddlStatus").val();
                     // Adicione mais parâmetros conforme necessário
                 }
@@ -146,8 +166,8 @@
                         return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
                     }
                 },
-                { data: "codgrpprd", title: "Código" },
-                { data: "desgrpprd", title: "Descrição" },
+                { data: "codfrnprd", title: "Código" },
+                { data: "desfrnprd", title: "Descrição" },
                 { data: "datcad", title: "Data cadastro" },
                 { data: "datdst", title: "Data desativação" }
             ],
@@ -169,11 +189,11 @@
                 $(row).on('click', function () {
                     var columnIdx = $(event.target).index();
                     if(columnIdx == 0){                        
-                       AtivarGrupo(data.codgrpprd);
+                       AtivarFornecedor(data.codfrnprd);
                         return;
                     }
                     else if(columnIdx == 1){
-                       DesativarGrupo(data.codgrpprd);
+                       DesativarFornecedor(data.codfrnprd);
                        return
                     } 
                     $("#divPesquisa").hide();
@@ -181,8 +201,14 @@
                     $("#btnEditarCadastro").show();
                     $("#divCadastro").show();
                     $(".divShowHide").show();
-                    $("#txtCodGrpPrd").val(data.CODGRPPRD);
-                    $("#txtDescricaoGrupo").val(data.DESGRPPRD);
+                    $("#txtCodFrnPrd").val(data.codfrnprd);
+                    $("#txtDescricaoFornecedor").val(data.desfrnprd);
+                    $("#txtTelefonePrincipal").val(data.telctofrn);
+                    $("#txtTelefoneSecundario").val(data.telctofrnsec);
+                    $("#txtResponsavel").val(data.nomrspfrn);
+                    $("#txtEndereco").val(data.desendfrn);
+                    $("#txtCidade").val(data.descidfrn);
+                    $("#txtEstado").val(data.desestafrn);
                 });
             },  
             //columnDefs: [

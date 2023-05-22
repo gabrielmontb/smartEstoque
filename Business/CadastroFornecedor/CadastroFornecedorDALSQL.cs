@@ -8,7 +8,7 @@ namespace SmartEstoque.Business
     {
         public string inserirFornecedor()
         {
-            return @"INSERT INTO cadgrpprd (codgrpprd,desgrpprd,datcad) values ((SELECT COALESCE(MAX(codgrpprd),0)+1 FROM cadgrpprd), UPPER(@DESGRPPRD),NOW())";
+            return @"INSERT INTO cadgrpprd (codgrpprd,desgrpprd,datcad) values ((SELECT COALESCE(MAX(codgrpprd),0)+1 FROM cadgrpprd), UPPER(@DESFRNPRD),NOW())";
         }   
         public string obterFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
         {
@@ -21,10 +21,10 @@ namespace SmartEstoque.Business
                     WHERE 1=1
                     
                 ");
-            if (objInserir.CODGRPPRD > 0)
-                strBld.AppendLine(" AND codgrpprd = @CODGRPPRD ");
-            if (!string.IsNullOrEmpty(objInserir.DESGRPPRD))
-                strBld.AppendLine(" AND UPPER(TRIM(desgrpprd)) LIKE '%' || UPPER(TRIM(@DESGRPPRD))  || '%'");
+            if (objInserir.CODFRNPRD > 0)
+                strBld.AppendLine(" AND codgrpprd = @CODFRNPRD ");
+            if (!string.IsNullOrEmpty(objInserir.DESFRNPRD))
+                strBld.AppendLine(" AND UPPER(TRIM(desgrpprd)) LIKE '%' || UPPER(TRIM(@DESFRNPRD))  || '%'");
             if(objInserir.STATUS == 1)
                 strBld.AppendLine(" AND datdst IS NULL ");
             else if (objInserir.STATUS == 2)
@@ -36,22 +36,22 @@ namespace SmartEstoque.Business
         public string alterarFornecedor()
         {
             return @"UPDATE cadgrpprd SET 
-                            desgrpprd = UPPER(@DESGRPPRD)
+                            desgrpprd = UPPER(@DESFRNPRD)
                             , datalt = NOW()
-                             WHERE codgrpprd = @CODGRPPRD";
+                             WHERE codgrpprd = @CODFRNPRD";
         }  
         public string ativarFornecedor()
         {
             return @"UPDATE cadgrpprd SET 
                             datdst = null
                             , datalt = NOW()
-                             WHERE codgrpprd = @CODGRPPRD";
+                             WHERE codgrpprd = @CODFRNPRD";
         } 
         public string desativarFornecedor()
         {
             return @"UPDATE cadgrpprd SET 
                             datdst = NOW()
-                             WHERE codgrpprd = @CODGRPPRD";
+                             WHERE codgrpprd = @CODFRNPRD";
         }
     }
 }

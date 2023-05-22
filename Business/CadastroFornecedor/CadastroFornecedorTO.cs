@@ -5,9 +5,9 @@ namespace CadastroFornecedorTO
 {
     public class obterFornecedor
     {
-        public int CODGRPPRD { get; set; }
+        public int CODFRNPRD { get; set; }
 
-        public string DESGRPPRD { get; set; }
+        public string DESFRNPRD { get; set; }
 
         public string DATCAD { get; set; }
 

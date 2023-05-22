@@ -1,0 +1,208 @@
+﻿<script>
+
+    var cadastrarNovoGrupo = function () {
+        $("#divPesquisa").hide();
+        $("#btnInserirCadastro").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").show();
+        $(".divShowHide").hide();        
+        $("#txtDescricaoGrupo").val('');
+    }   
+    var InserirGrupo = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroFornecedor/inserirFornecedor")',
+            async: false,
+            data: { DESGRPPRD: $("#txtDescricaoGrupo").val() },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Grupo inserido com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroFornecedor").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao inserir Grupo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }   
+    var AtivarGrupo = function (CODGRPPRD) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroFornecedor/ativarFornecedor")',
+            async: false,
+            data: { CODGRPPRD: CODGRPPRD },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Grupo ativado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroFornecedor").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao ativar Grupo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }       
+    var DesativarGrupo = function (CODGRPPRD) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroFornecedor/desativarFornecedor")',
+            async: false,
+            data: { CODGRPPRD: CODGRPPRD },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Grupo desativado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroFornecedor").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao desativar Grupo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }    
+    var pesquisar = function () {
+        $("#grdCadastroFornecedor").DataTable().ajax.reload();
+    }   
+    var alterarGrupo = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroFornecedor/alterarFornecedor")',
+            async: false,
+            data: { 
+                DESGRPPRD: $("#txtDescricaoGrupo").val(),
+                CODGRPPRD: $("#txtCodGrpPrd").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Grupo alterado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroFornecedor").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao alterar Grupo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }
+    $('#btnFecharCadastro').click(function () {
+        $("#divPesquisa").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").hide();
+        $("#txtDescricaoGrupo").val('');
+    });
+    $(document).ready(function () {
+        // Inicialize o DataTable
+        $('#grdCadastroFornecedor').DataTable({
+            "ajax": {
+                "url": "/CadastroFornecedor/obterFornecedor",
+                "dataSrc": function (json) {
+                    return json;
+                },
+                "data": function (d) {
+                    d.DESGRPPRD = $("#txtDesGrpPrdFil").val();
+                    d.CODGRPPRD = $("#txtCodGrpPrdFil").val();
+                    d.STATUS = $("#ddlStatus").val();
+                    // Adicione mais parâmetros conforme necessário
+                }
+            },
+            "columns": [
+                //{
+                //    title: '<input type="checkbox" id="selectAll">',
+                //    data: null,
+                //    orderable: false,
+                //    className: 'dt-body-center',
+                //    width:'1px',
+                //    render: function (data, type, row, meta) {
+                //        return '<input type="checkbox">';
+                //    }
+                //},   
+                {
+                    title: 'Ativar',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-plus" style="color: #04ff00;"></i>';
+                    }
+                }, 
+                {
+                    title: 'Desativar',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
+                    }
+                },
+                { data: "codgrpprd", title: "Código" },
+                { data: "desgrpprd", title: "Descrição" },
+                { data: "datcad", title: "Data cadastro" },
+                { data: "datdst", title: "Data desativação" }
+            ],
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    className: 'btn btn-warning btn-sm',
+                    titleAttr: 'Excel'
+                } 
+            ],
+            initComplete: function () {
+                $('.buttons-excel, .buttons-pdf').removeClass('dt-button');
+            },
+            "contentType": 'application/json',
+            searching: false,
+            "dom": 'Bfrtip',
+            "rowCallback": function (row, data) {
+                $(row).on('click', function () {
+                    var columnIdx = $(event.target).index();
+                    if(columnIdx == 0){                        
+                       AtivarGrupo(data.codgrpprd);
+                        return;
+                    }
+                    else if(columnIdx == 1){
+                       DesativarGrupo(data.codgrpprd);
+                       return
+                    } 
+                    $("#divPesquisa").hide();
+                    $("#btnInserirCadastro").hide();
+                    $("#btnEditarCadastro").show();
+                    $("#divCadastro").show();
+                    $(".divShowHide").show();
+                    $("#txtCodGrpPrd").val(data.CODGRPPRD);
+                    $("#txtDescricaoGrupo").val(data.DESGRPPRD);
+                });
+            },  
+            //columnDefs: [
+            //{
+            //    targets: 0,
+            //    orderable: false,
+            //    className: 'dt-body-center',
+            //    render: function(data, type, row, meta) {
+            //      return '<input type="checkbox">';
+            //    }
+            //  }
+            //],
+            //order: [[1, 'asc']]
+        });
+        //$('#selectAll').on('change', function () {
+        //    var checkboxes = $('#grdCadastroFornecedor tbody input[type="checkbox"]');
+        //    checkboxes.prop('checked', $(this).prop('checked'));
+        //});
+        //var codigosSelecionados = $('#grdCadastroFornecedor tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
+        //    return $(this).text();
+        //}).get();
+    });
+</script>

@@ -1,0 +1,92 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SmartEstoque
+build_property.RootNamespace = SmartEstoque
+build_property.ProjectDir = C:\Users\gabri\OneDrive\Área de Trabalho\Tcc PUC\Projeto\smartEstoque\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\gabri\OneDrive\Área de Trabalho\Tcc PUC\Projeto\smartEstoque
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroFornecedor/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb0Zvcm5lY2Vkb3JcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroFornecedor/_IndexScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb0Zvcm5lY2Vkb3JcX0luZGV4U2NyaXB0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroGrupoProdutos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb0dydXBvUHJvZHV0b3NcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroGrupoProdutos/_IndexScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb0dydXBvUHJvZHV0b3NcX0luZGV4U2NyaXB0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroModeloProdutos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb01vZGVsb1Byb2R1dG9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroModeloProdutos/_IndexScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb01vZGVsb1Byb2R1dG9zXF9JbmRleFNjcmlwdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroOrdemRemessa/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb09yZGVtUmVtZXNzYVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroOrdemRemessa/_IndexScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb09yZGVtUmVtZXNzYVxfSW5kZXhTY3JpcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroStatusOrdemRemessa/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb1N0YXR1c09yZGVtUmVtZXNzYVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroStatusOrdemRemessa/_IndexScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb1N0YXR1c09yZGVtUmVtZXNzYVxfSW5kZXhTY3JpcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroTipoProdutos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb1RpcG9Qcm9kdXRvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Paginas/CadastroTipoProdutos/_IndexScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnaW5hc1xDYWRhc3Ryb1RpcG9Qcm9kdXRvc1xfSW5kZXhTY3JpcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-f0bep3jo87

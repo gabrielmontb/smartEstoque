@@ -1,0 +1,208 @@
+﻿<script>
+
+    var cadastrarNovoStatus = function () {
+        $("#divPesquisa").hide();
+        $("#btnInserirCadastro").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").show();
+        $(".divShowHide").hide();        
+        $("#txtDescricaoStatus").val('');
+    }   
+    var InserirStatus = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroOrdemRemessa/inserirOrdemRemessa")',
+            async: false,
+            data: { DESSTAORDRMS: $("#txtDescricaoStatus").val() },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Status inserido com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao inserir status!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }   
+    var AtivarStatus = function (codstaordrms) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroOrdemRemessa/ativarOrdemRemessa")',
+            async: false,
+            data: { CODSTAORDRMS: codstaordrms },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Status ativado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao ativar status!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }       
+    var DesativarStatus = function (codstaordrms) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroOrdemRemessa/desativarOrdemRemessa")',
+            async: false,
+            data: { CODSTAORDRMS: codstaordrms },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Status desativado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao desativar status!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }    
+    var pesquisar = function () {
+        $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
+    }   
+    var alterarStatus = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroOrdemRemessa/alterarOrdemRemessa")',
+            async: false,
+            data: { 
+                DESSTAORDRMS: $("#txtDescricaoStatus").val(),
+                CODSTAORDRMS: $("#txtCodStaOrdRms").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Status alterado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao alterar status!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }
+    $('#btnFecharCadastro').click(function () {
+        $("#divPesquisa").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").hide();
+        $("#txtDescricaoStatus").val('');
+    });
+    $(document).ready(function () {
+        // Inicialize o DataTable
+        $('#grdCadastroOrdemRemessa').DataTable({
+            "ajax": {
+                "url": "/CadastroOrdemRemessa/obterOrdemRemessa",
+                "dataSrc": function (json) {
+                    return json;
+                },
+                "data": function (d) {
+                    d.DESSTAORDRMS = $("#txtDesStaFil").val();
+                    d.CODSTAORDRMS = $("#txtCodStaFil").val();
+                    d.STATUS = $("#ddlStatus").val();
+                    // Adicione mais parâmetros conforme necessário
+                }
+            },
+            "columns": [
+                //{
+                //    title: '<input type="checkbox" id="selectAll">',
+                //    data: null,
+                //    orderable: false,
+                //    className: 'dt-body-center',
+                //    width:'1px',
+                //    render: function (data, type, row, meta) {
+                //        return '<input type="checkbox">';
+                //    }
+                //},   
+                {
+                    title: 'Ativar',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-plus" style="color: #04ff00;"></i>';
+                    }
+                }, 
+                {
+                    title: 'Desativar',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
+                    }
+                },
+                { data: "codstaordrms", title: "Código" },
+                { data: "desstaordrms", title: "Descrição" },
+                { data: "datcad", title: "Data cadastro" },
+                { data: "datdst", title: "Data desativação" }
+            ],
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    className: 'btn btn-warning btn-sm',
+                    titleAttr: 'Excel'
+                } 
+            ],
+            initComplete: function () {
+                $('.buttons-excel, .buttons-pdf').removeClass('dt-button');
+            },
+            "contentType": 'application/json',
+            searching: false,
+            "dom": 'Bfrtip',
+            "rowCallback": function (row, data) {
+                $(row).on('click', function () {
+                    var columnIdx = $(event.target).index();
+                    if(columnIdx == 0){                        
+                       AtivarStatus(data.codstaordrms);
+                        return;
+                    }
+                    else if(columnIdx == 1){
+                       DesativarStatus(data.codstaordrms);
+                       return
+                    } 
+                    $("#divPesquisa").hide();
+                    $("#btnInserirCadastro").hide();
+                    $("#btnEditarCadastro").show();
+                    $("#divCadastro").show();
+                    $(".divShowHide").show();
+                    $("#txtCodStaOrdRms").val(data.codstaordrms);
+                    $("#txtDescricaoStatus").val(data.desstaordrms);
+                });
+            },  
+            //columnDefs: [
+            //{
+            //    targets: 0,
+            //    orderable: false,
+            //    className: 'dt-body-center',
+            //    render: function(data, type, row, meta) {
+            //      return '<input type="checkbox">';
+            //    }
+            //  }
+            //],
+            //order: [[1, 'asc']]
+        });
+        //$('#selectAll').on('change', function () {
+        //    var checkboxes = $('#grdCadastroOrdemRemessa tbody input[type="checkbox"]');
+        //    checkboxes.prop('checked', $(this).prop('checked'));
+        //});
+        //var codigosSelecionados = $('#grdCadastroOrdemRemessa tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
+        //    return $(this).text();
+        //}).get();
+    });
+</script>

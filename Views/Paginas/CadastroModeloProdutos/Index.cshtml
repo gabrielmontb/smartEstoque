@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Modelo Produtos - ";
+}
+@*<style type="text/css">
+    .dt-buttons {
+        float: right !important;
+}
+</style>*@
+
+<div class="titulo-pagina">
+    <span>
+        SmartEstoque
+        <i class="fas fa-caret-right"></i> Modelo Produtos
+    </span>
+</div>
+
+<div id="divPesquisa">
+    <div class="campos-holder">
+        <i class="fas fa-search fa-lg" style="color: #293949;"></i>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <input id="txtCodModFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Modelo" style="width: 25%;" />
+         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <input id="txtDesModFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Modelo" />
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <select id="ddlTipoFil" class="form-control">
+            <option value="0" selected="selected">Selecione um tipo...</option>
+        </select>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <select id="ddlModelo" class="form-control">
+            <option value="0" selected="selected">Selecione um status...</option>
+            <option value="1">ATIVO</option>
+            <option value="2">DESATIVADO</option>
+        </select>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <button class="btn btn-success" id="btnPesquisarTela" onclick="pesquisar()">
+            Pesquisar
+        </button>
+    </div>
+    <div class="row">
+         <button class="btn btn-success" id="btnNovoModelo" onclick="cadastrarNovoModelo()" style="width: 100px">
+            Novo
+        </button>
+    </div>
+    <div>
+        <table id="grdCadastroModeloProdutos" class="display" style="width:100%">
+            <thead>
+                <tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    @*<div class="dataTables_consulta">
+        <div id="grdModeloProdutosContainer"></div>
+    </div>*@
+</div>
+
+<!-- Cadastro -->
+<div id="divCadastro" style="display: none;">
+    <form action="#" id="frmCadastro" novalidate="novalidate">
+        <div class="tgv-cabecalho-container">
+            <div class="col-md-6 titulo-tela">
+                <strong class="strong-cabecalho-tgv">Cadastro do Modelo</strong>
+            </div>
+            <div class="col-md-6 tgv-crud-log-text divShowHide">
+                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtcodmodprd" class="input-span-title" value="" readonly/></span>                
+            </div>
+        </div>
+        <div class="tgv-crud-container tgv-mat-closer">           
+            <div id="divFunInserir" class="col-md-12 nopaddingright" style="display: none; display: flex;">
+                <div class="form-group col-md-3">
+                    <label for="input-text-1" style="margin-bottom: 0px;">
+                        <strong class="strong-min-tgv">Descrição:</strong>
+                    </label>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input list="select" name="txtDescricaoModelo" id="txtDescricaoModelo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                        <datalist id="select" disabled></datalist>
+                        <label class="mdl-textfield__label" for="txtDescricaoModelo" disabled></label>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="input-text-1" style="margin-bottom: 0px;">
+                        <strong class="strong-min-tgv">Tipo:</strong>
+                    </label>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <select id="ddlTipo" class="form-control">
+                            <option value="0" selected="selected">Selecione um tipo...</option>
+                        </select>
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+
+
+        <div class="row tgv-button-toolbar" style="margin-left: 500px;">
+            <span>
+                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="InserirModelo()">
+                    <i class="fas fa-save"></i> 
+                    Salvar
+                </button>
+                <button id="btnEditarCadastro" type="button" class="btn btn-success" onclick="alterarModelo()">
+                    <i class="fas fa-save"></i>
+                    Salvar
+                </button>
+                <button id="btnFecharCadastro" type="button" class="btn btn-danger">
+                    <i class="fa fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </span>
+        </div>
+
+    </form>
+</div>
+@Html.Partial("~/Views/Paginas/CadastroModeloProdutos/_IndexScript.cshtml")

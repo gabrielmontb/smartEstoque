@@ -1,0 +1,234 @@
+﻿<script>
+
+    var cadastrarNovoTipo = function () {
+        $("#divPesquisa").hide();
+        $("#btnInserirCadastro").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").show();
+        $(".divShowHide").hide();        
+        $("#txtDescricaoTipo").val('');
+    }   
+    var InserirTipo = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroTipoProdutos/inserirTipoProdutos")',
+            async: false,
+            data: { 
+                DESTIPPRD: $("#txtDescricaoTipo").val(),
+                CODGRPPRD: $("#ddlGrupo").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Tipo inserido com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao inserir Tipo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }   
+    var AtivarTipo = function (CODTIPPRD) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroTipoProdutos/ativarTipoProdutos")',
+            async: false,
+            data: { CODTIPPRD: CODTIPPRD },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Tipo ativado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao ativar Tipo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }       
+    var DesativarTipo = function (CODTIPPRD) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroTipoProdutos/desativarTipoProdutos")',
+            async: false,
+            data: { CODTIPPRD: CODTIPPRD },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Tipo desativado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao desativar Tipo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }    
+    var pesquisar = function () {
+        $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+    }   
+    var alterarTipo = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroTipoProdutos/alterarTipoProdutos")',
+            async: false,
+            data: { 
+                DESTIPPRD: $("#txtDescricaoTipo").val(),
+                CODTIPPRD: $("#txtCodTipPrd").val(),
+                CODGRPPRD: $("#ddlGrupo").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Tipo alterado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao alterar Tipo!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }  
+    var preencherGrupo = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroGrupoProdutos/obterGrupoProdutos")',
+            async: false,
+            data: {
+                STATUS: 1
+            },
+            success: function (data) {
+                if(data != null){
+                    for(var i = 0; i < data.length; i++){
+                        $('#ddlGrupo').append(new Option(data[i].desgrpprd, data[i].codgrpprd));
+                        $('#ddlGrupoFil').append(new Option(data[i].desgrpprd, data[i].codgrpprd));
+                    }
+                }
+            }
+        });
+    }
+    $('#btnFecharCadastro').click(function () {
+        $("#divPesquisa").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").hide();
+        $("#txtDescricaoTipo").val('');
+        $("#ddlGrupo").val(0);
+    });
+    $(document).ready(function () {
+        preencherGrupo();
+        $('#grdCadastroTipoProdutos').DataTable({
+            "ajax": {
+                "url": "/CadastroTipoProdutos/obterTipoProdutos",
+                "dataSrc": function (json) {
+                    return json;
+                },
+                "data": function (d) {
+                    d.DESTIPPRD = $("#txtDesTipPrdFil").val();
+                    d.CODTIPPRD = $("#txtCodTipPrdFil").val();
+                    d.STATUS = $("#ddlStatus").val();
+                    d.CODGRPPRD = $("#ddlGrupoFil").val();
+                    // Adicione mais parâmetros conforme necessário
+                }
+            },
+            "columns": [
+                //{
+                //    title: '<input type="checkbox" id="selectAll">',
+                //    data: null,
+                //    orderable: false,
+                //    className: 'dt-body-center',
+                //    width:'1px',
+                //    render: function (data, type, row, meta) {
+                //        return '<input type="checkbox">';
+                //    }
+                //},   
+                {
+                    title: 'Ativar',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-plus" style="color: #04ff00;"></i>';
+                    }
+                }, 
+                {
+                    title: 'Desativar',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
+                    }
+                },
+                { data: "codtipprd", title: "Código" },
+                { data: "destipprd", title: "Descrição" },
+                { data: "desgrpprd", title: "Grupo" },
+                { data: "datcad", title: "Data cadastro" },
+                { data: "datdst", title: "Data desativação" }
+            ],
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    className: 'btn btn-warning btn-sm',
+                    titleAttr: 'Excel'
+                } 
+            ],
+            initComplete: function () {
+                $('.buttons-excel, .buttons-pdf').removeClass('dt-button');
+            },
+            "contentType": 'application/json',
+            searching: false,
+            "dom": 'Bfrtip',
+            "rowCallback": function (row, data) {
+                $(row).on('click', function () {
+                    var columnIdx = $(event.target).index();
+                    if(columnIdx == 0){                        
+                       AtivarTipo(data.codtipprd);
+                        return;
+                    }
+                    else if(columnIdx == 1){
+                       DesativarTipo(data.codtipprd);
+                       return
+                    } 
+                    $("#divPesquisa").hide();
+                    $("#btnInserirCadastro").hide();
+                    $("#btnEditarCadastro").show();
+                    $("#divCadastro").show();
+                    $(".divShowHide").show();
+                    $("#txtCodTipPrd").val(data.codtipprd);
+                    $("#txtDescricaoTipo").val(data.destipprd);
+                    $("#ddlGrupo").val(data.codgrpprd);
+                });
+            },  
+            //columnDefs: [
+            //{
+            //    targets: 0,
+            //    orderable: false,
+            //    className: 'dt-body-center',
+            //    render: function(data, type, row, meta) {
+            //      return '<input type="checkbox">';
+            //    }
+            //  }
+            //],
+            //order: [[1, 'asc']]
+        });
+        //$('#selectAll').on('change', function () {
+        //    var checkboxes = $('#grdCadastroTipoProdutos tbody input[type="checkbox"]');
+        //    checkboxes.prop('checked', $(this).prop('checked'));
+        //});
+        //var codigosSelecionados = $('#grdCadastroTipoProdutos tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
+        //    return $(this).text();
+        //}).get();
+    });
+</script>

@@ -1,0 +1,10 @@
+namespace CadastroFornecedorModel
+{
+    public class InserirCadastroFornecedor
+    {
+        public string DESTIPPRD { get; set; }
+        public int CODTIPPRD { get; set; }
+        public int CODGRPPRD { get; set; }
+        public int STATUS { get; set; }
+    }
+}

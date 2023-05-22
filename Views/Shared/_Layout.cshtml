@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] Smart Estoque</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css"  />
+    <link rel="stylesheet" href="~/css/custom.css"  />
+    <link rel="stylesheet" href="~/css/animate.css"  />
+    <link rel="stylesheet" href="~/css/material-icon.css"  />
+    <link rel="stylesheet" href="~/css/material.min.css"  />
+    <link rel="stylesheet" href="~/css/material.min.css"  />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css"  />@*
+    <link rel="stylesheet" href="~/css/font-awesome.css"  />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css"  />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css"  />*@
+    <link rel="stylesheet" href="~/css/material-changes.css"  />
+    <link rel="stylesheet" href="~/css/style.css"  />
+    <link rel="stylesheet" href="~/css/bootstrap-grid.min.css"  />
+    <link rel="stylesheet" href="~/css/bootstrap-reboot.min.css"  />
+    @*<link rel="stylesheet" href="~/css/jquery-ui.min.css"  />*@
+    @*<link rel="stylesheet" href="~/css/datatables.min.css"  />*@
+    @*<link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css"  />*@
+    <link rel="stylesheet" href="~/css/autoFill.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/colReorder.bootstrap4.min.css"  />
+    @*<link rel="stylesheet" href="~/css/buttons.bootstrap4.min.css"  />*@
+    <link rel="stylesheet" href="~/css/fixedHeader.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/keyTable.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/rowGroup.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/rowReorder.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/scroller.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/select.bootstrap4.min.css"  />
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker3.min.css"  />
+    <link rel="stylesheet" href="~/css/daterangepicker.min.css"  />
+    <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.min.css"  />
+    <link rel="stylesheet" href="~/css/nprogress.css"  />
+    <link rel="stylesheet" href="~/css/select2.min.css"  />
+    <link rel="stylesheet" href="~/css/pmd-select2.css"  />
+    <link rel="stylesheet" href="~/css/textfield.css"  />
+    <link rel="stylesheet" href="~/css/multi-select.css"  />
+    <link rel="stylesheet" href="~/css/style.min.css"  />
+    <link rel="stylesheet" href="~/css/chosen.min.css"  />
+    <link rel="stylesheet" href="~/SmartEstoque.styles.css"  />
+    @*//não importei o sidebar *@
+    </head>
+
+<body>
+ 
+    <aside class="sidebar">
+        <div id="leftside-navigation" class="nano">
+            <ul class="nano-content">
+                <li>
+                    <a href="index.html"><span>Relatórios</span></a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:void(0);"><span>Parâmetros</span></a>
+                    <ul>
+                        <li>
+                            <a href="/Home/CadastroStatusOrdemRemessa">Status Ordem Remessa</a>
+                        </li>
+                        <li>
+                            <a href="/Home/CadastroOrdemRemessa">Ordem Remessa nok</a>
+                        </li>
+                        <li>
+                            <a href="/Home/CadastroGrupoProdutos">Grupo Produtos</a>
+                        </li> 
+                        <li>
+                            <a href="/Home/CadastroTipoProdutos">Tipo Produtos</a>
+                        </li>
+                        <li>
+                            <a href="/Home/CadastroModeloProdutos">Modelo Produtos</a>
+                        </li>
+                        <li>
+                            <a href="/Home/CadastroFornecedor">Fornecedor</a>
+                        </li>
+                    </ul>
+                </li>                
+            </ul>
+        </div>
+    </aside>
+    <div class="container" style="margin-left: 225px; max-inline-size: 1390px;">
+        <main role="main" >            
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+            <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+         
+
+
+
+            @RenderBody()
+        </main>
+    </div>
+
+    @*<footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - SmartEstoque - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>*@
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" ></script>
+    @*<script src="~/js/jquery.min.js" ></script>*@
+    @*<script src="~/js/jquery.min.js" ></script>*@
+    <script src="~/js/material.min.js" ></script>
+    <script src="~/js/sweetalert2.all.js" ></script>
+    @*<script src="~/js/jquery.validate.min.js" ></script>*@
+    <script src="~/js/messages_pt_BR.min.js" ></script>
+    <script src="~/js/additional-methods.min.js" ></script>
+@*    <script src="~/js/jquery.ValidationFactory.component.js" ></script>
+    <script src="~/js/jquery.AJAXFactory.component.js" ></script>*@
+    <script src="~/js/shim.js" ></script>
+    <script src="~/js/xlsx.full.min.js" ></script>
+    <script src="~/js/custom.js" ></script>
+    <script src="~/js/popper.min.js" ></script>
+    <script src="~/js/bootstrap.min.js" ></script>
+    <script src="~/js/bootstrap.min.js" ></script>
+@*    <script src="~/js/jquery-3.3.1.min.js" ></script>
+    <script src="~/js/jquery.browser.min.js" ></script>
+    <script src="~/js/jquery.multi-select.js" ></script>
+    <script src="~/js/jquery-ui.js" ></script>*@
+    <script src="~/js/bootstrap.bundle.min.js" ></script>
+    @*<script src="~/js/datatable.min.js" ></script>*@
+@*    <script src="~/js/dataTables.select.min.js" ></script>
+    <script src="~/js/dataTables.scroller.min.js" ></script>
+    <script src="~/js/dataTables.rowGroup.min.js" ></script>
+    <script src="~/js/dataTables.rowReorder.min.js" ></script>
+    <script src="~/js/dataTables.responsive.min.js" ></script>
+    <script src="~/js/dataTables.bootstrap4.min.js" ></script>
+    <script src="~/js/dataTables.colReorder.min.js" ></script>
+    <script src="~/js/dataTables.fixedColumns.min.js" ></script>
+    <script src="~/js/dataTables.fixedHeader.min.js" ></script>
+    <script src="~/js/dataTables.keyTable.min.js" ></script>*@
+ @*   <script src="~/js/autoFill.bootstrap4.min.js" ></script>
+    <script src="~/js/buttons.bootstrap4.min.js" ></script>*@
+    <script src="~/js/jszip.min.js" ></script>
+    <script src="~/js/pdfmake.min.js" ></script>
+    <script src="~/js/moment.min.js" ></script>s
+    <script src="~/js/moment-with-locales.js" ></script>
+    <script src="~/js/bootstrap-datepicker.min.js" ></script>
+    <script src="~/js/bootstrap-datepicker.pt-BR.min.js" ></script>
+    <script src="~/js/daterangepicker.min.js" ></script>
+    <script src="~/js/bootstrap-datetimepicker.min.js" ></script>
+    @*<script src="~/js/jquery.validate.min.js" ></script>*@
+    <script src="~/js/nprogress.js" ></script>
+@*    <script src="~/js/jquery.mask.min.js" ></script>
+    <script src="~/js/jquery.blockui.min.js" ></script>*@
+    <script src="~/js/select2.full.js" ></script>
+    <script src="~/js/notify.min.js" ></script>
+    <script src="~/js/hashtable.js" ></script>
+    <script src="~/js/hashtable.js" ></script>
+@*    <script src="~/js/jquery.number.min.js" ></script>
+    <script src="~/js/jquery.numberformatter-1.2.4.jsmin.js" ></script>
+    <script src="~/js/jquery.HighCharts.component.js" ></script>*@
+    @*<script src="~/js/jquery.DataTables.component.js" ></script>*@
+@*    <script src="~/js/jquery.Select2.component.js" ></script>
+    <script src="~/js/jquery.ValueBinder.component.js" ></script>*@
+    <script src="~/js/jstree.min.js" ></script>
+    <script src="~/js/jstree-bootstrap.min.js" ></script>
+    @*<script src="~/js/chosen.jquery.min.js" ></script>*@
+    <script src="~/js/chosen.proto.min.js" ></script>
+    <script src="~/js/javascript.js" ></script>
+
+</body>
+</html>

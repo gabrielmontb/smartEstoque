@@ -21,6 +21,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
+obj/Debug/net6.0
+.vs/SmartEstoque/v17
 
 # Visual Studio 2015 cache/options directory
 .vs/

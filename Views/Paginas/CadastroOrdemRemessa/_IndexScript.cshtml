@@ -1,19 +1,143 @@
 ﻿<script>
 
-    var cadastrarNovoStatus = function () {
+    var tooltipValidationInserir = function () {
+        let quantidadeTooltip = 0;
+
+        if($("#txtDescricaoOrdem").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoOrdem", 'Campo Obrigatório.');
+        } 
+        if($("#txtDatFimOrdSvc").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDatFimOrdSvc", 'Campo Obrigatório.');
+        }  
+        if($("#txtValorLote").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtValorLote", 'Campo Obrigatório.');
+        } 
+        if($("#txtLote").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtLote", 'Campo Obrigatório.');
+        }  
+        if($("#txtNotFsc").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtNotFsc", 'Campo Obrigatório.');
+        }
+        //if($("#txtQdePrd").val() <= 0){
+        //    quantidadeTooltip = quantidadeTooltip + 1;
+        //    tooltipCampoObrigatorioHide("#txtQdePrd", 'Campo Obrigatório.');
+        //} 
+        if($("#ddlModelo").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlModelo", 'Campo Obrigatório.');
+        }  
+        if($("#ddlFornecedor").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlFornecedor", 'Campo Obrigatório.');
+        }
+        if($("#ddlStatusOrdem").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlStatusOrdem", 'Campo Obrigatório.');
+        }
+        if(quantidadeTooltip > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }  
+    var tooltipValidationEditar = function () {
+        let quantidadeTooltip = 0;
+
+        if($("#txtDescricaoOrdem").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoOrdem", 'Campo Obrigatório.');
+        } 
+        if($("#txtDatFimOrdSvc").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDatFimOrdSvc", 'Campo Obrigatório.');
+        }  
+        if($("#txtValorLote").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtValorLote", 'Campo Obrigatório.');
+        } 
+        if($("#txtLote").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtLote", 'Campo Obrigatório.');
+        }  
+        if($("#txtNotFsc").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtNotFsc", 'Campo Obrigatório.');
+        }
+        if($("#txtQdePrd").val() <= 0 && $("#txtPesoPrd").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtQdePrd", 'Campo Obrigatório.');
+            tooltipCampoObrigatorioHide("#txtPesoPrd", 'Campo Obrigatório.');
+        } 
+        if($("#ddlModelo").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlModelo", 'Campo Obrigatório.');
+        }  
+        if($("#ddlFornecedor").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlFornecedor", 'Campo Obrigatório.');
+        }
+        if($("#ddlStatusOrdem").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlStatusOrdem", 'Campo Obrigatório.');
+        } 
+        if($("#ddlStatusOrdem").val() == 2){
+            if($("#txtDatVnc").val() == ""){
+                quantidadeTooltip = quantidadeTooltip + 1;
+                tooltipCampoObrigatorioHide("#txtDatVnc", 'Campo Obrigatório.');
+            } 
+            if($("#txtVlrUnt").val() == ""){
+                quantidadeTooltip = quantidadeTooltip + 1;
+                tooltipCampoObrigatorioHide("#txtVlrUnt", 'Campo Obrigatório.');
+            }  
+            if($("#txtCodigoBarras").val() == ""){
+                quantidadeTooltip = quantidadeTooltip + 1;
+                tooltipCampoObrigatorioHide("#txtCodigoBarras", 'Campo Obrigatório.');
+            }
+        }
+        if(quantidadeTooltip > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }   
+    var cadastrarNovoOrdem = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
         $("#divCadastro").show();
         $(".divShowHide").hide();        
         $("#txtDescricaoStatus").val('');
+        $("#divFinalizarOrdem").hide();        
+        $("#ddlStatusOrdem").val(1);        
+        $("#ddlStatusOrdem").prop('disabled', true);        
+        $("#ddlFornecedor").prop('disabled', false);
+        $("#ddlModelo").prop('disabled', false);
     }   
-    var InserirStatus = function () {
+    var InserirOrdem = function () {
+        if(tooltipValidationInserir() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroOrdemRemessa/inserirOrdemRemessa")',
             async: false,
-            data: { DESSTAORDRMS: $("#txtDescricaoStatus").val() },
+            data: { 
+                DESORDRMS: $("#txtDescricaoOrdem").val(),
+                CODMODPRD: $("#ddlModelo").val(),
+                CODFRNPRD: $("#ddlFornecedor").val(),
+                CODSTAORDRMS: $("#ddlStatusOrdem").val(),
+                DATPRVENT: $("#txtDatFimOrdSvc").val(),
+                CODNTAFSC: $("#txtNotFsc").val(),
+                VLRLOTRMS: $("#txtValorLote").val(),
+                NUMLOTRMS: $("#txtLote").val(),
+                QDEPRD: $("#txtQdePrd").val()
+            },
             success: function (data) {
                 if(data == true){
                     swal("Sucesso!", "Status inserido com sucesso!")
@@ -28,12 +152,14 @@
             }
         });
     }   
-    var AtivarStatus = function (codstaordrms) {
+    var AtivarOrdem = function (codordrms) {
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroOrdemRemessa/ativarOrdemRemessa")',
             async: false,
-            data: { CODSTAORDRMS: codstaordrms },
+            data: {
+                CODORDRMS: codordrms
+            },
             success: function (data) {
                 if(data == true){
                     swal("Sucesso!", "Status ativado com sucesso!")
@@ -48,12 +174,12 @@
             }
         });
     }       
-    var DesativarStatus = function (codstaordrms) {
+    var DesativarOrdem = function (codordrms) {
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroOrdemRemessa/desativarOrdemRemessa")',
             async: false,
-            data: { CODSTAORDRMS: codstaordrms },
+            data: { CODORDRMS: codordrms },
             success: function (data) {
                 if(data == true){
                     swal("Sucesso!", "Status desativado com sucesso!")
@@ -71,18 +197,33 @@
     var pesquisar = function () {
         $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
     }   
-    var alterarStatus = function () {
+    var alterarOrdem = function () {
+        if(tooltipValidationEditar() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroOrdemRemessa/alterarOrdemRemessa")',
             async: false,
             data: { 
-                DESSTAORDRMS: $("#txtDescricaoStatus").val(),
-                CODSTAORDRMS: $("#txtCodStaOrdRms").val()
+                CODORDRMS: $("#txtCodOrdRms").val(),
+                DESORDRMS: $("#txtDescricaoOrdem").val(),
+                CODSTAORDRMS: $("#ddlStatusOrdem").val(),
+                DATPRVENT: $("#txtDatFimOrdSvc").val(),
+                CODNTAFSC: $("#txtNotFsc").val(),
+                VLRLOTRMS: $("#txtValorLote").val(),
+                NUMLOTRMS: $("#txtLote").val(),
+                QDEPRD: $("#txtQdePrd").val(),
+                DATVNCPRD: $("#txtDatVnc").val(),
+                VLRUNTPRD: $("#txtVlrUnt").val(),
+                CODBARPRD: $("#txtCodigoBarras").val(),
+                DESPESPRD: $("#txtPesoPrd").val(),
+                INDPESQTD: $("#txtindpesqtd").val(),
+                CODMODPRD: $("#ddlModelo").val(),
+                DESMODPRD: $("#ddlModelo :selected").text(),
             },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Status alterado com sucesso!")
+                    swal("Sucesso!", "Ordem alterada com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
@@ -94,13 +235,82 @@
             }
         });
     }
+    var preencherModelo = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroModeloProdutos/obterModeloProdutos")',
+            async: false,
+            data: {
+                STATUS: 1
+            },
+            success: function (data) {
+                if(data != null){
+                    for(var i = 0; i < data.length; i++){
+                        $('#ddlModelo').append(new Option(data[i].desmodprd, data[i].codmodprd));
+                        $('#ddlModeloFil').append(new Option(data[i].desmodprd, data[i].codmodprd));
+                    }
+                }
+            }
+        });
+    }    
+    var preencherFornecedor = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroFornecedor/obterFornecedor")',
+            async: false,
+            data: {
+                STATUS: 1
+            },
+            success: function (data) {
+                if(data != null){
+                    for(var i = 0; i < data.length; i++){
+                        $('#ddlFornecedor').append(new Option(data[i].desfrnprd, data[i].codfrnprd));
+                        $('#ddlFornecedorFil').append(new Option(data[i].desfrnprd, data[i].codfrnprd));
+                    }
+                }
+            }
+        });
+    }  
+    var preencherStatus = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroStatusOrdemRemessa/obterStatusOrdemRemessa")',
+            async: false,
+            data: {
+                STATUS: 1
+            },
+            success: function (data) {
+                if(data != null){
+                    for(var i = 0; i < data.length; i++){
+                        $('#ddlStatusOrdem').append(new Option(data[i].desstaordrms, data[i].codstaordrms));
+                        $('#ddlStatusOrdemFil').append(new Option(data[i].desstaordrms, data[i].codstaordrms));
+                    }
+                }
+            }
+        });
+    }
     $('#btnFecharCadastro').click(function () {
         $("#divPesquisa").show();
         $("#btnEditarCadastro").hide();
         $("#divCadastro").hide();
-        $("#txtDescricaoStatus").val('');
+        $("#txtDescricaoOrdem").val('');
+        $("#txtDatFimOrdSvc").val('');
+        $("#txtValorLote").val('');
+        $("#txtLote").val('');
+        $("#txtQdePrd").val(0);
+        $("#txtNotFsc").val('');
+        $("#ddlModelo").val(0);
+        $("#ddlFornecedor").val(0);
+        $("#txtDatVnc").val('');
+        $("#txtVlrUnt").val('');
+        $("#txtCodigoBarras").val('');
+        $("#txtPesoPrd").val('');
+        $("#ddlStatusOrdem").val(0);
     });
     $(document).ready(function () {
+        preencherModelo();
+        preencherFornecedor();
+        preencherStatus();
         // Inicialize o DataTable
         $('#grdCadastroOrdemRemessa').DataTable({
             "ajax": {
@@ -110,7 +320,7 @@
                 },
                 "data": function (d) {
                     d.DESSTAORDRMS = $("#txtDesStaFil").val();
-                    d.CODSTAORDRMS = $("#txtCodStaFil").val();
+                    d.CODORDRMS = $("#txtCodStaFil").val();
                     d.STATUS = $("#ddlStatus").val();
                     // Adicione mais parâmetros conforme necessário
                 }
@@ -126,30 +336,32 @@
                 //        return '<input type="checkbox">';
                 //    }
                 //},   
-                {
-                    title: 'Ativar',
-                    data: null,
-                    orderable: false,
-                    className: 'dt-body-center',
-                    width:'1px',
-                    render: function (data, type, row, meta) {
-                        return '<i class="fas fa-plus" style="color: #04ff00;"></i>';
-                    }
-                }, 
-                {
-                    title: 'Desativar',
-                    data: null,
-                    orderable: false,
-                    className: 'dt-body-center',
-                    width:'1px',
-                    render: function (data, type, row, meta) {
-                        return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
-                    }
-                },
-                { data: "codstaordrms", title: "Código" },
-                { data: "desstaordrms", title: "Descrição" },
+                //{
+                //    title: 'Ativar',
+                //    data: null,
+                //    orderable: false,
+                //    className: 'dt-body-center',
+                //    width:'1px',
+                //    render: function (data, type, row, meta) {
+                //        return '<i class="fas fa-plus" style="color: #04ff00;"></i>';
+                //    }
+                //}, 
+                //{
+                //    title: 'Desativar',
+                //    data: null,
+                //    orderable: false,
+                //    className: 'dt-body-center',
+                //    width:'1px',
+                //    render: function (data, type, row, meta) {
+                //        return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
+                //    }
+                //},
+                { data: "codordrms", title: "Código" },
+                { data: "desordrms", title: "Descrição" },
+                { data: "desmodprd", title: "Modelo" },
+                { data: "desstaordrms", title: "Status" },
                 { data: "datcad", title: "Data cadastro" },
-                { data: "datdst", title: "Data desativação" }
+                { data: "datfim", title: "Data conclusão" }
             ],
             "buttons": [
                 {
@@ -168,21 +380,53 @@
             "rowCallback": function (row, data) {
                 $(row).on('click', function () {
                     var columnIdx = $(event.target).index();
-                    if(columnIdx == 0){                        
-                       AtivarStatus(data.codstaordrms);
-                        return;
-                    }
-                    else if(columnIdx == 1){
-                       DesativarStatus(data.codstaordrms);
-                       return
-                    } 
+                    //if(columnIdx == 0){                        
+                    //   AtivarStatus(data.codordrms);
+                    //    return;
+                    //}
+                    //else if(columnIdx == 1){
+                    //   DesativarStatus(data.codordrms);
+                    //   return
+                    //} 
                     $("#divPesquisa").hide();
                     $("#btnInserirCadastro").hide();
                     $("#btnEditarCadastro").show();
                     $("#divCadastro").show();
                     $(".divShowHide").show();
-                    $("#txtCodStaOrdRms").val(data.codstaordrms);
-                    $("#txtDescricaoStatus").val(data.desstaordrms);
+                    $("#txtCodOrdRms").val(data.codordrms);
+                    $("#ddlModelo").val(data.codmodprd);
+                    $("#ddlFornecedor").val(data.codfrnprd);
+                    $("#ddlStatusOrdem").val(data.codstaordrms);
+                    $("#txtDescricaoOrdem").val(data.desordrms);
+                    $("#txtDatFimOrdSvc").val(data.datprvent);
+                    $("#txtNotFsc").val(data.codnotfsc);
+                    $("#txtValorLote").val(data.vlrlotrms);
+                    $("#txtLote").val(data.numlotrms);
+                    $("#txtQdePrd").val(data.qdeprd);                 
+                    $("#txtindpesqtd").val(data.indpesqtd);  
+                    $("#txtDatVnc").val(data.datvncprd);
+                    $("#txtVlrUnt").val(data.vlruntprd);
+                    $("#txtCodigoBarras").val(data.codbarprd);
+                    $("#txtPesoPrd").val(data.despesprd);
+                    if(data.codstaordrms != 1)
+                        $("#btnEditarCadastro").prop('disabled', true);
+                    else
+                        $("#btnEditarCadastro").prop('disabled', false);
+                    if(data.codstaordrms == 2)
+                        $("#divFinalizarOrdem").show();
+                    else 
+                        $("#divFinalizarOrdem").hide();
+                    if(data.indpesqtd == 1){
+                        $("#divPeso").show();
+                        $("#divQuantidade").hide();
+                    }
+                    else {
+                         $("#divPeso").hide();
+                        $("#divQuantidade").show();
+                    }
+                    $("#ddlStatusOrdem").prop('disabled', false);
+                    $("#ddlFornecedor").prop('disabled', true);
+                    $("#ddlModelo").prop('disabled', true);
                 });
             },  
             //columnDefs: [
@@ -204,5 +448,11 @@
         //var codigosSelecionados = $('#grdCadastroOrdemRemessa tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
         //    return $(this).text();
         //}).get();
+        $('#ddlStatusOrdem').on('change', function () {
+            if($("#ddlStatusOrdem").val() == 2)
+                $("#divFinalizarOrdem").show();
+            else 
+                $("#divFinalizarOrdem").hide();
+        });
     });
 </script>

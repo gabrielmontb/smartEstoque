@@ -19,8 +19,10 @@ namespace SmartEstoque.Business
                             , TIP.destipprd
                             , TO_CHAR(MOD.datcad, 'dd/MM/yyyy') datcad
                             , TO_CHAR(MOD.datdst, 'dd/MM/yyyy') datdst 
+                            , GRP.desgrpprd
                     FROM cadmodprd MOD
                     INNER JOIN cadtipprd TIP ON MOD.codtipprd = TIP.codtipprd
+                    INNER JOIN cadgrpprd GRP ON GRP.codgrpprd = TIP.codgrpprd
                     WHERE 1=1
                     
                 ");

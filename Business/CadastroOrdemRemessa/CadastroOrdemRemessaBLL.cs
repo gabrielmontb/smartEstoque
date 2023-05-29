@@ -1,6 +1,7 @@
 ﻿using CadastroOrdemRemessaTO;
 using Dapper;
 using SmartEstoque.Class;
+using System.Transactions;
 
 namespace SmartEstoque.Business
 {
@@ -32,7 +33,40 @@ namespace SmartEstoque.Business
         {
             try
             {
-                return new CadastroOrdemRemessaDAL().alterarOrdemRemessa(objInserir);
+                using (TransactionScope Scope = new TransactionScope(TransactionScopeOption.Required, (new TimeSpan(0, 3, 0)))) // DE ATÉ 3 MINUTOS.
+                {
+                    var DAL = new CadastroOrdemRemessaDAL();
+                    if (!DAL.alterarOrdemRemessa(objInserir))
+                    {
+                        Scope.Dispose();
+                        return false;
+                    }
+                    if(objInserir.CODSTAORDRMS == 2)
+                    {
+                        if(objInserir.INDPESQTD == 1)//por peso
+                        {
+                            if (!DAL.inserirProduto(objInserir))
+                            {
+                                Scope.Dispose();
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            objInserir.DESPESPRD = 0;
+                            for(int i=0; i< objInserir.QDEPRD; i++)
+                            {
+                                if (!DAL.inserirProduto(objInserir))
+                                {
+                                    Scope.Dispose();
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                    Scope.Complete();
+                    return true;
+                }
             }
             catch(Exception ex)
             {

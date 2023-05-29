@@ -1,0 +1,110 @@
+﻿<script type="text/javascript">
+    var tooltipCampoObrigatorioHide = function (campo, mensagem, pos = "down") {
+        try {
+
+            $(campo).notify(
+                mensagem,
+                {
+                    position: pos,
+                    autoHide: true,
+                    clickToHide: true
+                }
+            );
+        } catch (e) {
+
+        };
+    };
+    var setCustomIcon = function (iconClass) {
+        var sweet = $('#swal2-title');
+        sweet.html('<i class="' + iconClass + '"></i>&nbsp;' + sweet.html());
+    };
+    $(function () {
+        $('.input-daterangedmy').datepicker({
+            format: "dd/mm/yyyy",
+            startView: 0,
+            minViewMode: 0,
+            maxViewMode: 2,
+            clearBtn: true,
+            language: "pt-BR",
+            autoclose: true
+        });
+        $('.input-mesano-daterangedmy').datepicker({
+            format: "yyyy/mm",
+            startView: 1,
+            minViewMode: 1,
+            maxViewMode: 2,
+            clearBtn: true,
+            language: "pt-BR",
+            autoclose: true
+        });
+        $('.input-ano-daterangey').datepicker({
+            //format: "yyyy",
+            //startView: 1,
+            //minViewMode: 1,
+            //maxViewMode: 2,
+            //clearBtn: true,
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years",
+            language: "pt-BR",
+            //autoclose: true,
+            //changeMonth: false,
+            //changeYear: true,
+            //showButtonPanel: false,
+        });
+        $('#txtHoraAntNeg').datetimepicker({
+            format: 'hh:ii',
+            formatViewType: 'time',
+            fontAwesome: true,
+            viewMode: 'hours',
+            startView: 1,
+            pickDate: false,
+            language: "pt-BR",
+            minuteStep: 5,
+            autoclose: true
+        });
+        $('#txtHoraAnt').datetimepicker({
+            format: 'hh:ii',
+            formatViewType: 'time',
+            fontAwesome: true,
+            viewMode: 'hours',
+            startView: 1,
+            pickDate: false,
+            language: "pt-BR",
+            minuteStep: 5,
+            autoclose: true
+        });
+        $('.input-daterangedmy-hm').datetimepicker({
+            format: 'DD-MM-YYYY HH:mm',
+            startView: 0,
+            minViewMode: 0,
+            maxViewMode: 2,
+            inline: true,
+            clearBtn: true,
+            locale: 'pt',
+            autoclose: true,
+        });
+        $('.input-daterangedmy-sla').datepicker({
+
+
+
+
+            format: "dd",
+            formatViewType: 'days',
+            startView: 0,
+            minViewMode: 'days',
+            maxViewMode: 2,
+            clearBtn: true,
+            language: "pt-BR",
+            autoclose: true,
+            disableWeekends: false,
+
+
+        });
+        $(document).ready(function () {
+            $(".input-daterangedmy-sla").datepicker({
+                beforeShowDay: $.datepicker.noWeekends
+            });
+        });
+    });
+</script>

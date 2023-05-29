@@ -1,5 +1,23 @@
 ﻿<script>
 
+    var tooltipValidation = function () {
+        let quantidadeTooltip = 0;
+
+        if($("#txtDescricaoGrupo").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoGrupo", 'Campo Obrigatório.');
+        } 
+        if($("#ddlTipo").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlTipo", 'Campo Obrigatório.');
+        }
+        if(quantidadeTooltip > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }   
     var cadastrarNovoGrupo = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
@@ -9,11 +27,16 @@
         $("#txtDescricaoGrupo").val('');
     }   
     var InserirGrupo = function () {
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroGrupoProdutos/inserirGrupoProdutos")',
             async: false,
-            data: { DESGRPPRD: $("#txtDescricaoGrupo").val() },
+            data: { 
+                DESGRPPRD: $("#txtDescricaoGrupo").val(),
+                INDPESQTD: $("#ddlTipo").val()
+            },
             success: function (data) {
                 if(data == true){
                     swal("Sucesso!", "Grupo inserido com sucesso!")
@@ -71,14 +94,17 @@
     var pesquisar = function () {
         $("#grdCadastroGrupoProdutos").DataTable().ajax.reload();
     }   
-    var alterarGrupo = function () {
+    var alterarGrupo = function () {        
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroGrupoProdutos/alterarGrupoProdutos")',
             async: false,
             data: { 
                 DESGRPPRD: $("#txtDescricaoGrupo").val(),
-                CODGRPPRD: $("#txtCodGrpPrd").val()
+                CODGRPPRD: $("#txtCodGrpPrd").val(),                
+                INDPESQTD: $("#ddlTipo").val()
             },
             success: function (data) {
                 if(data == true){
@@ -181,8 +207,9 @@
                     $("#btnEditarCadastro").show();
                     $("#divCadastro").show();
                     $(".divShowHide").show();
-                    $("#txtCodGrpPrd").val(data.CODGRPPRD);
-                    $("#txtDescricaoGrupo").val(data.DESGRPPRD);
+                    $("#txtCodGrpPrd").val(data.codgrpprd);
+                    $("#txtDescricaoGrupo").val(data.desgrpprd);
+                    $("#ddlTipo").val(data.indpesqtd);
                 });
             },  
             //columnDefs: [

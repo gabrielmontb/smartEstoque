@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\gabri\OneDrive\Área de Trabalho\Tcc PUC\Projeto\smartEstoque
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Global/GlobalScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR2xvYmFsXEdsb2JhbFNjcmlwdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/gabri/OneDrive/Área de Trabalho/Tcc PUC/Projeto/smartEstoque/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

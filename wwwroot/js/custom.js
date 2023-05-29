@@ -1,5 +1,5 @@
-﻿import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+﻿//import pdfMake from 'pdfmake/build/pdfmake';
+//import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 pdfMake.fonts = {
     Roboto: {
@@ -21,7 +21,10 @@ pdfMake.fonts = {
 // Desenvolvido por:
 // [Leon Denis Paiva e Silva] PrimeTeam
 $(document).ready(function () {
-
+    var setCustomIcon = function (iconClass) {
+        var sweet = $('#swal2-title');
+        sweet.html('<i class="' + iconClass + '"></i>&nbsp;' + sweet.html());
+    };
     //--RESPONSIVE SCREEN
     var startresponsive = function () {
         setTimeout(function () {

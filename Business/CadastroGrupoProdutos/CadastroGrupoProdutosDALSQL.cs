@@ -8,7 +8,7 @@ namespace SmartEstoque.Business
     {
         public string inserirGrupoProdutos()
         {
-            return @"INSERT INTO cadgrpprd (codgrpprd,desgrpprd,datcad) values ((SELECT COALESCE(MAX(codgrpprd),0)+1 FROM cadgrpprd), UPPER(@DESGRPPRD),NOW())";
+            return @"INSERT INTO cadgrpprd (codgrpprd,desgrpprd,datcad,indpesqtd) values ((SELECT COALESCE(MAX(codgrpprd),0)+1 FROM cadgrpprd), UPPER(@DESGRPPRD),NOW(),@INDPESQTD)";
         }   
         public string obterGrupoProdutos(CadastroGrupoProdutosModel.InserirCadastroGrupoProdutos objInserir)
         {
@@ -17,6 +17,7 @@ namespace SmartEstoque.Business
                             , desgrpprd
                             , TO_CHAR(datcad, 'dd/MM/yyyy') datcad
                             , TO_CHAR(datdst, 'dd/MM/yyyy') datdst 
+                            , indpesqtd
                     FROM cadgrpprd 
                     WHERE 1=1
                     
@@ -38,6 +39,7 @@ namespace SmartEstoque.Business
             return @"UPDATE cadgrpprd SET 
                             desgrpprd = UPPER(@DESGRPPRD)
                             , datalt = NOW()
+                            , indpesqtd = @INDPESQTD
                              WHERE codgrpprd = @CODGRPPRD";
         }  
         public string ativarGrupoProdutos()

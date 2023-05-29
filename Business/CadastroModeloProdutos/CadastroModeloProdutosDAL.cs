@@ -65,6 +65,7 @@ namespace SmartEstoque.Business
                     , DESTIPPRD = dr.GetString(3)
                     , DATCAD = dr.GetString(4)
                     , DATDST = dr.IsDBNull(5) ? "" : dr.GetString(5) 
+                    , DESGRPPRD = dr.GetString(6)
                 });
             }
             return retorno;

@@ -1,5 +1,22 @@
 ﻿<script>
+       var tooltipValidation = function () {
+        let quantidadeTooltip = 0;
 
+        if ($("#txtDescricaoTipo").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoTipo", 'Campo Obrigatório.');
+        } 
+        if($("#ddlGrupo").val() <= 0){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlGrupo", 'Campo Obrigatório.');
+        }
+        if(quantidadeTooltip > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }  
     var cadastrarNovoTipo = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
@@ -9,6 +26,8 @@
         $("#txtDescricaoTipo").val('');
     }   
     var InserirTipo = function () {
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroTipoProdutos/inserirTipoProdutos")',
@@ -74,7 +93,9 @@
     var pesquisar = function () {
         $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
     }   
-    var alterarTipo = function () {
+    var alterarTipo = function () {        
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroTipoProdutos/alterarTipoProdutos")',

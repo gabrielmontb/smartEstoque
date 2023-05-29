@@ -9,6 +9,7 @@ namespace CadastroModeloProdutosTO
         public string DESMODPRD { get; set; }
         public int CODTIPPRD { get; set; }
         public string DESTIPPRD { get; set; }
+        public string DESGRPPRD { get; set; }
         public string DATCAD { get; set; }
         public string? DATDST { get; set; }
     }

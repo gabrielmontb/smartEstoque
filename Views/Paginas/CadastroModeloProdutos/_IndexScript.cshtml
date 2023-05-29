@@ -1,5 +1,22 @@
 ﻿<script>
+    var tooltipValidation = function () {
+        let quantidadeTooltip = 0;
 
+        if ($("#txtDescricaoModelo").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoModelo", 'Campo Obrigatório.');
+        }
+        if ($("#ddlTipo").val() <= 0) {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#ddlTipo", 'Campo Obrigatório.');
+        }
+        if (quantidadeTooltip > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     var cadastrarNovoModelo = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
@@ -9,6 +26,9 @@
         $("#txtDescricaoModelo").val('');
     }   
     var InserirModelo = function () {
+        
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroModeloProdutos/inserirModeloProdutos")',
@@ -72,6 +92,8 @@
         $("#grdCadastroModeloProdutos").DataTable().ajax.reload();
     }   
     var alterarModelo = function () {
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroModeloProdutos/alterarModeloProdutos")',
@@ -169,6 +191,7 @@
                 },
                 { data: "codmodprd", title: "Código" },
                 { data: "desmodprd", title: "Descrição" },
+                { data: "desgrpprd", title: "Grupo" },
                 { data: "destipprd", title: "Tipo" },
                 { data: "datcad", title: "Data cadastro" },
                 { data: "datdst", title: "Data desativação" }

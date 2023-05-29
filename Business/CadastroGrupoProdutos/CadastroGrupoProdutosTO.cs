@@ -7,6 +7,8 @@ namespace CadastroGrupoProdutosTO
     {
         public int CODGRPPRD { get; set; }
 
+        public int INDPESQTD { get; set; }
+
         public string DESGRPPRD { get; set; }
 
         public string DATCAD { get; set; }

@@ -117,3 +117,14 @@ body {
                     padding-bottom: 13px;
                     color: #aeb2b7;
                 }
+.container {
+    margin-left: 15rem;
+    max-width: 80rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin-left: 2rem;
+        max-width: 100%;
+    }
+}

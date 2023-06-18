@@ -1,0 +1,200 @@
+﻿<script>
+
+    var cadastrarNovoProdutos = function () {
+        $("#divPesquisa").hide();
+        $("#btnInserirCadastro").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").show();
+        $(".divShowHide").hide();        
+        $("#txtDescricaoProdutos").val('');
+    }   
+    var InserirProdutos = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroProdutos/inserirProdutos")',
+            async: false,
+            data: { 
+                  DESFRNPRD: $("#txtDescricaoProdutos").val()
+                , TELCTOFRN: $("#txtTelefonePrincipal").val()
+                , TELCTOFRNSEC: $("#txtTelefoneSecundario").val()
+                , NOMRSPFRN: $("#txtResponsavel").val()
+                , DESENDFRN: $("#txtEndereco").val()
+                , DESCIDFRN: $("#txtCidade").val()
+                , DESESTAFRN: $("#txtEstado").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Produtos inserido com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroProdutos").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao inserir Produtos!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }   
+    var DesativarProdutos = function (CODPRD) {
+          swal({
+            title: 'Remover produto?',
+            text: "Deseja realmente remover o produto selecionado?",
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Não',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Sim'
+        }).then(function (result) {
+            $.ajax({
+                method: 'POST',
+                url: '@Url.Content("/CadastroProdutos/desativarProdutos")',
+                async: false,
+                data: { CODPRD: CODPRD },
+                success: function (data) {
+                    if(data == true){
+                        swal("Sucesso!", "Produto desativado com sucesso!")
+                        setCustomIcon('fa fa-exclamation-circle');
+                        $("#grdCadastroProdutos").DataTable().ajax.reload();
+                        $("#btnFecharCadastro").click();
+                    }
+                    else{
+                        swal("Verifique!", "Houve um erro ao desativado Produto!")
+                        setCustomIcon('fa fa-exclamation-circle');
+                    }
+                }
+            });
+        });
+    }      
+    var pesquisar = function () {
+        $("#grdCadastroProdutos").DataTable().ajax.reload();
+    }   
+    var alterarProdutos = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroProdutos/alterarProdutos")',
+            async: false,
+            data: {
+                DESPRD: $("#txtDescricaoProdutos").val()
+                , VLRUNTPRD: $("#txtValorUnitario").val()
+                , DESPESPRD: $("#txtPesoProduto").val()
+                , DATVNCPRD: $("#txtDatVencimento").val()
+                , CODPRD: $("#txtCodPrd").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Produtos alterado com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroProdutos").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao alterar Produtos!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }
+    $('#btnFecharCadastro').click(function () {
+        $("#divPesquisa").show();
+        $("#btnEditarCadastro").hide();
+        $("#divCadastro").hide();
+        $("#txtDescricaoProdutos").val('');
+        $("#txtTelefonePrincipal").val('');
+        $("#txtTelefoneSecundario").val('');
+        $("#txtResponsavel").val('');
+        $("#txtEndereco").val('');
+        $("#txtCidade").val('');
+        $("#txtEstado").val('');
+    });
+    $(document).ready(function () {
+        // Inicialize o DataTable
+        $('#grdCadastroProdutos').DataTable({
+            "ajax": {
+                "url": "/CadastroProdutos/obterProdutos",
+                "dataSrc": function (json) {
+                    return json;
+                },
+                "data": function (d) {
+                    d.DESFRNPRD = $("#txtDesFrnPrdFil").val();
+                    d.CODPRD = $("#txtCodPrdFil").val();
+                    d.STATUS = $("#ddlStatus").val();
+                    // Adicione mais parâmetros conforme necessário
+                }
+            },
+            "columns": [
+                {
+                    title: 'Remover',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width:'1px',
+                    render: function (data, type, row, meta) {
+                        return '<i class="fas fa-trash" style="color: #ff0000;"></i>';
+                    }
+                },
+                { data: "codprd", title: "Código" },
+                { data: "desprd", title: "Descrição" },
+                { data: "vlruntprd", title: "Valor" },
+                { data: "codordrms", title: "Remessa" },
+                { data: "datcad", title: "Data cadastro" },
+                { data: "datvndprd", title: "Data venda" }
+            ],
+            "buttons": [
+                {
+                    extend: 'excel',
+                    text: '<i class="fas fa-file-excel"></i> Excel',
+                    className: 'btn btn-warning btn-sm',
+                    titleAttr: 'Excel'
+                } 
+            ],
+            initComplete: function () {
+                $('.buttons-excel, .buttons-pdf').removeClass('dt-button');
+            },
+            "contentType": 'application/json',
+            searching: false,
+            "dom": 'Bfrtip',
+            "rowCallback": function (row, data) {
+                $(row).on('click', function () {
+                    var columnIdx = $(event.target).index();
+                    if(columnIdx == 0){
+                       DesativarProdutos(data.codprd);
+                       return
+                    } 
+                    $("#divPesquisa").hide();
+                    $("#btnInserirCadastro").hide();
+                    $("#btnEditarCadastro").show();
+                    $("#divCadastro").show();
+                    $(".divShowHide").show();
+                    $("#txtCodPrd").val(data.codprd);
+                    $("#txtDescricaoProdutos").val(data.desprd);
+                    $("#txtDescricaoModelo").val(data.desmodprd);
+                    $("#txtCodigoOrdem").val(data.codordrms);
+                    $("#txtValorUnitario").val(data.vlruntprd);
+                    $("#txtPesoProduto").val(data.despesprd);
+                    $("#txtDatVenda").val(data.datvndprd);
+                    $("#txtDatCadastro").val(data.datcad);
+                    $("#txtDatVencimento").val(data.datvncprd);
+                });
+            },  
+            //columnDefs: [
+            //{
+            //    targets: 0,
+            //    orderable: false,
+            //    className: 'dt-body-center',
+            //    render: function(data, type, row, meta) {
+            //      return '<input type="checkbox">';
+            //    }
+            //  }
+            //],
+            //order: [[1, 'asc']]
+        });
+        //$('#selectAll').on('change', function () {
+        //    var checkboxes = $('#grdCadastroProdutos tbody input[type="checkbox"]');
+        //    checkboxes.prop('checked', $(this).prop('checked'));
+        //});
+        //var codigosSelecionados = $('#grdCadastroProdutos tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
+        //    return $(this).text();
+        //}).get();
+    });
+</script>

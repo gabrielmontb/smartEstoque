@@ -46,6 +46,14 @@ namespace SmartEstoque.Controllers
         {
             return View("/Views/Paginas/CadastroFornecedor/Index.cshtml");
         }
+        public IActionResult CadastroProdutos()
+        {
+            return View("/Views/Paginas/CadastroProdutos/Index.cshtml");
+        } 
+        public IActionResult CadastroVendas()
+        {
+            return View("/Views/Paginas/CadastroVendas/Index.cshtml");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,0 +1,192 @@
+﻿@{
+    ViewData["Title"] = "Produtos - ";
+}
+@*<style type="text/css">
+    .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+}
+</style>*@
+
+<div class="titulo-pagina">
+    <span>
+        SmartEstoque
+        <i class="fas fa-caret-right"></i> Produtos
+    </span>
+</div>
+
+<div id="divPesquisa">
+    <div class="campos-holder">
+        <i class="fas fa-search fa-lg" style="color: #293949;"></i>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <input id="txtCodPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Produtos" style="width: 25%;" />
+         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <input id="txtDesFrnPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Produtos" />
+         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <select id="ddlStatus" class="form-control">
+            <option value="0" selected="selected">Selecione um status...</option>
+            <option value="1">ATIVO</option>
+            <option value="2">DESATIVADO</option>
+        </select>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <button class="btn btn-success" id="btnPesquisarTela" onclick="pesquisar()">
+            Pesquisar
+        </button>
+    </div>@*
+    <div class="row">
+         <button class="btn btn-success" id="btnNovoProdutos" onclick="cadastrarNovoProdutos()" style="width: 100px">
+            Novo
+        </button>
+    </div>*@
+    <div>
+        <table id="grdCadastroProdutos" class="display" style="width:100%">
+            <thead>
+                <tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    @*<div class="dataTables_consulta">
+        <div id="grdProdutosContainer"></div>
+    </div>*@
+</div>
+
+<!-- Cadastro -->
+<div id="divCadastro" style="display: none;">
+    <form action="#" id="frmCadastro" novalidate="novalidate">
+        <div class="tgv-cabecalho-container">
+            <div class="col-md-6 titulo-tela">
+                <strong class="strong-cabecalho-tgv">Cadastro do Produtos</strong>
+            </div>
+            <div class="col-md-6 tgv-crud-log-text divShowHide">
+                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodPrd" class="input-span-title" value="" readonly/></span>                
+            </div>
+        </div>
+        <div class="tgv-crud-container tgv-mat-closer">           
+            <div id="divFunInserir" class="col-md-12">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Descrição:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtDescricaoProdutos" id="txtDescricaoProdutos" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtDescricaoProdutos" ></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Modelo:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtDescricaoModelo" id="txtDescricaoModelo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" disabled>
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtDescricaoModelo"></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Código Ordem Remessa:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtCodigoOrdem" id="txtCodigoOrdem" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" disabled>
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtCodigoOrdem"></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Valor unitário:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtValorUnitario" id="txtValorUnitario" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtValorUnitario"></label>
+                        </div>
+                    </div>       
+
+                </div>  
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Peso(kg):</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input list="select" name="txtPesoProduto" id="txtPesoProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <datalist id="select" ></datalist>
+                            <label class="mdl-textfield__label" for="txtPesoProduto"></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Data vencimento:</strong>
+                        </label>
+                         <div class="mdl-textfield mdl-js-textfield">
+                            <div class="input-daterange input-daterangedmy">
+                                <div class="form-group filtro" style="margin-top:-5px">
+                                    <input id="txtDatVencimento" name="txtDatVencimento" data-required="1" type="text" class="mdl-textfield__input datedmy limparTooltipChange" placeholder="Data">
+                                    <label class="mdl-textfield__label" for="txtDatVencimento"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Data cadastro:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <div class="input-daterange input-daterangedmy">
+                                <div class="form-group filtro" style="margin-top:-5px">
+                                    <input id="txtDatCadastro" name="txtDatCadastro" data-required="1" type="text" class="mdl-textfield__input datedmy limparTooltipChange" disabled>
+                                    <label class="mdl-textfield__label" for="txtDatCadastro"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Data venda:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <div class="input-daterange input-daterangedmy">
+                                <div class="form-group filtro" style="margin-top:-5px">
+                                    <input id="txtDatVenda" name="txtDatVenda" data-required="1" type="text" class="mdl-textfield__input datedmy limparTooltipChange"  disabled>
+                                    <label class="mdl-textfield__label" for="txtDatVenda"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row tgv-button-toolbar" style="margin-left: 500px;">
+            <span>
+                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="InserirProdutos()">
+                    <i class="fas fa-save"></i> 
+                    Salvar
+                </button>
+                <button id="btnEditarCadastro" type="button" class="btn btn-success" onclick="alterarProdutos()">
+                    <i class="fas fa-save"></i>
+                    Salvar
+                </button>
+                <button id="btnFecharCadastro" type="button" class="btn btn-danger">
+                    <i class="fa fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </span>
+        </div>
+
+    </form>
+</div>
+@Html.Partial("~/Views/Paginas/CadastroProdutos/_IndexScript.cshtml")

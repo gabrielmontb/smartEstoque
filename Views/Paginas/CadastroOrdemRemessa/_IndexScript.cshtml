@@ -111,6 +111,7 @@
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
+        $("#btnEditarProdutos").hide();
         $("#divCadastro").show();
         $(".divShowHide").hide();        
         $("#txtDescricaoStatus").val('');
@@ -234,6 +235,44 @@
                 }
             }
         });
+    }  
+    var alterarProdutos = function () {
+        if(tooltipValidationEditar() == false)
+            return false;
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroProdutos/alterarProdutos")',
+            async: false,
+            data: { 
+                CODORDRMS: $("#txtCodOrdRms").val(),
+                DESORDRMS: $("#txtDescricaoOrdem").val(),
+                CODSTAORDRMS: $("#ddlStatusOrdem").val(),
+                DATPRVENT: $("#txtDatFimOrdSvc").val(),
+                CODNTAFSC: $("#txtNotFsc").val(),
+                VLRLOTRMS: $("#txtValorLote").val(),
+                NUMLOTRMS: $("#txtLote").val(),
+                QDEPRD: $("#txtQdePrd").val(),
+                DATVNCPRD: $("#txtDatVnc").val(),
+                VLRUNTPRD: $("#txtVlrUnt").val(),
+                CODBARPRD: $("#txtCodigoBarras").val(),
+                DESPESPRD: $("#txtPesoPrd").val(),
+                INDPESQTD: $("#txtindpesqtd").val(),
+                CODMODPRD: $("#ddlModelo").val(),
+                DESPRD: $("#ddlModelo :selected").text(),
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Produtos alterada com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao alterar produtos!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
     }
     var preencherModelo = function () {
         $.ajax({
@@ -292,6 +331,7 @@
     $('#btnFecharCadastro').click(function () {
         $("#divPesquisa").show();
         $("#btnEditarCadastro").hide();
+        $("#btnEditarProdutos").hide();
         $("#divCadastro").hide();
         $("#txtDescricaoOrdem").val('');
         $("#txtDatFimOrdSvc").val('');
@@ -391,6 +431,7 @@
                     $("#divPesquisa").hide();
                     $("#btnInserirCadastro").hide();
                     $("#btnEditarCadastro").show();
+                    $("#btnEditarProdutos").show();
                     $("#divCadastro").show();
                     $(".divShowHide").show();
                     $("#txtCodOrdRms").val(data.codordrms);
@@ -408,10 +449,14 @@
                     $("#txtVlrUnt").val(data.vlruntprd);
                     $("#txtCodigoBarras").val(data.codbarprd);
                     $("#txtPesoPrd").val(data.despesprd);
-                    if(data.codstaordrms != 1)
+                    if(data.codstaordrms != 1){
+                        $("#btnEditarProdutos").prop('disabled', false);
                         $("#btnEditarCadastro").prop('disabled', true);
-                    else
+                    }
+                    else{
+                        $("#btnEditarProdutos").prop('disabled', false);
                         $("#btnEditarCadastro").prop('disabled', false);
+                    }
                     if(data.codstaordrms == 2)
                         $("#divFinalizarOrdem").show();
                     else 

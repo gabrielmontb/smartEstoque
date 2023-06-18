@@ -36,12 +36,13 @@ namespace SmartEstoque.Business
                 using (TransactionScope Scope = new TransactionScope(TransactionScopeOption.Required, (new TimeSpan(0, 3, 0)))) // DE ATÉ 3 MINUTOS.
                 {
                     var DAL = new CadastroOrdemRemessaDAL();
+                    var DALPRD = new CadastroProdutosDAL();
                     if (!DAL.alterarOrdemRemessa(objInserir))
                     {
                         Scope.Dispose();
                         return false;
                     }
-                    if(objInserir.CODSTAORDRMS == 2)
+                    if (objInserir.CODSTAORDRMS == 2)
                     {
                         if(objInserir.INDPESQTD == 1)//por peso
                         {

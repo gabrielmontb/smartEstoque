@@ -118,3 +118,14 @@ body[b-f0bep3jo87] {
                     padding-bottom: 13px;
                     color: #aeb2b7;
                 }
+.container[b-f0bep3jo87] {
+    margin-left: 15rem;
+    max-width: 80rem;
+}
+
+@media (max-width: 768px) {
+    .container[b-f0bep3jo87] {
+        margin-left: 2rem;
+        max-width: 100%;
+    }
+}

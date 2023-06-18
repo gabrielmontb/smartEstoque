@@ -37,7 +37,7 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@NUMLOTRMS", objInserir.NUMLOTRMS);
             command.Parameters.AddWithValue("@QDEPRD", objInserir.QDEPRD);
             command.Parameters.AddWithValue("@CODBARPRD", objInserir.CODBARPRD == null ? 0 : objInserir.CODBARPRD);
-            command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD == null ? "" : objInserir.DATVNCPRD == null);
+            command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD == null ? "" : objInserir.DATVNCPRD);
             command.Parameters.AddWithValue("@VLRUNTPRD", objInserir.VLRUNTPRD);
             command.Parameters.AddWithValue("@DESPESPRD", objInserir.DESPESPRD);
             command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);

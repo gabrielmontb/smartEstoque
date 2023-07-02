@@ -16,5 +16,5 @@ namespace CadastroTipoProdutosTO
         public string DATCAD { get; set; }
 
         public string? DATDST { get; set; }
-    }
+    } 
 }

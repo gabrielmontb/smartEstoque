@@ -2,9 +2,9 @@
        var tooltipValidation = function () {
         let quantidadeTooltip = 0;
 
-        if ($("#txtDescricaoTipo").val() == '') {
+        if ($("#txtDescricaoVendas").val() == '') {
             quantidadeTooltip = quantidadeTooltip + 1;
-            tooltipCampoObrigatorioHide("#txtDescricaoTipo", 'Campo Obrigatório.');
+            tooltipCampoObrigatorioHide("#txtDescricaoVendas", 'Campo Obrigatório.');
         } 
         if($("#ddlGrupo").val() <= 0){
             quantidadeTooltip = quantidadeTooltip + 1;
@@ -17,103 +17,120 @@
             return true;
         }
     }  
-    var cadastrarNovoTipo = function () {
+    var cadastrarNovoVendas = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
         $("#divCadastro").show();
         $(".divShowHide").hide();        
-        $("#txtDescricaoTipo").val('');
-    }   
-    var InserirTipo = function () {
-        if(tooltipValidation() == false)
-            return false;
+        $("#txtDescricaoVendas").val('');
         $.ajax({
             method: 'POST',
-            url: '@Url.Content("/CadastroTipoProdutos/inserirTipoProdutos")',
+            url: '@Url.Content("/CadastroVendas/inserirVendas")',
             async: false,
-            data: { 
-                DESTIPPRD: $("#txtDescricaoTipo").val(),
-                CODGRPPRD: $("#ddlGrupo").val()
-            },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Tipo inserido com sucesso!")
+                    swal("Sucesso!", "Vendas inserido com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
-                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#grdCadastroVendas").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao inserir Tipo!")
+                    swal("Verifique!", "Houve um erro ao inserir Vendas!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
         });
     }   
-    var AtivarTipo = function (CODTIPPRD) {
+    var InserirVendas = function () {
+        if(tooltipValidation() == false)
+            return false;
         $.ajax({
             method: 'POST',
-            url: '@Url.Content("/CadastroTipoProdutos/ativarTipoProdutos")',
+            url: '@Url.Content("/CadastroVendas/inserirVendas")',
+            async: false,
+            data: { 
+                DESTIPPRD: $("#txtDescricaoVendas").val(),
+                CODGRPPRD: $("#ddlGrupo").val()
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Vendas inserido com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroVendas").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao inserir Vendas!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }   
+    var AtivarVendas = function (CODTIPPRD) {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroVendas/ativarVendas")',
             async: false,
             data: { CODTIPPRD: CODTIPPRD },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Tipo ativado com sucesso!")
+                    swal("Sucesso!", "Vendas ativado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
-                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#grdCadastroVendas").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao ativar Tipo!")
+                    swal("Verifique!", "Houve um erro ao ativar Vendas!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
         });
     }       
-    var DesativarTipo = function (CODTIPPRD) {
+    var DesativarVendas = function (CODTIPPRD) {
         $.ajax({
             method: 'POST',
-            url: '@Url.Content("/CadastroTipoProdutos/desativarTipoProdutos")',
+            url: '@Url.Content("/CadastroVendas/desativarVendas")',
             async: false,
             data: { CODTIPPRD: CODTIPPRD },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Tipo desativado com sucesso!")
+                    swal("Sucesso!", "Vendas desativado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
-                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#grdCadastroVendas").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao desativar Tipo!")
+                    swal("Verifique!", "Houve um erro ao desativar Vendas!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
         });
     }    
     var pesquisar = function () {
-        $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+        $("#grdCadastroVendas").DataTable().ajax.reload();
     }   
-    var alterarTipo = function () {        
+    var alterarVendas = function () {        
         if(tooltipValidation() == false)
             return false;
         $.ajax({
             method: 'POST',
-            url: '@Url.Content("/CadastroTipoProdutos/alterarTipoProdutos")',
+            url: '@Url.Content("/CadastroVendas/alterarVendas")',
             async: false,
             data: { 
-                DESTIPPRD: $("#txtDescricaoTipo").val(),
+                DESTIPPRD: $("#txtDescricaoVendas").val(),
                 CODTIPPRD: $("#txtCodTipPrd").val(),
                 CODGRPPRD: $("#ddlGrupo").val()
             },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Tipo alterado com sucesso!")
+                    swal("Sucesso!", "Vendas alterado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
-                    $("#grdCadastroTipoProdutos").DataTable().ajax.reload();
+                    $("#grdCadastroVendas").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao alterar Tipo!")
+                    swal("Verifique!", "Houve um erro ao alterar Vendas!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -141,14 +158,34 @@
         $("#divPesquisa").show();
         $("#btnEditarCadastro").hide();
         $("#divCadastro").hide();
-        $("#txtDescricaoTipo").val('');
+        $("#txtDescricaoVendas").val('');
         $("#ddlGrupo").val(0);
     });
+    var pesquisaProduto = function () {
+        if ($("#txtIdProduto").val() != '' || $("#txtCodigoBarrasProduto").val() != '' || $("#txtNomeProduto").val() != '')
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroVendas/obterProdutos")',
+            async: false,
+            data: {
+                CODORDRMS: $("#txtIdProduto").val(),
+                CODBARPRD: $("#txtCodigoBarrasProduto").val(),
+                DESPRD: $("#txtNomeProduto").val()
+            },
+            success: function (data) {
+                if(data != null){
+                    $("#txtDescricaoProduto").val(data.desprd);
+                    $("#txtQdeEstoque").val(data.quantidade);
+                    $("#txtValorProduto").val(data.vlruntprd);
+                }
+            }
+        });
+    }
     $(document).ready(function () {
         preencherGrupo();
-        $('#grdCadastroTipoProdutos').DataTable({
+        $('#grdCadastroVendas').DataTable({
             "ajax": {
-                "url": "/CadastroTipoProdutos/obterTipoProdutos",
+                "url": "/CadastroVendas/obterVendas",
                 "dataSrc": function (json) {
                     return json;
                 },
@@ -215,11 +252,11 @@
                 $(row).on('click', function () {
                     var columnIdx = $(event.target).index();
                     if(columnIdx == 0){                        
-                       AtivarTipo(data.codtipprd);
+                       AtivarVendas(data.codtipprd);
                         return;
                     }
                     else if(columnIdx == 1){
-                       DesativarTipo(data.codtipprd);
+                       DesativarVendas(data.codtipprd);
                        return
                     } 
                     $("#divPesquisa").hide();
@@ -228,7 +265,7 @@
                     $("#divCadastro").show();
                     $(".divShowHide").show();
                     $("#txtCodTipPrd").val(data.codtipprd);
-                    $("#txtDescricaoTipo").val(data.destipprd);
+                    $("#txtDescricaoVendas").val(data.destipprd);
                     $("#ddlGrupo").val(data.codgrpprd);
                 });
             },  
@@ -244,11 +281,52 @@
             //],
             //order: [[1, 'asc']]
         });
-        //$('#selectAll').on('change', function () {
-        //    var checkboxes = $('#grdCadastroTipoProdutos tbody input[type="checkbox"]');
-        //    checkboxes.prop('checked', $(this).prop('checked'));
-        //});
-        //var codigosSelecionados = $('#grdCadastroTipoProdutos tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
+        //grid produtos
+        $('#grdProdutos').DataTable({
+            "ajax": {
+                "url": "/CadastroVendas/obterProdutos",
+                "dataSrc": function (json) {
+                    return json;
+                },
+                "data": function (d) {
+                    d.CODORDRMS = $("#txtIdProduto").val();
+                    d.CODBARPRD = $("#txtCodigoBarrasProduto").val();
+                    d.DESPRD = $("#txtIdProduto").val();
+                }
+            },
+            "columns": [
+                {
+                    title: '<input type="checkbox" id="selectAll">',
+                    data: null,
+                    orderable: false,
+                    className: 'dt-body-center',
+                    width: '1px',
+                    render: function (data, type, row, meta) {
+                        return '<input type="checkbox">';
+                    }
+                },
+
+                { data: "codordrms", title: "Código" },
+                { data: "desordrms", title: "Descrição" },
+                { data: "desmodprd", title: "Modelo" },
+                { data: "desstaordrms", title: "Status" },
+                { data: "datcad", title: "Data cadastro" },
+                { data: "datfim", title: "Data conclusão" }
+            ],
+            "contentType": 'application/json',
+            searching: false,
+            //"rowCallback": function (row, data) {
+            //    $(row).on('click', function () {
+            //        var columnIdx = $(event.target).index();
+
+            //    });
+            //},
+        });
+        $('#selectAll').on('change', function () {
+            var checkboxes = $('#grdProdutos tbody input[type="checkbox"]');
+            checkboxes.prop('checked', $(this).prop('checked'));
+        });
+        //var codigosSelecionados = $('#grdProdutos tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
         //    return $(this).text();
         //}).get();
     });

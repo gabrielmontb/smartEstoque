@@ -1,0 +1,178 @@
+﻿@{
+    ViewData["Title"] = "Vendas - ";
+}
+@*<style type="text/css">
+    .dt-buttons {
+        float: right !important;
+}
+</style>*@
+
+<div class="titulo-pagina">
+    <span>
+        SmartEstoque
+        <i class="fas fa-caret-right"></i> Vendas
+    </span>
+</div>
+
+<div id="divPesquisa">
+    <div class="campos-holder">
+        <i class="fas fa-search fa-lg" style="color: #293949;"></i>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <input id="txtCodTipPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Vendas" style="width: 25%;" />
+         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <input id="txtDesTipPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Vendas" />
+         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <select id="ddlGrupoFil" class="form-control">
+            <option value="0" selected="selected">Selecione um grupo...</option>
+        </select>     
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <select id="ddlStatus" class="form-control">
+            <option value="0" selected="selected">Selecione um status...</option>
+            <option value="1">ATIVO</option>
+            <option value="2">DESATIVADO</option>
+        </select>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <button class="btn btn-success" id="btnPesquisarTela" onclick="pesquisar()">
+            Pesquisar
+        </button>
+    </div>
+    <div class="row">
+         <button class="btn btn-success" id="btnNovoVendas" onclick="cadastrarNovoVendas()" style="width: 100px">
+            Novo
+        </button>
+    </div>
+    <div>
+        <table id="grdCadastroVendas" class="display" style="width:100%">
+            <thead>
+                <tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    @*<div class="dataTables_consulta">
+        <div id="grdVendasContainer"></div>
+    </div>*@
+</div>
+
+<!-- Cadastro -->
+<div id="divCadastro" style="display: none;">
+    <form action="#" id="frmCadastro" novalidate="novalidate">
+        <div class="tgv-cabecalho-container">
+            <div class="col-md-6 titulo-tela">
+                <strong class="strong-cabecalho-tgv">Cadastro do Vendas</strong>
+            </div>
+            <div class="col-md-6 tgv-crud-log-text divShowHide">
+                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodTipPrd" class="input-span-title" value="" readonly/></span>                
+            </div>
+        </div>
+        <div class="tgv-crud-container tgv-mat-closer">           
+            <div id="divFunInserir" class="col-md-12 nopaddingright">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Nome produto:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtNomeProduto" id="txtNomeProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                            <label class="mdl-textfield__label" for="txtNomeProduto"></label>
+                        </div>
+                    </div> 
+                    <div class="form-group col-md-4">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">ID produto:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtIdProduto" id="txtIdProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                             <label class="mdl-textfield__label" for="txtIdProduto"></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-4">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Código de barras:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtCodigoBarrasProduto" id="txtCodigoBarrasProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                             <label class="mdl-textfield__label" for="txtCodigoBarrasProduto"></label>
+                        </div>
+                    </div>  
+                </div>  
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Descrição:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtDescricaoProduto" id="txtDescricaoProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                            <label class="mdl-textfield__label" for="txtDescricaoProduto"></label>
+                        </div>
+                    </div> 
+                    <div class="form-group col-md-2">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Qtd Estoque:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtQdeEstoque" id="txtQdeEstoque" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                             <label class="mdl-textfield__label" for="txtQdeEstoque"></label>
+                        </div>
+                    </div>  
+                    <div class="form-group col-md-3">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Valor:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtValorProduto" id="txtValorProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                            <label class="mdl-textfield__label" for="txtValorProduto"></label>
+                        </div>
+                    </div> 
+                    <div class="form-group col-md-2">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Qde venda:</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input name="txtQdeVenda" id="txtQdeVenda" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;">
+                             <label class="mdl-textfield__label" for="txtQdeVenda"></label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                         <button id="btnIncluirProduto" type="button" class="btn btn-success">
+                    <i class="fas fa-save"></i> 
+                    Incluir
+                </button>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div>
+                        <table id="grdProdutos" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>              
+        </div>
+
+
+        <div class="row tgv-button-toolbar" style="margin-left: 500px;">
+            <span>
+                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="InserirVendas()">
+                    <i class="fas fa-save"></i> 
+                    Salvar
+                </button>
+                <button id="btnEditarCadastro" type="button" class="btn btn-success" onclick="alterarVendas()">
+                    <i class="fas fa-save"></i>
+                    Salvar
+                </button>
+                <button id="btnFecharCadastro" type="button" class="btn btn-danger">
+                    <i class="fa fa-arrow-left"></i>
+                    Voltar
+                </button>
+            </span>
+        </div>
+
+    </form>
+</div>
+@Html.Partial("~/Views/Paginas/CadastroVendas/_IndexScript.cshtml")

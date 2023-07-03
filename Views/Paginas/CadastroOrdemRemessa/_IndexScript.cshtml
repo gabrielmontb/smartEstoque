@@ -38,6 +38,22 @@
         if($("#ddlStatusOrdem").val() <= 0){
             quantidadeTooltip = quantidadeTooltip + 1;
             tooltipCampoObrigatorioHide("#ddlStatusOrdem", 'Campo Obrigatório.');
+        }  
+        //if($("#txtQdePrd").val() <= 0){
+        //    quantidadeTooltip = quantidadeTooltip + 1;
+        //    tooltipCampoObrigatorioHide("#txtQdePrd", 'Campo Obrigatório.');
+        //} 
+        if($("#txtDatVnc").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDatVnc", 'Campo Obrigatório.');
+        }
+        if($("#txtVlrUnt").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtVlrUnt", 'Campo Obrigatório.');
+        }  
+        if($("#txtCodigoBarras").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtCodigoBarras", 'Campo Obrigatório.');
         }
         if(quantidadeTooltip > 0){
             return false;
@@ -111,11 +127,12 @@
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
-        $("#btnEditarProdutos").hide();
+        //$("#btnEditarProdutos").hide();
         $("#divCadastro").show();
         $(".divShowHide").hide();        
-        $("#txtDescricaoStatus").val('');
-        $("#divFinalizarOrdem").hide();        
+        $("#divQuantidade").hide();        
+        $("#divPeso").hide();        
+        $("#txtDescricaoStatus").val('');     
         $("#ddlStatusOrdem").val(1);        
         $("#ddlStatusOrdem").prop('disabled', true);        
         $("#ddlFornecedor").prop('disabled', false);
@@ -137,17 +154,21 @@
                 CODNTAFSC: $("#txtNotFsc").val(),
                 VLRLOTRMS: $("#txtValorLote").val(),
                 NUMLOTRMS: $("#txtLote").val(),
-                QDEPRD: $("#txtQdePrd").val()
+                QDEPRD: $("#txtQdePrd").val(),
+                DESPESPRD: $("#txtPesoPrd").val(),
+                DATVNCPRD: $("#txtDatVnc").val(),
+                VLRUNTPRD: $("#txtVlrUnt").val(),
+                CODBARPRD: $("#txtCodigoBarras").val(),
             },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Status inserido com sucesso!")
+                    swal("Sucesso!", "Ordem inserida com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao inserir status!")
+                    swal("Verifique!", "Houve um erro ao inserir ordem!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -163,13 +184,13 @@
             },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Status ativado com sucesso!")
+                    swal("Sucesso!", "Ordem ativada com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao ativar status!")
+                    swal("Verifique!", "Houve um erro ao ativar Ordem!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -183,13 +204,13 @@
             data: { CODORDRMS: codordrms },
             success: function (data) {
                 if(data == true){
-                    swal("Sucesso!", "Status desativado com sucesso!")
+                    swal("Sucesso!", "Ordem desativado com sucesso!")
                     setCustomIcon('fa fa-exclamation-circle');
                     $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
                     $("#btnFecharCadastro").click();
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao desativar status!")
+                    swal("Verifique!", "Houve um erro ao desativar Ordem!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -331,7 +352,7 @@
     $('#btnFecharCadastro').click(function () {
         $("#divPesquisa").show();
         $("#btnEditarCadastro").hide();
-        $("#btnEditarProdutos").hide();
+        //$("#btnEditarProdutos").hide();
         $("#divCadastro").hide();
         $("#txtDescricaoOrdem").val('');
         $("#txtDatFimOrdSvc").val('');
@@ -431,7 +452,7 @@
                     $("#divPesquisa").hide();
                     $("#btnInserirCadastro").hide();
                     $("#btnEditarCadastro").show();
-                    $("#btnEditarProdutos").show();
+                    //$("#btnEditarProdutos").show();
                     $("#divCadastro").show();
                     $(".divShowHide").show();
                     $("#txtCodOrdRms").val(data.codordrms);
@@ -450,17 +471,13 @@
                     $("#txtCodigoBarras").val(data.codbarprd);
                     $("#txtPesoPrd").val(data.despesprd);
                     if(data.codstaordrms != 1){
-                        $("#btnEditarProdutos").prop('disabled', false);
+                        //$("#btnEditarProdutos").prop('disabled', false);
                         $("#btnEditarCadastro").prop('disabled', true);
                     }
                     else{
-                        $("#btnEditarProdutos").prop('disabled', false);
+                        //$("#btnEditarProdutos").prop('disabled', false);
                         $("#btnEditarCadastro").prop('disabled', false);
                     }
-                    if(data.codstaordrms == 2)
-                        $("#divFinalizarOrdem").show();
-                    else 
-                        $("#divFinalizarOrdem").hide();
                     if(data.indpesqtd == 1){
                         $("#divPeso").show();
                         $("#divQuantidade").hide();
@@ -493,11 +510,29 @@
         //var codigosSelecionados = $('#grdCadastroOrdemRemessa tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
         //    return $(this).text();
         //}).get();
-        $('#ddlStatusOrdem').on('change', function () {
-            if($("#ddlStatusOrdem").val() == 2)
-                $("#divFinalizarOrdem").show();
-            else 
-                $("#divFinalizarOrdem").hide();
+        $('#ddlModelo').on('change', function () {
+            if($('#ddlModelo').val() != ''){
+                  $.ajax({
+                    method: 'POST',
+                    url: '@Url.Content("/CadastroOrdemRemessa/obterTipoGrupo")',
+                    async: false,
+                    data: { 
+                        CODMODPRD: $("#ddlModelo").val()
+                    },
+                    success: function (data) {
+                        if(data > 0){
+                            if(data == 1){
+                                $("#divPeso").show();
+                                $("#divQuantidade").hide();
+                            }
+                            else {
+                                $("#divPeso").hide();
+                                $("#divQuantidade").show();
+                            }
+                        }
+                    }
+                });
+            }
         });
     });
 </script>

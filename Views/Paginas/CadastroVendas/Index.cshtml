@@ -63,7 +63,7 @@
                 <strong class="strong-cabecalho-tgv">Cadastro do Vendas</strong>
             </div>
             <div class="col-md-6 tgv-crud-log-text divShowHide">
-                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodTipPrd" class="input-span-title" value="" readonly/></span>                
+                <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodVnd" class="input-span-title" value="" readonly/></span>                
             </div>
         </div>
         <div class="tgv-crud-container tgv-mat-closer">           
@@ -116,7 +116,7 @@
                              <label class="mdl-textfield__label" for="txtQdeEstoque"></label>
                         </div>
                     </div>  
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label for="input-text-1" style="margin-bottom: 0px;">
                             <strong class="strong-min-tgv">Valor:</strong>
                         </label>
@@ -127,15 +127,33 @@
                     </div> 
                     <div class="form-group col-md-2">
                         <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Qde venda:</strong>
+                            <strong class="strong-min-tgv">Remessa:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtQdeVenda" id="txtQdeVenda" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;">
-                             <label class="mdl-textfield__label" for="txtQdeVenda"></label>
+                            <input name="txtCodOrdRms" id="txtCodOrdRms" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                            <label class="mdl-textfield__label" for="txtCodOrdRms"></label>
                         </div>
                     </div>
-                    <div class="form-group col-md-2">
-                         <button id="btnIncluirProduto" type="button" class="btn btn-success">
+
+                    <div class="col-md-2" id="divPeso">
+                        <label for="input-text-1" style="margin-bottom: 0px;">
+                            <strong class="strong-min-tgv">Peso(KG):</strong>
+                        </label>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input type="number" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <label class="mdl-textfield__label" for="txtPesoPrd"></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-2" id="divQuantidade">
+                        <label for="input-text-1">
+                            <strong class="strong-min-tgv">Quantidade:</strong>
+                        </label>
+                        <input class="form-control" style="width:65px;" type="number" min='1' value="0" id="txtQdeVenda">
+
+                    </div>
+                    <div class="form-group col-md-1" style="margin-top:25px;">
+                         <button id="btnIncluirProduto" type="button" class="btn btn-success" onclick="inserirProdutoVenda()">
                     <i class="fas fa-save"></i> 
                     Incluir
                 </button>
@@ -166,7 +184,7 @@
                     <i class="fas fa-save"></i>
                     Salvar
                 </button>
-                <button id="btnFecharCadastro" type="button" class="btn btn-danger">
+                <button id="btnFecharCadastro" type="button" class="btn btn-danger" onclick="validaVendaConcluida()">
                     <i class="fa fa-arrow-left"></i>
                     Voltar
                 </button>

@@ -1,5 +1,5 @@
 ﻿<script>
-       var tooltipValidation = function () {
+    var tooltipValidation = function () {
         let quantidadeTooltip = 0;
 
         if ($("#txtDescricaoVendas").val() == '') {
@@ -17,27 +17,46 @@
             return true;
         }
     }  
+    var tooltipValidationVendas = function () {
+        let quantidadeTooltip = 0;
+
+        if ($("#txtQdeVenda").val() == 0 && $("#txtPesoPrd").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtQdeVenda", 'Campo Obrigatório.');
+            tooltipCampoObrigatorioHide("#txtPesoPrd", 'Campo Obrigatório.');
+        } 
+        if($("#txtCodOrdRms").val() == ''){
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoProduto", 'Campo Obrigatório.');
+        }
+        if(quantidadeTooltip > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }  
     var cadastrarNovoVendas = function () {
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
+        $("#divPeso").hide();
+        $("#divQuantidade").hide();
         $("#divCadastro").show();
-        $(".divShowHide").hide();        
+        $(".divShowHide").show();        
         $("#txtDescricaoVendas").val('');
         $.ajax({
             method: 'POST',
-            url: '@Url.Content("/CadastroVendas/inserirVendas")',
+            url: '@Url.Content("/CadastroVendas/obterCodigoVenda")',
             async: false,
             success: function (data) {
-                if(data == true){
-                    swal("Sucesso!", "Vendas inserido com sucesso!")
-                    setCustomIcon('fa fa-exclamation-circle');
-                    $("#grdCadastroVendas").DataTable().ajax.reload();
-                    $("#btnFecharCadastro").click();
+                if(data > 0){
+                    $("#txtCodVnd").val(data);
                 }
                 else{
-                    swal("Verifique!", "Houve um erro ao inserir Vendas!")
-                    setCustomIcon('fa fa-exclamation-circle');
+                      swal("Verifique!", "Houve um erro ao gerar código de venda!")
+                      setCustomIcon('fa fa-exclamation-circle');
+                      $("#btnFecharCadastro").click();
                 }
             }
         });
@@ -136,6 +155,45 @@
             }
         });
     }  
+    var validaVendaConcluida = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroVendas/validaVendaConcluida")',
+            async: false,
+            data: { 
+                CODVNDPRD: $("#txtCodVnd").val()
+            },
+             success: function (data) {
+                if(data == false){
+                    swal("Verifique!", "Houve um erro ao validar venda concluida!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }   
+    var inserirProdutoVenda = function () {
+        if(tooltipValidationVendas() == false){
+            return;
+        }
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroVendas/inserirProdutoVenda")',
+            async: false,
+            data: { 
+                CODVNDPRD: $("#txtCodVnd").val(),
+                CODORDRMS: $("#txtCodOrdRms").val(),
+                QDEPRDVND: $("#txtQdeVenda").val(),
+                DESPESPRDVND: $("#txtPesoPrd").val(),
+            },
+             success: function (data) {
+                if(data == false){
+                    swal("Verifique!", "Houve um erro ao inserir produto!")
+                    setCustomIcon('fa fa-exclamation-circle');                    
+                }
+                $("#grdProdutos").DataTable().ajax.reload();
+            }
+        });
+    }  
     var preencherGrupo = function () {
         $.ajax({
             method: 'POST',
@@ -174,9 +232,22 @@
             },
             success: function (data) {
                 if(data != null){
-                    $("#txtDescricaoProduto").val(data.desprd);
+                    $("#txtDescricaoProduto").val(data.desmodprd);
                     $("#txtQdeEstoque").val(data.quantidade);
                     $("#txtValorProduto").val(data.vlruntprd);
+                    $("#txtCodOrdRms").val(data.codordrms);
+                    if(data.indpesqtd == 1){
+                        $("#txtQdeVenda").val(0);
+                        $("#txtPesoPrd").val('');
+                        $("#divPeso").show();
+                        $("#divQuantidade").hide();
+                    }
+                    else {
+                        $("#txtQdeVenda").val(0);
+                        $("#txtPesoPrd").val('');
+                        $("#divPeso").hide();
+                        $("#divQuantidade").show();
+                    }
                 }
             }
         });
@@ -207,32 +278,11 @@
                 //    render: function (data, type, row, meta) {
                 //        return '<input type="checkbox">';
                 //    }
-                //},   
-                {
-                    title: 'Ativar',
-                    data: null,
-                    orderable: false,
-                    className: 'dt-body-center',
-                    width:'1px',
-                    render: function (data, type, row, meta) {
-                        return '<i class="fas fa-plus" style="color: #04ff00;"></i>';
-                    }
-                }, 
-                {
-                    title: 'Desativar',
-                    data: null,
-                    orderable: false,
-                    className: 'dt-body-center',
-                    width:'1px',
-                    render: function (data, type, row, meta) {
-                        return '<i class="fas fa-minus" style="color: #ff0000;"></i>';
-                    }
-                },
+                //},  
+                
                 { data: "codtipprd", title: "Código" },
-                { data: "destipprd", title: "Descrição" },
-                { data: "desgrpprd", title: "Grupo" },
-                { data: "datcad", title: "Data cadastro" },
-                { data: "datdst", title: "Data desativação" }
+                { data: "destipprd", title: "Valor" },
+                { data: "datcad", title: "Data cadastro" }
             ],
             "buttons": [
                 {
@@ -284,47 +334,23 @@
         //grid produtos
         $('#grdProdutos').DataTable({
             "ajax": {
-                "url": "/CadastroVendas/obterProdutos",
+                "url": "/CadastroVendas/obterRelacaoProdutos",
                 "dataSrc": function (json) {
                     return json;
                 },
                 "data": function (d) {
-                    d.CODORDRMS = $("#txtIdProduto").val();
-                    d.CODBARPRD = $("#txtCodigoBarrasProduto").val();
-                    d.DESPRD = $("#txtIdProduto").val();
+                    d.CODVNDPRD = $("#txtCodVnd").val();
                 }
             },
             "columns": [
-                {
-                    title: '<input type="checkbox" id="selectAll">',
-                    data: null,
-                    orderable: false,
-                    className: 'dt-body-center',
-                    width: '1px',
-                    render: function (data, type, row, meta) {
-                        return '<input type="checkbox">';
-                    }
-                },
-
-                { data: "codordrms", title: "Código" },
-                { data: "desordrms", title: "Descrição" },
-                { data: "desmodprd", title: "Modelo" },
-                { data: "desstaordrms", title: "Status" },
-                { data: "datcad", title: "Data cadastro" },
-                { data: "datfim", title: "Data conclusão" }
+                { data: "codordrms", title: "Cód. Remessa" },
+                { data: "desmodprd", title: "Produto" },
+                { data: "quantidade", title: "Quantidade" },
+                { data: "vlruntprd", title: "Valor" }
             ],
             "contentType": 'application/json',
+            lengthChange: false,
             searching: false,
-            //"rowCallback": function (row, data) {
-            //    $(row).on('click', function () {
-            //        var columnIdx = $(event.target).index();
-
-            //    });
-            //},
-        });
-        $('#selectAll').on('change', function () {
-            var checkboxes = $('#grdProdutos tbody input[type="checkbox"]');
-            checkboxes.prop('checked', $(this).prop('checked'));
         });
         //var codigosSelecionados = $('#grdProdutos tbody input[type="checkbox"]:checked').closest('tr').find('td:eq(1)').map(function() {
         //    return $(this).text();

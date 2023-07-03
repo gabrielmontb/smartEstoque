@@ -21,7 +21,7 @@ namespace CadastroVendasTO
     {
         public int CODPRD { get; set; }
 
-        public string DESPRD { get; set; }
+        public string DESMODPRD { get; set; }
 
         public decimal VLRUNTPRD { get; set; }
 
@@ -30,5 +30,17 @@ namespace CadastroVendasTO
         public int CODMODPRD { get; set; }
 
         public int QUANTIDADE { get; set; }
+
+        public int INDPESQTD { get; set; }
+    }   
+    public class obterRelacaoProdutos
+    {
+        public int CODORDRMS { get; set; }
+
+        public string DESMODPRD { get; set; }
+
+        public int QUANTIDADE { get; set; }
+
+        public decimal VLRUNTPRD { get; set; }
     }
 }

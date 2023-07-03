@@ -28,6 +28,10 @@ namespace SmartEstoque.Controllers
         public bool desativarOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
         {
             return new CadastroOrdemRemessaBLL().desativarOrdemRemessa(objInserir);
+        }  
+        public int obterTipoGrupo(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
+        {
+            return new CadastroOrdemRemessaBLL().obterTipoGrupo(objInserir);
         }
 
     }

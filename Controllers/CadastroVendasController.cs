@@ -22,6 +22,10 @@ namespace SmartEstoque.Controllers
         {
             return new CadastroVendasBLL().obterProdutos(objInserir);
         } 
+        public List<obterRelacaoProdutos> obterRelacaoProdutos(CadastroVendasModel.InserirCadastroVendas objInserir)
+        {
+            return new CadastroVendasBLL().obterRelacaoProdutos(objInserir);
+        } 
         public bool alterarVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
         {
             return new CadastroVendasBLL().alterarVendas(objInserir);
@@ -33,6 +37,18 @@ namespace SmartEstoque.Controllers
         public bool desativarVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
         {
             return new CadastroVendasBLL().desativarVendas(objInserir);
+        } 
+        public bool validaVendaConcluida(CadastroVendasModel.InserirCadastroVendas objInserir)
+        {
+            return new CadastroVendasBLL().validaVendaConcluida(objInserir);
+        }   
+        public bool inserirProdutoVenda(CadastroVendasModel.InserirCadastroVendas objInserir)
+        {
+            return new CadastroVendasBLL().inserirProdutoVenda(objInserir);
+        } 
+        public int obterCodigoVenda()
+        {
+            return new CadastroVendasBLL().obterCodigoVenda();
         }
 
     }

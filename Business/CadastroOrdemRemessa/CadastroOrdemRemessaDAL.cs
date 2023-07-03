@@ -19,9 +19,14 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@CODSTAORDRMS", objInserir.CODSTAORDRMS);
             command.Parameters.AddWithValue("@DATPRVENT",  objInserir.DATPRVENT);
             command.Parameters.AddWithValue("@CODNTAFSC", objInserir.CODNTAFSC);
-            command.Parameters.AddWithValue("@VLRLOTRMS", objInserir.VLRLOTRMS);
+            command.Parameters.AddWithValue("@VLRLOTRMS", Convert.ToDecimal(objInserir.VLRLOTRMS.Replace(".", ",")));
             command.Parameters.AddWithValue("@NUMLOTRMS", objInserir.NUMLOTRMS);
             command.Parameters.AddWithValue("@QDEPRD", objInserir.QDEPRD);
+
+            command.Parameters.AddWithValue("@CODBARPRD", objInserir.CODBARPRD);
+            command.Parameters.AddWithValue("@VLRUNTPRD", Convert.ToDecimal(objInserir.VLRUNTPRD.Replace(".", ",")));
+            command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD);
+            command.Parameters.AddWithValue("@DESPESPRD", objInserir.DESPESPRD);
             return (command.ExecuteNonQuery() == 1);
         } 
         public bool alterarOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
@@ -33,12 +38,12 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@CODSTAORDRMS", objInserir.CODSTAORDRMS);
             command.Parameters.AddWithValue("@DATPRVENT", objInserir.DATPRVENT);
             command.Parameters.AddWithValue("@CODNTAFSC", objInserir.CODNTAFSC);
-            command.Parameters.AddWithValue("@VLRLOTRMS", objInserir.VLRLOTRMS);
+            command.Parameters.AddWithValue("@VLRLOTRMS", Convert.ToDecimal(objInserir.VLRLOTRMS.Replace(".", ",")));
             command.Parameters.AddWithValue("@NUMLOTRMS", objInserir.NUMLOTRMS);
             command.Parameters.AddWithValue("@QDEPRD", objInserir.QDEPRD);
             command.Parameters.AddWithValue("@CODBARPRD", objInserir.CODBARPRD == null ? 0 : objInserir.CODBARPRD);
             command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD == null ? "" : objInserir.DATVNCPRD);
-            command.Parameters.AddWithValue("@VLRUNTPRD", objInserir.VLRUNTPRD);
+            command.Parameters.AddWithValue("@VLRUNTPRD", Convert.ToDecimal(objInserir.VLRUNTPRD.Replace(".",",")));
             command.Parameters.AddWithValue("@DESPESPRD", objInserir.DESPESPRD);
             command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);
             return (command.ExecuteNonQuery() == 1);
@@ -52,7 +57,7 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@CODMODPRD", objInserir.CODMODPRD);
             command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);
             command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD);
-            command.Parameters.AddWithValue("@VLRUNTPRD", objInserir.VLRUNTPRD);
+            command.Parameters.AddWithValue("@VLRUNTPRD", Convert.ToDecimal(objInserir.VLRUNTPRD.Replace(".", ",")));
             command.Parameters.AddWithValue("@DESPESPRD", objInserir.DESPESPRD);
             return (command.ExecuteNonQuery() == 1);
         }  
@@ -71,6 +76,17 @@ namespace SmartEstoque.Business
             var command = new NpgsqlCommand(query, conn);
             command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);
             return (command.ExecuteNonQuery() == 1);
+        }
+        public int obterTipoGrupo(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
+        {
+            using var conn = new DbConnection().Connection;
+            string query = new CadastroOrdemRemessaDALSQL().obterTipoGrupo();
+            var command = new NpgsqlCommand(query, conn);
+            command.Parameters.AddWithValue("@CODMODPRD", objInserir.CODMODPRD);
+            var retorno = command.ExecuteScalar();
+            if (retorno != null)
+                return Convert.ToInt32(retorno);
+            else return 0;
         } 
         public List<obterOrdemRemessa> obterOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
         {

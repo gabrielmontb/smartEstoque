@@ -19,6 +19,10 @@ namespace SmartEstoque.Business
                                                 , vlrlotrms
                                                 , numlotrms
                                                 , qdeprd
+                                                , codbarprd
+                                                , vlruntprd
+                                                , datvncprd
+                                                , despesprd
                                                 , datcad
                                             ) 
                             values (
@@ -32,6 +36,10 @@ namespace SmartEstoque.Business
                                         , @VLRLOTRMS
                                         , @NUMLOTRMS
                                         , @QDEPRD
+                                        , @CODBARPRD
+                                        , @VLRUNTPRD
+                                        , TO_DATE(@DATVNCPRD, 'DD/MM/YYYY')
+                                        , @DESPESPRD
                                         , NOW()
                                     )";
         }   
@@ -132,6 +140,14 @@ namespace SmartEstoque.Business
             return @"UPDATE cadordrms SET 
                             datdst = NOW()
                              WHERE codordrms = @CODORDRMS";
+        } 
+        public string obterTipoGrupo()
+        {
+            return @"SELECT indpesqtd
+	                FROM cadmodprd CMOD
+	                    INNER JOIN cadtipprd TIP ON CMOD.codtipprd = TIP.codtipprd
+	                    INNER JOIN cadgrpprd GRP ON TIP.CODGRPPRD = GRP.CODGRPPRD
+	                WHERE CMOD.codmodprd = @codmodprd";
         }
     }
 }

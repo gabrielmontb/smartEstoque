@@ -42,29 +42,29 @@ namespace SmartEstoque.Business
                         Scope.Dispose();
                         return false;
                     }
-                    if (objInserir.CODSTAORDRMS == 2)
-                    {
-                        if(objInserir.INDPESQTD == 1)//por peso
-                        {
-                            if (!DAL.inserirProduto(objInserir))
-                            {
-                                Scope.Dispose();
-                                return false;
-                            }
-                        }
-                        else
-                        {
-                            objInserir.DESPESPRD = 0;
-                            for(int i=0; i< objInserir.QDEPRD; i++)
-                            {
-                                if (!DAL.inserirProduto(objInserir))
-                                {
-                                    Scope.Dispose();
-                                    return false;
-                                }
-                            }
-                        }
-                    }
+                    //if (objInserir.CODSTAORDRMS == 2)
+                    //{
+                    //    if(objInserir.INDPESQTD == 1)//por peso
+                    //    {
+                    //        if (!DAL.inserirProduto(objInserir))
+                    //        {
+                    //            Scope.Dispose();
+                    //            return false;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        objInserir.DESPESPRD = 0;
+                    //        for(int i=0; i< objInserir.QDEPRD; i++)
+                    //        {
+                    //            if (!DAL.inserirProduto(objInserir))
+                    //            {
+                    //                Scope.Dispose();
+                    //                return false;
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     Scope.Complete();
                     return true;
                 }
@@ -90,6 +90,17 @@ namespace SmartEstoque.Business
             try
             {
                 return new CadastroOrdemRemessaDAL().desativarOrdemRemessa(objInserir);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int obterTipoGrupo(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
+        {
+            try
+            {
+                return new CadastroOrdemRemessaDAL().obterTipoGrupo(objInserir);
             }
             catch(Exception ex)
             {

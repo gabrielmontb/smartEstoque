@@ -1,0 +1,58 @@
+﻿    <!-- Modal -->
+<div id="ModalFinalizarVenda" class="modal animated pulse" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="tgv-cabecalho-container">
+                <div class="col-lg-6">
+                    <div class="col-md-10 titulo-tela nopadding">
+                        <strong class="strong-cabecalho-tgv">Forma de pagamento</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="tgv-crud-container tgv-mat-closer">
+                <div class="modal-body">
+                    <form id="frmJustificativaNeg" novalidate="novalidate">                      
+                        <div class="row" style="margin-top: -20px">
+                            <div class="col-lg-12">
+                                <label for="input-text-1">
+                                    <strong class="strong-min-tgv">Selecione a forma de pagamento:</strong>
+                                </label>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6">
+                                        <input type="radio" name="option" value="1">
+                                        <label> <i class="fa fa-credit-card"></i>Crédito</label>
+                                        <br>
+                                        <input type="radio" name="option" value="2">
+                                        <label> <i class="fa fa-credit-card"></i>Débito</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="radio" name="option" value="3">
+                                        <label> <i class="fa fa-mobile"></i>Pix</label>
+                                        <br>
+                                        <input type="radio" name="option" value="4">
+                                        <label> <i class="fa fa-money-bill"></i>Dinheiro</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row tgv-button-toolbar" style="margin-left: 300px;">
+                <span>
+                    <button id="btnModalCancelarNeg" type="button" class="btn btn-success" onclick="ConcluirVendas()">
+                        <i class="fas fa-save"></i>
+                        Ok
+                    </button>
+                    <button id="btnFecharModal" type="button" class="btn btn-danger" data-dismiss="modal" onclick="FecharModal()">
+                        <i class="fa fa-arrow-left"></i>
+                        Fechar
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

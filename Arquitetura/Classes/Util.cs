@@ -1,4 +1,9 @@
 ﻿
+using Npgsql;
+using SmartEstoque.Business;
+using SmartEstoque.Class;
+using System.Diagnostics;
+
 namespace Arquitetura.Classes
 {
     public class Util
@@ -36,7 +41,30 @@ namespace Arquitetura.Classes
                 }
                 return true;
             }
-        }      
+        }
+        public static void CriaLogErro(Exception ex, string Metodo = "", string classe = "", string Param = "")
+        {
+            string description = "ERRO:" + Metodo + ": " + Environment.NewLine + Environment.NewLine
+             + " //PARÂMETRO: " + Param +
+             "Verifique a mensagem de erro a seguir para solucionar o problema." + Environment.NewLine +
+             Environment.NewLine + ex.Message + Environment.NewLine + Environment.NewLine + "Metodo: " +
+             ex.TargetSite.DeclaringType.FullName + ex.TargetSite.Name + Environment.NewLine + Environment.NewLine + "Origem: " +
+             ex.Source + Environment.NewLine + Environment.NewLine + "Pilha de execução: " + ex.StackTrace;
+
+            using var conn = new DbConnection().Connection;
+            string query = @"INSERT INTO cadlogsis (codlog,desclalog,desmetlog,deslog) 
+                                    VALUES (
+                                            (SELECT COALESCE(MAX(codlog),0)+1 FROM cadlogsis)
+                                            ,@desclalog
+                                            ,@desmetlog
+                                            ,@deslog
+                                            )
+                                ";
+            var command = new NpgsqlCommand(query, conn);
+            command.Parameters.AddWithValue("@desclalog", classe);
+            command.Parameters.AddWithValue("@desmetlog", Metodo);
+            command.Parameters.AddWithValue("@desmetlog", description);
+        }
 
     }
 }

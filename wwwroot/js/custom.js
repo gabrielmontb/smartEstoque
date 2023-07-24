@@ -371,7 +371,8 @@ var setMirror = function (ctrList) {
             });
         };
     } catch (ex) {
-        throw ex;
+        Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir)); 
+ throw ex;
     };
 };
 

@@ -5,17 +5,15 @@ namespace CadastroVendasTO
 {
     public class obterVendas
     {
-        public int CODTIPPRD { get; set; }
-
-        public string DESTIPPRD { get; set; }
-
-        public int CODGRPPRD { get; set; }
-
-        public string DESGRPPRD { get; set; }
+        public int CODVNDPRD { get; set; }
 
         public string DATCAD { get; set; }
 
-        public string? DATDST { get; set; }
+        public int CODTIPPAG { get; set; }
+
+        public decimal VLRVND { get; set; }
+
+        public string TIPOPAGAMENTO { get; set; }
     } 
     public class obterProdutosVendas
     {
@@ -29,7 +27,7 @@ namespace CadastroVendasTO
 
         public int CODMODPRD { get; set; }
 
-        public int QUANTIDADE { get; set; }
+        public decimal QUANTIDADE { get; set; }
 
         public int INDPESQTD { get; set; }
     }   
@@ -39,7 +37,7 @@ namespace CadastroVendasTO
 
         public string DESMODPRD { get; set; }
 
-        public int QUANTIDADE { get; set; }
+        public decimal QUANTIDADE { get; set; }
 
         public decimal VLRUNTPRD { get; set; }
     }

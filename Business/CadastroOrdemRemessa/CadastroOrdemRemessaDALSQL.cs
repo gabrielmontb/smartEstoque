@@ -66,6 +66,8 @@ namespace SmartEstoque.Business
                             , TO_CHAR(ORD.datvncprd, 'dd/MM/yyyy') datvncprd 
                             , ORD.vlruntprd
                             , ORD.despesprd
+                            , ORD.despesprdvnd
+                            , ORD.qdeprdvnd
                     FROM cadordrms ORD
                         INNER JOIN cadfrnprd FRN ON ORD.codfrnprd = FRN.codfrnprd
                         INNER JOIN cadstaordrms STA ON ORD.codstaordrms = STA.codstaordrms

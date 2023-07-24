@@ -10,9 +10,9 @@ namespace SmartEstoque.Controllers
 {
     public class CadastroVendas : Controller
     {
-        public bool inserirVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
+        public bool ConcluirVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
         {
-            return new CadastroVendasBLL().inserirVendas(objInserir);
+            return new CadastroVendasBLL().ConcluirVendas(objInserir);
         }  
         public List<obterVendas> obterVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
         {

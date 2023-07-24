@@ -6,36 +6,29 @@ namespace SmartEstoque.Business
 {
     public class CadastroVendasDALSQL
     {
-        public string inserirVendas()
+        public string ConcluirVendas()
         {
-            return @"INSERT INTO cadvndprd (codvndprd,datcad)
-                            values ((SELECT COALESCE(MAX(codvndprd),0)+1 FROM cadvndprd),NOW())";
+            return @"UPDATE cadvndprd SET codtippag = @CODTIPPAG, vlrvnd = @VLRVND WHERE codvndprd = @CODVNDPRD";
         }   
         public string obterVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
         {
             StringBuilder strBld = new StringBuilder(@"
-                     SELECT TIP.codtipprd
-                            , TIP.destipprd
-                            , GRP.codgrpprd
-                            , GRP.desgrpprd
-                            , TO_CHAR(TIP.datcad, 'dd/MM/yyyy') datcad
-                            , TO_CHAR(TIP.datdst, 'dd/MM/yyyy') datdst 
-                    FROM cadtipprd TIP
-                        INNER JOIN cadgrpprd GRP on TIP.codgrpprd = GRP.codgrpprd
-                    WHERE 1=1
-                    
+                        SELECT VND.codvndprd
+                                , TO_CHAR(VND.datcad, 'DD/MM/YYYY') datcad
+                                , VND.codtippag
+                                , VND.vlrvnd
+                                , CASE WHEN VND.codtippag = 1 THEN 'Crédito'
+                                       WHEN VND.codtippag = 2 THEN 'Débito'
+                                       WHEN VND.codtippag = 3 THEN 'Pix'
+                                       WHEN VND.codtippag = 4 THEN 'Dinheiro'
+                                       ELSE 'Não informado'
+                                   END TipoPagamento
+                        FROM cadvndprd VND
+                        WHERE 1=1                    
                 ");
-            if (objInserir.CODTIPPRD > 0)
-                strBld.AppendLine(" AND TIP.codtipprd = @CODTIPPRD ");
-            if (objInserir.CODGRPPRD > 0)
-                strBld.AppendLine(" AND TIP.codgrpprd = @CODGRPPRD ");
-            if (!string.IsNullOrEmpty(objInserir.DESTIPPRD))
-                strBld.AppendLine(" AND UPPER(TRIM(TIP.destipprd)) LIKE '%' || UPPER(TRIM(@DESTIPPRD))  || '%'");
-            if(objInserir.STATUS == 1)
-                strBld.AppendLine(" AND TIP.datdst IS NULL ");
-            else if (objInserir.STATUS == 2)
-                strBld.AppendLine(" AND TIP.datdst IS NOT NULL ");
-            strBld.AppendLine("ORDER BY TIP.codtipprd ");
+            if (objInserir.CODVNDPRD > 0)
+                strBld.AppendLine(" AND VND.codvndprd = @CODVNDPRD ");
+            strBld.AppendLine("ORDER BY VND.codvndprd ");
 
             return strBld.ToString();
         }    
@@ -55,7 +48,8 @@ namespace SmartEstoque.Business
 						INNER JOIN cadmodprd CMOD ON ord.codmodprd = CMOD.codmodprd
                         INNER JOIN cadtipprd TIP ON CMOD.codtipprd = TIP.codtipprd
 	                    INNER JOIN cadgrpprd GRP ON TIP.CODGRPPRD = GRP.CODGRPPRD
-	                WHERE (((ord.qdeprd- COALESCE(ord.qdeprdvnd,0)) > 0) or (ord.despesprd - COALESCE(ord.despesprdvnd,0)) > 0)          
+	                WHERE (((ord.qdeprd- COALESCE(ord.qdeprdvnd,0)) > 0) or (ord.despesprd - COALESCE(ord.despesprdvnd,0)) > 0)   
+                           AND ord.codstaordrms = 2
                 ");
             if (objInserir.CODORDRMS > 0)
                 strBld.AppendLine(" AND ord.codordrms = @CODORDRMS ");  
@@ -74,7 +68,9 @@ namespace SmartEstoque.Business
 						CASE WHEN GRP.indpesqtd = 1
 						THEN RLC.despesprdvnd 
 						ELSE RLC.qdeprdvnd END quantidade, 
-						RMS.vlruntprd
+                        CASE WHEN GRP.indpesqtd = 1
+                        THEN (RLC.despesprdvnd * RMS.vlruntprd)
+                        ELSE RLC.qdeprdvnd END vlruntprd
 						FROM rlcvndprd RLC 
 						INNER JOIN cadordrms RMS ON RLC.codordrms = RMS.codordrms
 						INNER JOIN cadmodprd CMOD ON RMS.codmodprd = CMOD.codmodprd
@@ -90,6 +86,13 @@ namespace SmartEstoque.Business
                             , datalt = NOW()
                              WHERE codtipprd = @CODTIPPRD";
         }  
+        public string atualizaEstoque()
+        {
+            return @"UPDATE cadtipprd SET 
+                            datdst = null
+                            , datalt = NOW()
+                             WHERE codtipprd = @CODTIPPRD";
+        }
         public string ativarVendas()
         {
             return @"UPDATE cadtipprd SET 
@@ -107,6 +110,13 @@ namespace SmartEstoque.Business
         {
             return @"INSERT INTO rlcvndprd (codvndprd,codordrms,qdeprdvnd,despesprdvnd,datcad)
 						VALUES (@CODVNDPRD,@CODORDRMS,@QDEPRDVND,@DESPESPRDVND,NOW())";
+        }  
+        public string atualizaOrdemRemessa()
+        {
+            return @"UPDATE cadordrms SET 
+                    qdeprdvnd = COALESCE(qdeprdvnd,0) + @qdeprdvnd
+                    ,despesprdvnd = COALESCE(despesprdvnd,0) + @despesprdvnd
+                    WHERE codordrms = @codordrms";
         }  
         public string removeCadastroVenda()
         {

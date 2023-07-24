@@ -9,11 +9,14 @@ namespace SmartEstoque.Business
 {
     public class CadastroVendasDAL
     {
-        public bool inserirVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
+        public bool ConcluirVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
         {
             using var conn = new DbConnection().Connection;
-            string query = new CadastroVendasDALSQL().inserirVendas();
+            string query = new CadastroVendasDALSQL().ConcluirVendas();
             var command = new NpgsqlCommand(query, conn);
+            command.Parameters.AddWithValue("@codtippag", objInserir.CODTIPPAG);
+            command.Parameters.AddWithValue("@vlrvnd", objInserir.VLRVND);
+            command.Parameters.AddWithValue("@codvndprd", objInserir.CODVNDPRD);
             return (command.ExecuteNonQuery() == 1);
         } 
         public bool alterarVendas(CadastroVendasModel.InserirCadastroVendas objInserir)
@@ -30,6 +33,14 @@ namespace SmartEstoque.Business
         {
             using var conn = new DbConnection().Connection;
             string query = new CadastroVendasDALSQL().ativarVendas();
+            var command = new NpgsqlCommand(query, conn);
+            command.Parameters.AddWithValue("@CODTIPPRD", objInserir.CODTIPPRD);
+            return (command.ExecuteNonQuery() == 1);
+        } 
+        public bool atualizaEstoque(CadastroVendasModel.InserirCadastroVendas objInserir)
+        {
+            using var conn = new DbConnection().Connection;
+            string query = new CadastroVendasDALSQL().atualizaEstoque();
             var command = new NpgsqlCommand(query, conn);
             command.Parameters.AddWithValue("@CODTIPPRD", objInserir.CODTIPPRD);
             return (command.ExecuteNonQuery() == 1);
@@ -50,7 +61,17 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@CODVNDPRD", objInserir.CODVNDPRD);
             command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);
             command.Parameters.AddWithValue("@QDEPRDVND", objInserir.QDEPRDVND);
-            command.Parameters.AddWithValue("@DESPESPRDVND", Convert.ToInt32(objInserir.DESPESPRDVND));
+            command.Parameters.AddWithValue("@DESPESPRDVND", Convert.ToDecimal((objInserir.DESPESPRDVND != null? objInserir.DESPESPRDVND.Replace(".", ",") : 0)));
+            return (command.ExecuteNonQuery() == 1);
+        }  
+        public bool atualizaOrdemRemessa(CadastroVendasModel.InserirCadastroVendas objInserir)
+        {
+            using var conn = new DbConnection().Connection;
+            string query = new CadastroVendasDALSQL().atualizaOrdemRemessa();
+            var command = new NpgsqlCommand(query, conn);
+            command.Parameters.AddWithValue("@QDEPRDVND", objInserir.QDEPRDVND);
+            command.Parameters.AddWithValue("@DESPESPRDVND", Convert.ToDecimal((objInserir.DESPESPRDVND != null ? objInserir.DESPESPRDVND.Replace(".", ",") : 0)));
+            command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);
             return (command.ExecuteNonQuery() == 1);
         }   
         public bool removeCadastroVenda(CadastroVendasModel.InserirCadastroVendas objInserir)
@@ -94,22 +115,17 @@ namespace SmartEstoque.Business
             using var conn = new DbConnection().Connection;
             string query = new CadastroVendasDALSQL().obterVendas(objInserir);
             var command = new NpgsqlCommand(query, conn);
-            if (!string.IsNullOrEmpty(objInserir.DESTIPPRD))
-                command.Parameters.AddWithValue("@DESTIPPRD", objInserir.DESTIPPRD); 
-            if (objInserir.CODTIPPRD > 0)
-                command.Parameters.AddWithValue("@CODTIPPRD", objInserir.CODTIPPRD);     
-            if (objInserir.CODGRPPRD > 0)
-                command.Parameters.AddWithValue("@CODGRPPRD", objInserir.CODGRPPRD);
+            if (objInserir.CODVNDPRD > 0)
+                command.Parameters.AddWithValue("@CODVNDPRD", objInserir.CODVNDPRD); 
             NpgsqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
-                retorno.Add(new obterVendas { 
-                    CODTIPPRD = dr.GetInt32(0), 
-                    DESTIPPRD = dr.GetString(1), 
-                    CODGRPPRD = dr.GetInt32(2), 
-                    DESGRPPRD = dr.GetString(3), 
-                    DATCAD = dr.GetString(4), 
-                    DATDST = dr.IsDBNull(5) ? "" : dr.GetString(5) 
+                retorno.Add(new obterVendas {
+                    CODVNDPRD = dr.GetInt32(0),
+                    DATCAD = dr.GetString(1),
+                    CODTIPPAG = dr.IsDBNull(2) ? 0 : dr.GetInt32(2),
+                    VLRVND = dr.IsDBNull(3) ? 0 : dr.GetDecimal(3),
+                    TIPOPAGAMENTO = dr.GetString(4)
                 });
             }
             return retorno;
@@ -134,7 +150,7 @@ namespace SmartEstoque.Business
                     VLRUNTPRD = dr.GetDecimal(0),
                     CODORDRMS = dr.GetInt32(1),
                     CODMODPRD = dr.GetInt32(2),
-                    QUANTIDADE = dr.GetInt32(3),
+                    QUANTIDADE = dr.GetDecimal(3),
                     DESMODPRD = dr.GetString(4),
                     INDPESQTD = dr.GetInt32(5),
                 });
@@ -155,7 +171,7 @@ namespace SmartEstoque.Business
                 {
                     CODORDRMS = dr.GetInt32(0),
                     DESMODPRD = dr.GetString(1),
-                    QUANTIDADE = dr.GetInt32(2),
+                    QUANTIDADE = dr.GetDecimal(2),
                     VLRUNTPRD = dr.GetDecimal(3)
                 });
             }

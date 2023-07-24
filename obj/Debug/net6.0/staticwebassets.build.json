@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cPeIPl/uHX/qY4u03eZe2Sn9jWVbrjz1S5EbmAv1HZc=",
+  "Hash": "EaEeR6D/b8YngaSL5b3LNvYuZ5zUfWuypaykRmYrcjQ=",
   "Source": "SmartEstoque",
   "BasePath": "_content/SmartEstoque",
   "Mode": "Default",
@@ -678,6 +678,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\favicon2.ico",
+      "SourceId": "SmartEstoque",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\",
+      "BasePath": "_content/SmartEstoque",
+      "RelativePath": "favicon2.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon2.ico"
+    },
+    {
+      "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\Img\\LogotipoMensagem.png",
+      "SourceId": "SmartEstoque",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\",
+      "BasePath": "_content/SmartEstoque",
+      "RelativePath": "Img/LogotipoMensagem.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Img\\LogotipoMensagem.png"
     },
     {
       "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\js\\additional-methods.min.js",

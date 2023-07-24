@@ -28,7 +28,16 @@
         if($("#txtCodOrdRms").val() == ''){
             quantidadeTooltip = quantidadeTooltip + 1;
             tooltipCampoObrigatorioHide("#txtDescricaoProduto", 'Campo Obrigatório.');
+        }         
+        if (parseInt($("#txtPesoPrd").val()) > parseInt($("#txtQdeEstoque").val())) {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtPesoPrd", 'Valor maior que contido no estoque.');
         }
+        if (parseInt($("#txtQdeVenda").val()) > parseInt($("#txtQdeEstoque").val())) {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtQdeVenda", 'Valor maior que contido no estoque.');
+        }
+        
         if(quantidadeTooltip > 0){
             return false;
         }
@@ -43,8 +52,20 @@
         $("#divPeso").hide();
         $("#divQuantidade").hide();
         $("#divCadastro").show();
-        $(".divShowHide").show();        
+        $(".divShowHide").show();            
+        $("#divParametrosCadastro").show();
         $("#txtDescricaoVendas").val('');
+        $("#grdProdutos").DataTable().ajax.reload();
+        $("#txtDescricaoProduto").val('');
+        $("#txtQdeEstoque").val('');
+        $("#txtValorProduto").val('');
+        $("#txtCodOrdRms").val('');
+        $("#txtPesoPrd").val('');
+        $("#txtQdeVenda").val(0);
+        $("#txtNomeProduto").val('');
+        $("#txtIdProduto").val('');
+        $("#divEditar").hide();
+        $("#txtCodigoBarrasProduto").val('');
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroVendas/obterCodigoVenda")',
@@ -61,30 +82,13 @@
             }
         });
     }   
-    var InserirVendas = function () {
+    var AbreModalPagamentos = function () {
         if(tooltipValidation() == false)
             return false;
-        $.ajax({
-            method: 'POST',
-            url: '@Url.Content("/CadastroVendas/inserirVendas")',
-            async: false,
-            data: { 
-                DESTIPPRD: $("#txtDescricaoVendas").val(),
-                CODGRPPRD: $("#ddlGrupo").val()
-            },
-            success: function (data) {
-                if(data == true){
-                    swal("Sucesso!", "Vendas inserido com sucesso!")
-                    setCustomIcon('fa fa-exclamation-circle');
-                    $("#grdCadastroVendas").DataTable().ajax.reload();
-                    $("#btnFecharCadastro").click();
-                }
-                else{
-                    swal("Verifique!", "Houve um erro ao inserir Vendas!")
-                    setCustomIcon('fa fa-exclamation-circle');
-                }
-            }
-        });
+        $('#ModalFinalizarVenda').modal().show();
+    }      
+    var FecharModal = function () {
+        $('#ModalFinalizarVenda').modal().hide();
     }   
     var AtivarVendas = function (CODTIPPRD) {
         $.ajax({
@@ -101,6 +105,30 @@
                 }
                 else{
                     swal("Verifique!", "Houve um erro ao ativar Vendas!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                }
+            }
+        });
+    }      
+    var ConcluirVendas = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/CadastroVendas/ConcluirVendas")',
+            async: false,
+            data: { 
+                CODVNDPRD:  $("#txtCodVnd").val(),
+                CODTIPPAG:  document.querySelector('input[name="option"]:checked').value
+            },
+            success: function (data) {
+                if(data == true){
+                    swal("Sucesso!", "Vendas concluída com sucesso!")
+                    setCustomIcon('fa fa-exclamation-circle');
+                    $("#grdCadastroVendas").DataTable().ajax.reload();
+                    $("#btnFecharCadastro").click();
+                    FecharModal();
+                }
+                else{
+                    swal("Verifique!", "Houve um erro ao concluir Vendas!")
                     setCustomIcon('fa fa-exclamation-circle');
                 }
             }
@@ -162,13 +190,7 @@
             async: false,
             data: { 
                 CODVNDPRD: $("#txtCodVnd").val()
-            },
-             success: function (data) {
-                if(data == false){
-                    swal("Verifique!", "Houve um erro ao validar venda concluida!")
-                    setCustomIcon('fa fa-exclamation-circle');
-                }
-            }
+            },             
         });
     }   
     var inserirProdutoVenda = function () {
@@ -191,6 +213,15 @@
                     setCustomIcon('fa fa-exclamation-circle');                    
                 }
                 $("#grdProdutos").DataTable().ajax.reload();
+                $("#txtDescricaoProduto").val('');
+                $("#txtQdeEstoque").val('');
+                $("#txtValorProduto").val('');
+                $("#txtCodOrdRms").val('');
+                $("#txtPesoPrd").val('');
+                $("#txtQdeVenda").val(0);
+                $("#txtNomeProduto").val('');
+                $("#txtIdProduto").val('');
+                $("#txtCodigoBarrasProduto").val('');
             }
         });
     }  
@@ -261,10 +292,7 @@
                     return json;
                 },
                 "data": function (d) {
-                    d.DESTIPPRD = $("#txtDesTipPrdFil").val();
-                    d.CODTIPPRD = $("#txtCodTipPrdFil").val();
-                    d.STATUS = $("#ddlStatus").val();
-                    d.CODGRPPRD = $("#ddlGrupoFil").val();
+                    d.CODVNDPRD = $("#txtCodVndFil").val();
                     
                 }
             },
@@ -280,9 +308,10 @@
                 //    }
                 //},  
                 
-                { data: "codtipprd", title: "Código" },
-                { data: "destipprd", title: "Valor" },
-                { data: "datcad", title: "Data cadastro" }
+                { data: "codvndprd", title: "Código" },
+                { data: "vlrvnd", title: "Valor total" },
+                { data: "tipopagamento", title: "Tipo de pagamento" },
+                { data: "datcad", title: "Data venda" }
             ],
             "buttons": [
                 {
@@ -299,24 +328,18 @@
             searching: false,
             "dom": 'Bfrtip',
             "rowCallback": function (row, data) {
-                $(row).on('click', function () {
-                    var columnIdx = $(event.target).index();
-                    if(columnIdx == 0){                        
-                       AtivarVendas(data.codtipprd);
-                        return;
-                    }
-                    else if(columnIdx == 1){
-                       DesativarVendas(data.codtipprd);
-                       return
-                    } 
+                $(row).on('click', function () {                 
                     $("#divPesquisa").hide();
                     $("#btnInserirCadastro").hide();
-                    $("#btnEditarCadastro").show();
+                    $("#divParametrosCadastro").hide();
+                    $("#divEditar").show();
                     $("#divCadastro").show();
                     $(".divShowHide").show();
-                    $("#txtCodTipPrd").val(data.codtipprd);
-                    $("#txtDescricaoVendas").val(data.destipprd);
-                    $("#ddlGrupo").val(data.codgrpprd);
+                    $("#txtValorTotalVendaEdit").val(data.vlrvnd);                    
+                    $("#txtTipoPagamentoEdit").val(data.tipopagamento);
+                    $("#txtDataVenda").val(data.datcad);
+                    $("#txtCodVnd").val(data.codvndprd);                    
+                    $("#grdProdutos").DataTable().ajax.reload();
                 });
             },  
             //columnDefs: [

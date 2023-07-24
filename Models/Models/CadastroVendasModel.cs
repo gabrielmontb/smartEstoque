@@ -3,6 +3,11 @@ namespace CadastroVendasModel
     public class InserirCadastroVendas
     {
         public int CODVNDPRD { get; set; }
+        public int CODTIPPAG { get; set; }
+        public decimal VLRVND { get; set; }
+
+
+        //
         public string DESTIPPRD { get; set; }
         public int CODTIPPRD { get; set; }
         public int CODGRPPRD { get; set; }

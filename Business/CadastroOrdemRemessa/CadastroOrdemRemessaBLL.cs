@@ -1,6 +1,9 @@
-﻿using CadastroOrdemRemessaTO;
+﻿using Arquitetura.Classes;
+using CadastroOrdemRemessaTO;
 using Dapper;
+using Newtonsoft.Json;
 using SmartEstoque.Class;
+using System.Reflection;
 using System.Transactions;
 
 namespace SmartEstoque.Business
@@ -13,22 +16,24 @@ namespace SmartEstoque.Business
             {
                 return new CadastroOrdemRemessaDAL().inserirOrdemRemessa(objInserir);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
-        } 
+        }
         public List<obterOrdemRemessa> obterOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
         {
             try
             {
                 return new CadastroOrdemRemessaDAL().obterOrdemRemessa(objInserir);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
-        }   
+        }
         public bool alterarOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
         {
             try
@@ -69,30 +74,33 @@ namespace SmartEstoque.Business
                     return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
-        }  
+        }
         public bool ativarOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
         {
             try
             {
                 return new CadastroOrdemRemessaDAL().ativarOrdemRemessa(objInserir);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
-        }    
+        }
         public bool desativarOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
         {
             try
             {
                 return new CadastroOrdemRemessaDAL().desativarOrdemRemessa(objInserir);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
         }
@@ -102,8 +110,9 @@ namespace SmartEstoque.Business
             {
                 return new CadastroOrdemRemessaDAL().obterTipoGrupo(objInserir);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
         }

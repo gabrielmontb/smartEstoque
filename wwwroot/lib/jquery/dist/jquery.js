@@ -3649,7 +3649,8 @@ function Identity( v ) {
 	return v;
 }
 function Thrower( ex ) {
-	throw ex;
+	Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir)); 
+ throw ex;
 }
 
 function adoptValue( value, resolve, reject, noValue ) {

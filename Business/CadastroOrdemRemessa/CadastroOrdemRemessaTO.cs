@@ -25,5 +25,7 @@ namespace CadastroOrdemRemessaTO
         public string DATVNCPRD { get; set; }
         public decimal VLRUNTPRD { get; set; }
         public decimal DESPESPRD { get; set; }
+        public decimal DESPESPRDVND { get; set; }
+        public int QDEPRDVND { get; set; }
     }
 }

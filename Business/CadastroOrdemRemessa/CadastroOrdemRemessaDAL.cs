@@ -122,6 +122,8 @@ namespace SmartEstoque.Business
                     , DATVNCPRD = dr.IsDBNull(17) ? "" : dr.GetString(17)
                     , VLRUNTPRD = dr.IsDBNull(18) ? 0 : dr.GetDecimal(18)
                     , DESPESPRD = dr.IsDBNull(19) ? 0 : dr.GetDecimal(19)
+                    , DESPESPRDVND = dr.IsDBNull(20) ? 0 : dr.GetDecimal(20)                    
+                    , QDEPRDVND = dr.IsDBNull(21) ? 0 : dr.GetInt32(21)
                 });
             }
             return retorno;

@@ -18,19 +18,7 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodTipPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Vendas" style="width: 25%;" />
-         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesTipPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Vendas" />
-         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <select id="ddlGrupoFil" class="form-control">
-            <option value="0" selected="selected">Selecione um grupo...</option>
-        </select>     
-        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <select id="ddlStatus" class="form-control">
-            <option value="0" selected="selected">Selecione um status...</option>
-            <option value="1">ATIVO</option>
-            <option value="2">DESATIVADO</option>
-        </select>
+        <input id="txtCodVndFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Vendas" />       
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <button class="btn btn-success" id="btnPesquisarTela" onclick="pesquisar()">
             Pesquisar
@@ -68,96 +56,127 @@
         </div>
         <div class="tgv-crud-container tgv-mat-closer">           
             <div id="divFunInserir" class="col-md-12 nopaddingright">
-                <div class="row">
+                <div id="divParametrosCadastro">                
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Nome produto:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtNomeProduto" id="txtNomeProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                                <label class="mdl-textfield__label" for="txtNomeProduto"></label>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-4">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">ID produto:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtIdProduto" id="txtIdProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                                 <label class="mdl-textfield__label" for="txtIdProduto"></label>
+                            </div>
+                        </div>  
+                        <div class="form-group col-md-4">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Código de barras:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtCodigoBarrasProduto" id="txtCodigoBarrasProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                                 <label class="mdl-textfield__label" for="txtCodigoBarrasProduto"></label>
+                            </div>
+                        </div>  
+                    </div>  
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Descrição:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtDescricaoProduto" id="txtDescricaoProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                                <label class="mdl-textfield__label" for="txtDescricaoProduto"></label>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-2">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Qtd Estoque:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtQdeEstoque" id="txtQdeEstoque" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                                 <label class="mdl-textfield__label" for="txtQdeEstoque"></label>
+                            </div>
+                        </div>  
+                        <div class="form-group col-md-2">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Valor:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtValorProduto" id="txtValorProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                                <label class="mdl-textfield__label" for="txtValorProduto"></label>
+                            </div>
+                        </div> 
+                        <div class="form-group col-md-2">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Remessa:</strong>
+                            </label>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input name="txtCodOrdRms" id="txtCodOrdRms" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                                <label class="mdl-textfield__label" for="txtCodOrdRms"></label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2" id="divPeso">
+                            <label for="input-text-1" style="margin-bottom: 0px;">
+                                <strong class="strong-min-tgv">Peso(KG):</strong>
+                            </label>
+                            <div style="margin-top: 5px;">
+                                <input type="number" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                                <label class="mdl-textfield__label" for="txtPesoPrd"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-2" id="divQuantidade">
+                            <label for="input-text-1">
+                                <strong class="strong-min-tgv">Quantidade:</strong>
+                            </label>
+                            <input class="form-control" style="width:65px;" type="number" min='1' value="0" id="txtQdeVenda">
+
+                        </div>
+                        <div class="form-group col-md-1" style="margin-top:25px;">
+                            <button id="btnIncluirProduto" type="button" class="btn btn-success" onclick="inserirProdutoVenda()">
+                                <i class="fas fa-save"></i> 
+                                Incluir
+                            </button>
+                        </div>  
+                    </div>
+                </div>
+                <div class="row" id="divEditar">
                     <div class="form-group col-md-4">
                         <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Nome produto:</strong>
+                            <strong class="strong-min-tgv"> Valor total:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtNomeProduto" id="txtNomeProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
-                            <label class="mdl-textfield__label" for="txtNomeProduto"></label>
+                            <input name="txtValorTotalVendaEdit" id="txtValorTotalVendaEdit" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                            <label class="mdl-textfield__label" for="txtValorTotalVendaEdit"></label>
                         </div>
-                    </div> 
+                    </div>   
                     <div class="form-group col-md-4">
                         <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">ID produto:</strong>
+                            <strong class="strong-min-tgv"> Tipo de pagamento:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtIdProduto" id="txtIdProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
-                             <label class="mdl-textfield__label" for="txtIdProduto"></label>
+                            <input name="txtTipoPagamentoEdit" id="txtTipoPagamentoEdit" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                            <label class="mdl-textfield__label" for="txtTipoPagamentoEdit"></label>
                         </div>
-                    </div>  
+                    </div>
                     <div class="form-group col-md-4">
                         <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Código de barras:</strong>
+                            <strong class="strong-min-tgv"> Data venda:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtCodigoBarrasProduto" id="txtCodigoBarrasProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
-                             <label class="mdl-textfield__label" for="txtCodigoBarrasProduto"></label>
-                        </div>
-                    </div>  
-                </div>  
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Descrição:</strong>
-                        </label>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtDescricaoProduto" id="txtDescricaoProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
-                            <label class="mdl-textfield__label" for="txtDescricaoProduto"></label>
-                        </div>
-                    </div> 
-                    <div class="form-group col-md-2">
-                        <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Qtd Estoque:</strong>
-                        </label>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtQdeEstoque" id="txtQdeEstoque" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
-                             <label class="mdl-textfield__label" for="txtQdeEstoque"></label>
-                        </div>
-                    </div>  
-                    <div class="form-group col-md-2">
-                        <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Valor:</strong>
-                        </label>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtValorProduto" id="txtValorProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
-                            <label class="mdl-textfield__label" for="txtValorProduto"></label>
-                        </div>
-                    </div> 
-                    <div class="form-group col-md-2">
-                        <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Remessa:</strong>
-                        </label>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input name="txtCodOrdRms" id="txtCodOrdRms" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
-                            <label class="mdl-textfield__label" for="txtCodOrdRms"></label>
+                            <input name="txtDataVenda" id="txtDataVenda" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" style="color: black;" disabled>
+                            <label class="mdl-textfield__label" for="txtDataVenda"></label>
                         </div>
                     </div>
-
-                    <div class="col-md-2" id="divPeso">
-                        <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Peso(KG):</strong>
-                        </label>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input type="number" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <label class="mdl-textfield__label" for="txtPesoPrd"></label>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-2" id="divQuantidade">
-                        <label for="input-text-1">
-                            <strong class="strong-min-tgv">Quantidade:</strong>
-                        </label>
-                        <input class="form-control" style="width:65px;" type="number" min='1' value="0" id="txtQdeVenda">
-
-                    </div>
-                    <div class="form-group col-md-1" style="margin-top:25px;">
-                         <button id="btnIncluirProduto" type="button" class="btn btn-success" onclick="inserirProdutoVenda()">
-                    <i class="fas fa-save"></i> 
-                    Incluir
-                </button>
-                    </div>  
                 </div>
                 <div class="row">
                     <div>
@@ -176,12 +195,8 @@
 
         <div class="row tgv-button-toolbar" style="margin-left: 500px;">
             <span>
-                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="InserirVendas()">
+                <button id="btnInserirCadastro" type="button" class="btn btn-success" onclick="AbreModalPagamentos()">
                     <i class="fas fa-save"></i> 
-                    Salvar
-                </button>
-                <button id="btnEditarCadastro" type="button" class="btn btn-success" onclick="alterarVendas()">
-                    <i class="fas fa-save"></i>
                     Salvar
                 </button>
                 <button id="btnFecharCadastro" type="button" class="btn btn-danger" onclick="validaVendaConcluida()">
@@ -194,3 +209,4 @@
     </form>
 </div>
 @Html.Partial("~/Views/Paginas/CadastroVendas/_IndexScript.cshtml")
+@Html.Partial("~/Views/Paginas/CadastroVendas/_IndexModalFinalizarVenda.cshtml")

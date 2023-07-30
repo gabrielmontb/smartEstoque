@@ -2,14 +2,30 @@
 using Npgsql;
 using SmartEstoque.Business;
 using SmartEstoque.Class;
+using SmartEstoque.Models;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace Arquitetura.Classes
 {
-    public class Util
+    internal static class Util
     {
 
         public static readonly string timeStampSystemUp = DateTime.Now.ToString("yyyyMMddHHmmssffff");
+        public static AppSettings AppSettings { get; private set; }
+        private static void LoadAppSettings()
+        {
+            if (AppSettings == null)
+            {
+                using StreamReader reader = new(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json"));
+                AppSettings = JsonSerializer.Deserialize<AppSettings>(reader.ReadToEnd());
+            }
+        }
+        static Util()
+        {
+            // Carregando configurações.
+            LoadAppSettings();
+        }
 
         private static Thread _memoryManagementThread;
 

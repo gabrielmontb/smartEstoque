@@ -14,6 +14,30 @@
 
         };
     };
+    var confirmarSaida = function(){
+        swal({
+            title: 'Sair?',
+            text: "Deseja sair do sistema?",
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Sair!'
+        }).then(function (result) {
+            if (result.value) {
+                $.ajax({
+                    method: 'POST',
+                    url: '@Url.Content("/Login/Logout")',
+                    headers: { '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() },
+                    async: false,
+                    success: function (data) {
+                         window.location.href = "https://google.com.br"
+                        //window.location.href = "https://dev-10223228.okta.com/oauth2/v1/logout";
+                    }
+                });
+            }
+        });
+    };
     var setCustomIcon = function (iconClass) {
         var sweet = $('#swal2-title');
         sweet.html('<i class="' + iconClass + '"></i>&nbsp;' + sweet.html());

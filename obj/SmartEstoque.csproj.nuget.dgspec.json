@@ -48,9 +48,33 @@
               "target": "Package",
               "version": "[5.2.9, )"
             },
+            "Microsoft.AspNetCore.Authentication.Cookies": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[2.13.1, )"
+            },
+            "Microsoft.Owin.Host.SystemWeb": {
+              "target": "Package",
+              "version": "[4.2.2, )"
+            },
             "Npgsql": {
               "target": "Package",
               "version": "[7.0.4, )"
+            },
+            "Okta.AspNetCore": {
+              "target": "Package",
+              "version": "[4.4.2, )"
+            },
+            "Okta.Auth.Sdk": {
+              "target": "Package",
+              "version": "[2.0.5, )"
+            },
+            "System.Web.Mvc.Extensions": {
+              "target": "Package",
+              "version": "[1.1.1.2, )"
             }
           },
           "imports": [

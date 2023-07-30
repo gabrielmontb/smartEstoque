@@ -1,36 +1,103 @@
-namespace SmartEstoque
+using Arquitetura.Classes;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Okta.AspNetCore;
+using SmartEstoque.Models;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        CreateHostBuilder(args).Build().Run();
+    }
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+                webBuilder.UseStartup<Startup>();
+            });
+}
+public class Startup
+{
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+    public IConfiguration Configuration { get; }
 
-            app.UseRouting();
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+        })
+        .AddCookie()
+        .AddOktaMvc(new OktaMvcOptions
+        {
+            OktaDomain = Util.AppSettings.OktaDomain,
+            ClientId = Util.AppSettings.ClientId,
+            ClientSecret = Util.AppSettings.ClientSecret,
+            CallbackPath = Util.AppSettings.CallbackPath,
+            PostLogoutRedirectUri = "/Login/Login",
+            Scope = new List<string> { "openid", "profile", "email" },
 
-            app.UseAuthorization();
+        });
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+        //Enable CORS
+        services.AddCors(options =>
+        {
+            options.AddPolicy("DevelopmentCorsPolicy",
+                builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+        });
 
-            app.Run();
+        services.AddAntiforgery(options =>
+        {
+            options.HeaderName = "X-CSRF-TOKEN"; // Nome do cabeçalho personalizado (opcional)
+            options.SuppressXFrameOptionsHeader = false;
+        });
+        services.AddControllersWithViews();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
         }
+        else
+        {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseCors("DevelopmentCorsPolicy");
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");            
+        });
+        app.Use(async (context, next) =>
+        {
+            context.Response.Headers.Add("Referrer-Policy", "no-referrer-when-downgrade");
+            await next();
+        });
+
     }
 }

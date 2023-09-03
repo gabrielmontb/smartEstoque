@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartEstoque.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace SmartEstoque.Controllers
 {

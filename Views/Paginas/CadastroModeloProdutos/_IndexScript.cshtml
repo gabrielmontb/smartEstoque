@@ -1,4 +1,15 @@
 ﻿<script>
+    var _perfil = 0;
+    var permissoes = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/Modulos/GrupoAcesso")',
+            async: false,
+            success: function (data) {
+                _perfil = data;
+            }
+        });
+    }
     var tooltipValidation = function () {
         let quantidadeTooltip = 0;
 
@@ -18,6 +29,11 @@
         }
     }
     var cadastrarNovoModelo = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
@@ -26,7 +42,11 @@
         $("#txtDescricaoModelo").val('');
     }   
     var InserirModelo = function () {
-        
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         if(tooltipValidation() == false)
             return false;
         $.ajax({
@@ -49,6 +69,11 @@
         });
     }   
     var AtivarModelo = function (codmodprd) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroModeloProdutos/ativarModeloProdutos")',
@@ -69,6 +94,11 @@
         });
     }       
     var DesativarModelo = function (codmodprd) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroModeloProdutos/desativarModeloProdutos")',
@@ -92,6 +122,11 @@
         $("#grdCadastroModeloProdutos").DataTable().ajax.reload();
     }   
     var alterarModelo = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         if(tooltipValidation() == false)
             return false;
         $.ajax({
@@ -142,6 +177,7 @@
         $("#txtDescricaoModelo").val('');
     });
     $(document).ready(function () {
+        permissoes();
         preencheTipo();
         // Inicialize o DataTable
         $('#grdCadastroModeloProdutos').DataTable({
@@ -212,6 +248,11 @@
             "dom": 'Bfrtip',
             "rowCallback": function (row, data) {
                 $(row).on('click', function () {
+                    if (_perfil == 2) {
+                        swal("Atenção!", "Perfil de acesso negado!")
+                        setCustomIcon('fa fa-exclamation-circle');
+                        return;
+                    }
                     var columnIdx = $(event.target).index();
                     if(columnIdx == 0){                        
                        AtivarModelo(data.codmodprd);

@@ -116,7 +116,9 @@ namespace SmartEstoque.Business
             string query = new CadastroVendasDALSQL().obterVendas(objInserir);
             var command = new NpgsqlCommand(query, conn);
             if (objInserir.CODVNDPRD > 0)
-                command.Parameters.AddWithValue("@CODVNDPRD", objInserir.CODVNDPRD); 
+                command.Parameters.AddWithValue("@CODVNDPRD", objInserir.CODVNDPRD);
+            if (objInserir.CODTIPPAG > 0)
+                command.Parameters.AddWithValue("@CODTIPPAG", objInserir.CODTIPPAG); 
             NpgsqlDataReader dr = command.ExecuteReader();
             while (dr.Read())
             {
@@ -124,7 +126,7 @@ namespace SmartEstoque.Business
                     CODVNDPRD = dr.GetInt32(0),
                     DATCAD = dr.GetString(1),
                     CODTIPPAG = dr.IsDBNull(2) ? 0 : dr.GetInt32(2),
-                    VLRVND = dr.IsDBNull(3) ? 0 : dr.GetDecimal(3),
+                    VLRVND = dr.IsDBNull(3) ? "R$0,00" : dr.GetString(3),
                     TIPOPAGAMENTO = dr.GetString(4)
                 });
             }

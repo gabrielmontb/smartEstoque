@@ -20,6 +20,14 @@
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <input id="txtCodVndFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Vendas" />       
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
+        <select id="ddlTipoVenda" class="form-control">
+            <option value="0" selected="selected">Selecione um tipo...</option>
+            <option value="1">Crédito</option>
+            <option value="2">Débito</option>
+            <option value="3">Pix</option>
+            <option value="4">Dinheiro</option>
+        </select>
+        <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <button class="btn btn-success" id="btnPesquisarTela" onclick="pesquisar()">
             Pesquisar
         </button>

@@ -83,8 +83,15 @@
         });
     }   
     var AbreModalPagamentos = function () {
-        if(tooltipValidation() == false)
-            return false;
+        const elementosRadio = document.querySelectorAll('input[type="radio"][name="option"]');
+        elementosRadio.forEach(function(elemento) {
+            elemento.checked = false;
+        });
+        if( $('#grdProdutos').DataTable().rows().count() <= 0){
+            swal("Verifique!", "Insira ao menos um produto para finalizar a venda!");
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $('#ModalFinalizarVenda').modal().show();
     }      
     var FecharModal = function () {
@@ -293,6 +300,7 @@
                 },
                 "data": function (d) {
                     d.CODVNDPRD = $("#txtCodVndFil").val();
+                    d.CODTIPPAG = $("#ddlTipoVenda").val();
                     
                 }
             },

@@ -1,5 +1,15 @@
 ﻿<script>
-
+    var _perfil = 0;
+    var permissoes = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/Modulos/GrupoAcesso")',
+            async: false,
+            success: function (data) {
+                _perfil = data;
+            }
+        });
+    }
     var tooltipValidation = function () {
         let quantidadeTooltip = 0;
 
@@ -19,6 +29,11 @@
         }
     }   
     var cadastrarNovoGrupo = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
@@ -27,6 +42,11 @@
         $("#txtDescricaoGrupo").val('');
     }   
     var InserirGrupo = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         if(tooltipValidation() == false)
             return false;
         $.ajax({
@@ -52,6 +72,11 @@
         });
     }   
     var AtivarGrupo = function (CODGRPPRD) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroGrupoProdutos/ativarGrupoProdutos")',
@@ -72,6 +97,11 @@
         });
     }       
     var DesativarGrupo = function (CODGRPPRD) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroGrupoProdutos/desativarGrupoProdutos")',
@@ -94,7 +124,12 @@
     var pesquisar = function () {
         $("#grdCadastroGrupoProdutos").DataTable().ajax.reload();
     }   
-    var alterarGrupo = function () {        
+    var alterarGrupo = function () {     
+          if(_perfil == 2){
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         if(tooltipValidation() == false)
             return false;
         $.ajax({
@@ -127,6 +162,7 @@
         $("#txtDescricaoGrupo").val('');
     });
     $(document).ready(function () {
+        permissoes();
         // Inicialize o DataTable
         $('#grdCadastroGrupoProdutos').DataTable({
             "ajax": {
@@ -193,6 +229,11 @@
             "dom": 'Bfrtip',
             "rowCallback": function (row, data) {
                 $(row).on('click', function () {
+                    if (_perfil == 2) {
+                        swal("Atenção!", "Perfil de acesso negado!")
+                        setCustomIcon('fa fa-exclamation-circle');
+                        return;
+                    }
                     var columnIdx = $(event.target).index();
                     if(columnIdx == 0){                        
                        AtivarGrupo(data.codgrpprd);

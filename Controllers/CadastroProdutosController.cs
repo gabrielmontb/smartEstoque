@@ -1,4 +1,4 @@
-﻿using CadastroFornecedorTO;
+﻿using CadastroProdutosTO;
 using Microsoft.AspNetCore.Mvc;
 using SmartEstoque.Business;
 using SmartEstoque.Models;
@@ -7,27 +7,27 @@ using System.Web.Http;
 
 namespace SmartEstoque.Controllers
 {
-    public class CadastroFornecedor : Controller
+    public class CadastroProdutos : Controller
     {
-        public bool inserirFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
+        public bool inserirProdutos(CadastroProdutosModel.InserirCadastroProdutos objInserir)
         {
-            return new CadastroFornecedorBLL().inserirFornecedor(objInserir);
+            return new CadastroProdutosBLL().inserirProdutos(objInserir);
         }  
-        public List<obterFornecedor> obterFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
+        public List<obterProdutos> obterProdutos(CadastroProdutosModel.InserirCadastroProdutos objInserir)
         {
-            return new CadastroFornecedorBLL().obterFornecedor(objInserir);
+            return new CadastroProdutosBLL().obterProdutos(objInserir);
         } 
-        public bool alterarFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
+        public bool alterarProdutos(CadastroProdutosModel.InserirCadastroProdutos objInserir)
         {
-            return new CadastroFornecedorBLL().alterarFornecedor(objInserir);
+            return new CadastroProdutosBLL().alterarProdutos(objInserir);
         }
-        public bool ativarFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
+        public bool ativarProdutos(CadastroProdutosModel.InserirCadastroProdutos objInserir)
         {
-            return new CadastroFornecedorBLL().ativarFornecedor(objInserir);
+            return new CadastroProdutosBLL().ativarProdutos(objInserir);
         }
-        public bool desativarFornecedor(CadastroFornecedorModel.InserirCadastroFornecedor objInserir)
+        public bool desativarProdutos(CadastroProdutosModel.InserirCadastroProdutos objInserir)
         {
-            return new CadastroFornecedorBLL().desativarFornecedor(objInserir);
+            return new CadastroProdutosBLL().desativarProdutos(objInserir);
         }
 
     }

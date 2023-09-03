@@ -77,14 +77,12 @@ namespace SmartEstoque.Business
                     WHERE 1=1
                     
                 ");
-            if (objInserir.CODSTAORDRMS > 0)
-                strBld.AppendLine(" AND ORD.codordrms = @CODORDRMS ");
             if (!string.IsNullOrEmpty(objInserir.DESORDRMS))
                 strBld.AppendLine(" AND UPPER(TRIM(ORD.desordrms)) LIKE '%' || UPPER(TRIM(@DESORDRMS))  || '%'");
-            if(objInserir.STATUS == 1)
-                strBld.AppendLine(" AND ORD.datdst IS NULL ");
-            else if (objInserir.STATUS == 2)
-                strBld.AppendLine(" AND ORD.datdst IS NOT NULL ");
+            if (objInserir.CODORDRMS > 0)
+                strBld.AppendLine(" AND ORD.codordrms = @CODORDRMS "); 
+            if (objInserir.CODSTAORDRMS > 0)
+                strBld.AppendLine(" AND ORD.codstaordrms = @CODSTAORDRMS ");
             strBld.AppendLine("ORDER BY ORD.codordrms ");
 
             return strBld.ToString();

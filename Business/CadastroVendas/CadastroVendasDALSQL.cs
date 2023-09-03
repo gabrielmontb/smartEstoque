@@ -16,7 +16,7 @@ namespace SmartEstoque.Business
                         SELECT VND.codvndprd
                                 , TO_CHAR(VND.datcad, 'DD/MM/YYYY') datcad
                                 , VND.codtippag
-                                , VND.vlrvnd
+                                , 'R$'||VND.vlrvnd||',00'
                                 , CASE WHEN VND.codtippag = 1 THEN 'Crédito'
                                        WHEN VND.codtippag = 2 THEN 'Débito'
                                        WHEN VND.codtippag = 3 THEN 'Pix'
@@ -27,7 +27,9 @@ namespace SmartEstoque.Business
                         WHERE 1=1                    
                 ");
             if (objInserir.CODVNDPRD > 0)
-                strBld.AppendLine(" AND VND.codvndprd = @CODVNDPRD ");
+                strBld.AppendLine(" AND VND.codvndprd = @CODVNDPRD "); 
+            if (objInserir.CODTIPPAG > 0)
+                strBld.AppendLine(" AND VND.codtippag = @CODTIPPAG ");
             strBld.AppendLine("ORDER BY VND.codvndprd ");
 
             return strBld.ToString();
@@ -70,7 +72,7 @@ namespace SmartEstoque.Business
 						ELSE RLC.qdeprdvnd END quantidade, 
                         CASE WHEN GRP.indpesqtd = 1
                         THEN (RLC.despesprdvnd * RMS.vlruntprd)
-                        ELSE RLC.qdeprdvnd END vlruntprd
+                        ELSE (RLC.qdeprdvnd * RMS.vlruntprd) END vlruntprd
 						FROM rlcvndprd RLC 
 						INNER JOIN cadordrms RMS ON RLC.codordrms = RMS.codordrms
 						INNER JOIN cadmodprd CMOD ON RMS.codmodprd = CMOD.codmodprd

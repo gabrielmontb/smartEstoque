@@ -68,12 +68,13 @@ namespace Arquitetura.Classes
              ex.Source + Environment.NewLine + Environment.NewLine + "Pilha de execução: " + ex.StackTrace;
 
             using var conn = new DbConnection().Connection;
-            string query = @"INSERT INTO cadlogsis (codlog,desclalog,desmetlog,deslog) 
+            string query = @"INSERT INTO cadlogsis (codlog,desclalog,desmetlog,deslog,datcad) 
                                     VALUES (
                                             (SELECT COALESCE(MAX(codlog),0)+1 FROM cadlogsis)
                                             ,@desclalog
                                             ,@desmetlog
                                             ,@deslog
+                                            ,NOW()
                                             )
                                 ";
             var command = new NpgsqlCommand(query, conn);

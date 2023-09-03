@@ -96,6 +96,8 @@ namespace SmartEstoque.Business
             var command = new NpgsqlCommand(query, conn);
             if (!string.IsNullOrEmpty(objInserir.DESORDRMS))
                 command.Parameters.AddWithValue("@DESORDRMS", objInserir.DESORDRMS); 
+            if (objInserir.CODORDRMS > 0)
+                command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS); 
             if (objInserir.CODSTAORDRMS > 0)
                 command.Parameters.AddWithValue("@CODSTAORDRMS", objInserir.CODSTAORDRMS);
             NpgsqlDataReader dr = command.ExecuteReader();

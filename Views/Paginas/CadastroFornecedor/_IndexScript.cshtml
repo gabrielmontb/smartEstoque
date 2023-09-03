@@ -1,6 +1,55 @@
 ﻿<script>
+    var _perfil = 0;
+    var permissoes = function () {
+            $.ajax({
+                method: 'POST',
+                url: '@Url.Content("/Modulos/GrupoAcesso")',
+                async: false,
+                success: function (data) {
+                   _perfil = data;
+                }
+        });
+    }   
+    var tooltipValidation = function () {
+        let quantidadeTooltip = 0;
 
+        if ($("#txtDescricaoFornecedor").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoFornecedor", 'Campo Obrigatório.');
+        } 
+        if ($("#txtTelefonePrincipal").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtTelefonePrincipal", 'Campo Obrigatório.');
+        }
+        if ($("#txtResponsavel").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtResponsavel", 'Campo Obrigatório.');
+        }   
+        if ($("#txtEndereco").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtEndereco", 'Campo Obrigatório.');
+        }   
+        if ($("#txtCidade").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtCidade", 'Campo Obrigatório.');
+        }   
+        if ($("#txtEstado").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtEstado", 'Campo Obrigatório.');
+        } 
+        if(quantidadeTooltip > 0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }  
     var cadastrarNovoFornecedor = function () {
+        if(_perfil == 2){
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
@@ -9,6 +58,14 @@
         $("#txtDescricaoFornecedor").val('');
     }   
     var InserirFornecedor = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }        
+        if(tooltipValidation() == false){
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/inserirFornecedor")',
@@ -37,6 +94,11 @@
         });
     }   
     var AtivarFornecedor = function (CODFRNPRD) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/ativarFornecedor")',
@@ -57,6 +119,11 @@
         });
     }       
     var DesativarFornecedor = function (CODFRNPRD) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/desativarFornecedor")',
@@ -80,6 +147,14 @@
         $("#grdCadastroFornecedor").DataTable().ajax.reload();
     }   
     var alterarFornecedor = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
+        if(tooltipValidation() == false){
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroFornecedor/alterarFornecedor")',
@@ -121,6 +196,7 @@
         $("#txtEstado").val('');
     });
     $(document).ready(function () {
+        permissoes();
         // Inicialize o DataTable
         $('#grdCadastroFornecedor').DataTable({
             "ajax": {
@@ -187,6 +263,11 @@
             "dom": 'Bfrtip',
             "rowCallback": function (row, data) {
                 $(row).on('click', function () {
+                    if (_perfil == 2) {
+                        swal("Atenção!", "Perfil de acesso negado!")
+                        setCustomIcon('fa fa-exclamation-circle');
+                        return;
+                    }
                     var columnIdx = $(event.target).index();
                     if(columnIdx == 0){                        
                        AtivarFornecedor(data.codfrnprd);

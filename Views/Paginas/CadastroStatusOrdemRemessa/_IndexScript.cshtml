@@ -1,6 +1,21 @@
 ﻿<script>
-
+    var _perfil = 0;
+    var permissoes = function () {
+        $.ajax({
+            method: 'POST',
+            url: '@Url.Content("/Modulos/GrupoAcesso")',
+            async: false,
+            success: function (data) {
+                _perfil = data;
+            }
+        });
+    }
     var cadastrarNovoStatus = function () {
+        if(_perfil == 2){
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $("#divPesquisa").hide();
         $("#btnInserirCadastro").show();
         $("#btnEditarCadastro").hide();
@@ -9,6 +24,11 @@
         $("#txtDescricaoStatus").val('');
     }   
     var InserirStatus = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroStatusOrdemRemessa/inserirStatusOrdemRemessa")',
@@ -29,6 +49,11 @@
         });
     }   
     var AtivarStatus = function (codstaordrms) {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroStatusOrdemRemessa/ativarStatusOrdemRemessa")',
@@ -49,6 +74,11 @@
         });
     }       
     var DesativarStatus = function (codstaordrms) {
+        if(_perfil == 2){
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroStatusOrdemRemessa/desativarStatusOrdemRemessa")',
@@ -72,6 +102,11 @@
         $("#grdCadastroOrdemRemessa").DataTable().ajax.reload();
     }   
     var alterarStatus = function () {
+        if (_perfil == 2) {
+            swal("Atenção!", "Perfil de acesso negado!")
+            setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroStatusOrdemRemessa/alterarStatusOrdemRemessa")',
@@ -101,6 +136,7 @@
         $("#txtDescricaoStatus").val('');
     });
     $(document).ready(function () {
+        permissoes();
         // Inicialize o DataTable
         $('#grdCadastroOrdemRemessa').DataTable({
             "ajax": {
@@ -167,6 +203,11 @@
             "dom": 'Bfrtip',
             "rowCallback": function (row, data) {
                 $(row).on('click', function () {
+                    if (_perfil == 2) {
+                        swal("Atenção!", "Perfil de acesso negado!")
+                        setCustomIcon('fa fa-exclamation-circle');
+                        return;
+                    }
                     var columnIdx = $(event.target).index();
                     if(columnIdx == 0){                        
                        AtivarStatus(data.codstaordrms);

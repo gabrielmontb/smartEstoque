@@ -11,7 +11,7 @@ namespace CadastroVendasTO
 
         public int CODTIPPAG { get; set; }
 
-        public decimal VLRVND { get; set; }
+        public string VLRVND { get; set; }
 
         public string TIPOPAGAMENTO { get; set; }
     } 

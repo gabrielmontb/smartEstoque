@@ -1,6 +1,8 @@
 using Arquitetura.Classes;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.Options;
 using Okta.AspNetCore;
 using SmartEstoque.Models;
 
@@ -36,7 +38,7 @@ public class Startup
             options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
         })
-        .AddCookie()
+        .AddCookie()      
         .AddOktaMvc(new OktaMvcOptions
         {
             OktaDomain = Util.AppSettings.OktaDomain,

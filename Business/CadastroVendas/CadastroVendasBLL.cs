@@ -17,17 +17,7 @@ namespace SmartEstoque.Business
             {
                 using (TransactionScope Scope = new TransactionScope(TransactionScopeOption.Required, (new TimeSpan(0, 3, 0)))) // DE ATÉ 3 MINUTOS.
                 {
-                    var produtos = obterRelacaoProdutos(objInserir);
-                    foreach (var item in produtos)
-                    {
-                        var remessa = new CadastroOrdemRemessaBLL().obterOrdemRemessa(new CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa() { CODORDRMS = item.CODORDRMS }).FirstOrDefault();
-                        //remessa.qdeprdvnd = item.QUANTIDADE + remessa.qdeprdvnd;
-                        //remessa.despesprdvnd = item.QUANTIDADE + remessa.despesprdvnd;
-                        //if(!atualizaEstoque(remessa)){
-                        //Scope.Dispose();
-                        //return false;
-                        //}
-                    }
+                    var produtos = obterRelacaoProdutos(objInserir);                    
 
                     objInserir.VLRVND = produtos.Sum(X => X.VLRUNTPRD);
                     if (!new CadastroVendasDAL().ConcluirVendas(objInserir))
@@ -41,7 +31,6 @@ namespace SmartEstoque.Business
             }
             catch (Exception ex)
             {
-                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }
@@ -66,7 +55,6 @@ namespace SmartEstoque.Business
             }
             catch (Exception ex)
             {
-                Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 Util.CriaLogErro(ex, MethodBase.GetCurrentMethod().Name, MethodBase.GetCurrentMethod().ReflectedType.Name, JsonConvert.SerializeObject(objInserir));
                 throw ex;
             }

@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Okta.AspNetCore;
-using System.Security.Claims;
-using System.Web.Http;
-using System.Web.Mvc;
 using Okta.Auth.Sdk;
-
+using System.Security.Claims;
 using AllowAnonymousAttribute = Microsoft.AspNetCore.Authorization.AllowAnonymousAttribute;
-using Okta.Sdk.Abstractions;
+using OktaDefaults = Okta.AspNetCore.OktaDefaults;
 
 [AllowAnonymous]
 public class LoginController : Controller
 {
-    private readonly IOktaClient _oktaClient;
     public IActionResult Login()
     {
         if (User.Identity.IsAuthenticated)
@@ -29,19 +25,30 @@ public class LoginController : Controller
             });
         }
     }
-    public void Logout()
+    public async Task<IActionResult> Logout()
     {
-        HttpContext.SignOutAsync();
+        var teste = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        GetUser();
+        await HttpContext.SignOutAsync(OktaDefaults.MvcAuthenticationScheme);
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        return RedirectToAction("Index", "Home");
+
+
+
+        //HttpContext.SignOutAsync();
         //return Redirect("https://dev-10223228.okta.com/oauth2/default/v1/revoke");
         //HttpContext.SignOutAsync();
         //return Redirect("https://dev-10223228.okta.com");
         //https://dev-10223228.okta.com
         //return View();
     }
+    public async Task<string> GetUser()
+    {
+        return User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
 }
 //var nome = User.FindFirstValue(ClaimTypes.Name);
 //var email = User.FindFirstValue(ClaimTypes.Email);
-//var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
 //var permissao = User.FindFirstValue(ClaimTypes.Role);
 //var nomeShort = User.FindFirstValue(ClaimTypes.GivenName);
 

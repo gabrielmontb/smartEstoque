@@ -18,7 +18,7 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodVndFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Vendas" />       
+        <input id="txtCodVndFil" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Vendas" />       
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <select id="ddlTipoVenda" class="form-control">
             <option value="0" selected="selected">Selecione um tipo...</option>
@@ -71,7 +71,7 @@
                                 <strong class="strong-min-tgv">Nome produto:</strong>
                             </label>
                             <div class="mdl-textfield mdl-js-textfield">
-                                <input name="txtNomeProduto" id="txtNomeProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                                <input maxlength="50" name="txtNomeProduto" id="txtNomeProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
                                 <label class="mdl-textfield__label" for="txtNomeProduto"></label>
                             </div>
                         </div> 
@@ -80,7 +80,7 @@
                                 <strong class="strong-min-tgv">ID produto:</strong>
                             </label>
                             <div class="mdl-textfield mdl-js-textfield">
-                                <input name="txtIdProduto" id="txtIdProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                                <input name="txtIdProduto" id="txtIdProduto" maxlength="50" class="number mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
                                  <label class="mdl-textfield__label" for="txtIdProduto"></label>
                             </div>
                         </div>  
@@ -89,7 +89,7 @@
                                 <strong class="strong-min-tgv">Código de barras:</strong>
                             </label>
                             <div class="mdl-textfield mdl-js-textfield">
-                                <input name="txtCodigoBarrasProduto" id="txtCodigoBarrasProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
+                                <input maxlength="50" name="txtCodigoBarrasProduto" id="txtCodigoBarrasProduto" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" onchange="pesquisaProduto()">
                                  <label class="mdl-textfield__label" for="txtCodigoBarrasProduto"></label>
                             </div>
                         </div>  
@@ -137,7 +137,7 @@
                                 <strong class="strong-min-tgv">Peso(KG):</strong>
                             </label>
                             <div style="margin-top: 5px;">
-                                <input type="number" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                                <input maxlength="50" type="number" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                                 <label class="mdl-textfield__label" for="txtPesoPrd"></label>
                             </div>
                         </div>

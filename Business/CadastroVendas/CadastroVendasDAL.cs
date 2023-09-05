@@ -126,7 +126,7 @@ namespace SmartEstoque.Business
                     CODVNDPRD = dr.GetInt32(0),
                     DATCAD = dr.GetString(1),
                     CODTIPPAG = dr.IsDBNull(2) ? 0 : dr.GetInt32(2),
-                    VLRVND = dr.IsDBNull(3) ? "R$0,00" : dr.GetString(3),
+                    VLRVND = dr.IsDBNull(3) ? "R$0.00" : dr.GetString(3),
                     TIPOPAGAMENTO = dr.GetString(4)
                 });
             }

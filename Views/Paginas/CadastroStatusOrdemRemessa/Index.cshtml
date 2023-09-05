@@ -10,7 +10,7 @@
 <div class="titulo-pagina">
     <span>
         SmartEstoque
-        <i class="fas fa-caret-right"></i>Status Ordem Status
+        <i class="fas fa-caret-right"></i>Status Ordem de remessa
     </span>
 </div>
 
@@ -27,9 +27,9 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodStaFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. status" style="width: 25%;" />
+        <input id="txtCodStaFil" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. status" style="width: 25%;" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesStaFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome status" />
+        <input id="txtDesStaFil" type="text" class="ctrl-filtro" maxlength="50" autocomplete="off" placeholder="Nome status" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <select id="ddlStatus" class="form-control">
             <option value="0" selected="selected">Selecione um status...</option>
@@ -65,7 +65,7 @@
     <form action="#" id="frmCadastro" novalidate="novalidate">
         <div class="tgv-cabecalho-container">
             <div class="col-md-6 titulo-tela">
-                <strong class="strong-cabecalho-tgv">Cadastro da Área</strong>
+                <strong class="strong-cabecalho-tgv">Cadastro do status</strong>
             </div>
             <div class="col-md-6 tgv-crud-log-text divShowHide">
                 <strong class="strong-cabecalho-codigo-tgv">Código:</strong> <span><input type="text" id="txtCodStaOrdRms" class="input-span-title" value="" readonly/></span>                
@@ -78,8 +78,7 @@
                         <strong class="strong-min-tgv">*Descrição:</strong>
                     </label>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input list="select" name="txtDescricaoStatus" id="txtDescricaoStatus" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                        <datalist id="select" disabled></datalist>
+                        <input maxlength="50" name="txtDescricaoStatus" id="txtDescricaoStatus" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                         <label class="mdl-textfield__label" for="txtDescricaoStatus" disabled></label>
                     </div>
                 </div>

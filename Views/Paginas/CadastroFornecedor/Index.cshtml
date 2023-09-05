@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Fornecedor - ";
 }
-<style type="text/css">
+@*<style type="text/css">
          $('.telefone').mask('(00) 0000-00009');
         $('.telefone').blur(function (event) {
             if ($(this).val().length == 15) { // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
@@ -11,7 +11,7 @@
             }
         });
 }
-</style>
+</style>*@
 
 <div class="titulo-pagina">
     <span>
@@ -24,9 +24,9 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodFrnPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Fornecedor" style="width: 25%;" />
+        <input id="txtCodFrnPrdFil" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Fornecedor" style="width: 25%;" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesFrnPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Fornecedor" />
+        <input id="txtDesFrnPrdFil" type="text" class="ctrl-filtro"  maxlength="50" autocomplete="off" placeholder="Nome Fornecedor" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <select id="ddlStatus" class="form-control">
             <option value="0" selected="selected">Selecione um status...</option>
@@ -76,28 +76,25 @@
                             <strong class="strong-min-tgv">*Descrição:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtDescricaoFornecedor" id="txtDescricaoFornecedor" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" ></datalist>
+                            <input maxlength="50" name="txtDescricaoFornecedor" id="txtDescricaoFornecedor" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class="mdl-textfield__label" for="txtDescricaoFornecedor" ></label>
                         </div>
                     </div>  
                     <div class="form-group col-md-3">
                         <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="telefone strong-min-tgv">*Telefone principal:</strong>
+                            <strong class="strong-min-tgv">*Telefone principal:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtTelefonePrincipal" id="txtTelefonePrincipal" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" ></datalist>
+                            <input name="txtTelefonePrincipal" id="txtTelefonePrincipal" class="telefone mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class=" mdl-textfield__label" for="txtTelefonePrincipal" ></label>
                         </div>
                     </div>  
                     <div class="form-group col-md-3">
                         <label for="input-text-1" style="margin-bottom: 0px;">
-                            <strong class="strong-min-tgv">Telefone Secundário:</strong>
+                            <strong class="strong-min-tgv">*Telefone Secundário:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtTelefoneSecundario" id="txtTelefoneSecundario" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" ></datalist>
+                            <input maxlength="50" name="txtTelefoneSecundario" id="txtTelefoneSecundario" class="telefone mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class="mdl-textfield__label" for="txtTelefoneSecundario" ></label>
                         </div>
                     </div>  
@@ -106,8 +103,7 @@
                             <strong class="strong-min-tgv">*Responsável:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtResponsavel" id="txtResponsavel" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" ></datalist>
+                            <input maxlength="50" name="txtResponsavel" id="txtResponsavel" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class="mdl-textfield__label" for="txtResponsavel" ></label>
                         </div>
                     </div>       
@@ -119,8 +115,7 @@
                             <strong class="strong-min-tgv">*Endereço:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtEndereco" id="txtEndereco" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" ></datalist>
+                            <input maxlength="50" name="txtEndereco" id="txtEndereco" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class="mdl-textfield__label" for="txtEndereco" ></label>
                         </div>
                     </div>  
@@ -129,8 +124,7 @@
                             <strong class="strong-min-tgv">*Cidade:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtCidade" id="txtCidade" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" ></datalist>
+                            <input maxlength="50" name="txtCidade" id="txtCidade" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class="mdl-textfield__label" for="txtCidade" ></label>
                         </div>
                     </div>  
@@ -139,8 +133,7 @@
                             <strong class="strong-min-tgv">*Estado:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtEstado" id="txtEstado" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="2">
-                            <datalist id="select" ></datalist>
+                            <input name="txtEstado" id="txtEstado" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="2">
                             <label class="mdl-textfield__label" for="txtEstado" ></label>
                         </div>
                     </div> 

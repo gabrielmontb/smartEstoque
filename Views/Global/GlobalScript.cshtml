@@ -125,10 +125,22 @@
 
 
         });
-        $(document).ready(function () {
-            $(".input-daterangedmy-sla").datepicker({
-                beforeShowDay: $.datepicker.noWeekends
-            });
+        //--INPUTS MASKS
+        $('.numerico').each(function () {
+            var len = parseInt($(this).attr('maximo'));
+            if (len !== NaN) {
+                var mask = "";
+
+                for (var i = 0; i < len; i++)
+                    mask += "9";
+
+                $(this).mask(mask.toString());
+            };
         });
+        //$(document).ready(function () {
+        //    $(".input-daterangedmy-sla").datepicker({
+        //        beforeShowDay: $.datepicker.noWeekends
+        //    });
+        //});
     });
 </script>

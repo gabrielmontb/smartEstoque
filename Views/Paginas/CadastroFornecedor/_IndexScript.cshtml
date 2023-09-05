@@ -21,6 +21,10 @@
             quantidadeTooltip = quantidadeTooltip + 1;
             tooltipCampoObrigatorioHide("#txtTelefonePrincipal", 'Campo Obrigatório.');
         }
+        else if ($("#txtTelefonePrincipal").val().length < 14){            
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtTelefonePrincipal", 'Telefone inválido.');
+        }
         if ($("#txtResponsavel").val() == '') {
             quantidadeTooltip = quantidadeTooltip + 1;
             tooltipCampoObrigatorioHide("#txtResponsavel", 'Campo Obrigatório.');
@@ -36,7 +40,15 @@
         if ($("#txtEstado").val() == '') {
             quantidadeTooltip = quantidadeTooltip + 1;
             tooltipCampoObrigatorioHide("#txtEstado", 'Campo Obrigatório.');
+        }  
+        if ($("#txtTelefoneSecundario").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtTelefoneSecundario", 'Campo Obrigatório.');
         } 
+        else if ($("#txtTelefoneSecundario").val().length < 14){            
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtTelefoneSecundario", 'Telefone inválido.');
+        }
         if(quantidadeTooltip > 0){
             return false;
         }
@@ -197,6 +209,15 @@
     });
     $(document).ready(function () {
         permissoes();
+        $('.telefone').mask('(00) 0000-00009');
+        $('.telefone').blur(function (event) {
+            if ($(this).val().length == 15) { // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
+                $(this).mask('(00) 00000-0009');
+            } else {
+                $(this).mask('(00) 0000-00009');
+            }
+        });        
+       
         // Inicialize o DataTable
         $('#grdCadastroFornecedor').DataTable({
             "ajax": {

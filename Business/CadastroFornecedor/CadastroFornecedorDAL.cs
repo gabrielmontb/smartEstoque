@@ -14,8 +14,8 @@ namespace SmartEstoque.Business
             string query = new CadastroFornecedorDALSQL().inserirFornecedor();
             var command = new NpgsqlCommand(query, conn);
             command.Parameters.AddWithValue("@DESFRNPRD", objInserir.DESFRNPRD);
-            command.Parameters.AddWithValue("@TELCTOFRN", objInserir.TELCTOFRN);
-            command.Parameters.AddWithValue("@TELCTOFRNSEC", objInserir.TELCTOFRNSEC);
+            command.Parameters.AddWithValue("@TELCTOFRN", objInserir.TELCTOFRN.Replace("/[^0-9]/g", ""));
+            command.Parameters.AddWithValue("@TELCTOFRNSEC", objInserir.TELCTOFRNSEC.Replace("/[^0-9]/g", ""));
             command.Parameters.AddWithValue("@NOMRSPFRN", objInserir.NOMRSPFRN);
             command.Parameters.AddWithValue("@DESENDFRN", objInserir.DESENDFRN);
             command.Parameters.AddWithValue("@DESCIDFRN", objInserir.DESCIDFRN);
@@ -28,8 +28,8 @@ namespace SmartEstoque.Business
             string query = new CadastroFornecedorDALSQL().alterarFornecedor();
             var command = new NpgsqlCommand(query, conn);
             command.Parameters.AddWithValue("@DESFRNPRD", objInserir.DESFRNPRD);
-            command.Parameters.AddWithValue("@TELCTOFRN", objInserir.TELCTOFRN);
-            command.Parameters.AddWithValue("@TELCTOFRNSEC", objInserir.TELCTOFRNSEC);
+            command.Parameters.AddWithValue("@TELCTOFRN", objInserir.TELCTOFRN.Replace("/[^0-9]/g", ""));
+            command.Parameters.AddWithValue("@TELCTOFRNSEC", objInserir.TELCTOFRNSEC.Replace("/[^0-9]/g", ""));
             command.Parameters.AddWithValue("@NOMRSPFRN", objInserir.NOMRSPFRN);
             command.Parameters.AddWithValue("@DESENDFRN", objInserir.DESENDFRN);
             command.Parameters.AddWithValue("@DESCIDFRN", objInserir.DESCIDFRN);

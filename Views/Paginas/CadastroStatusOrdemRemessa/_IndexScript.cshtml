@@ -10,6 +10,20 @@
             }
         });
     }
+    var tooltipValidation = function () {
+        let quantidadeTooltip = 0;
+
+        if ($("#txtDescricaoStatus").val() == '') {
+            quantidadeTooltip = quantidadeTooltip + 1;
+            tooltipCampoObrigatorioHide("#txtDescricaoStatus", 'Campo Obrigatório.');
+        }
+        if (quantidadeTooltip > 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
     var cadastrarNovoStatus = function () {
         if(_perfil == 2){
             swal("Atenção!", "Perfil de acesso negado!")
@@ -27,6 +41,9 @@
         if (_perfil == 2) {
             swal("Atenção!", "Perfil de acesso negado!")
             setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
+        if(tooltipValidation() == false){
             return;
         }
         $.ajax({
@@ -52,6 +69,9 @@
         if (_perfil == 2) {
             swal("Atenção!", "Perfil de acesso negado!")
             setCustomIcon('fa fa-exclamation-circle');
+            return;
+        }
+        if (tooltipValidation() == false) {
             return;
         }
         $.ajax({

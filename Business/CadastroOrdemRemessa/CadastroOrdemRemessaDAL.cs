@@ -19,14 +19,16 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@CODSTAORDRMS", objInserir.CODSTAORDRMS);
             command.Parameters.AddWithValue("@DATPRVENT",  objInserir.DATPRVENT);
             command.Parameters.AddWithValue("@CODNTAFSC", objInserir.CODNTAFSC);
-            command.Parameters.AddWithValue("@VLRLOTRMS", Convert.ToDecimal(objInserir.VLRLOTRMS.Replace(".", ",")));
+            command.Parameters.AddWithValue("@VLRLOTRMS", Convert.ToDecimal(objInserir.VLRLOTRMS));
             command.Parameters.AddWithValue("@NUMLOTRMS", objInserir.NUMLOTRMS);
             command.Parameters.AddWithValue("@QDEPRD", objInserir.QDEPRD);
+            //command.Parameters.AddWithValue("@QDEPRDVND", objInserir.QDEPRD);
 
             command.Parameters.AddWithValue("@CODBARPRD", objInserir.CODBARPRD);
             command.Parameters.AddWithValue("@VLRUNTPRD", Convert.ToDecimal(objInserir.VLRUNTPRD.Replace(".", ",")));
             command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD);
             command.Parameters.AddWithValue("@DESPESPRD", objInserir.DESPESPRD);
+            //command.Parameters.AddWithValue("@DESPESPRDVND", objInserir.DESPESPRD);
             return (command.ExecuteNonQuery() == 1);
         } 
         public bool alterarOrdemRemessa(CadastroOrdemRemessaModel.InserirCadastroOrdemRemessa objInserir)
@@ -38,13 +40,15 @@ namespace SmartEstoque.Business
             command.Parameters.AddWithValue("@CODSTAORDRMS", objInserir.CODSTAORDRMS);
             command.Parameters.AddWithValue("@DATPRVENT", objInserir.DATPRVENT);
             command.Parameters.AddWithValue("@CODNTAFSC", objInserir.CODNTAFSC);
-            command.Parameters.AddWithValue("@VLRLOTRMS", Convert.ToDecimal(objInserir.VLRLOTRMS.Replace(".", ",")));
+            command.Parameters.AddWithValue("@VLRLOTRMS", Convert.ToDecimal(objInserir.VLRLOTRMS));
             command.Parameters.AddWithValue("@NUMLOTRMS", objInserir.NUMLOTRMS);
             command.Parameters.AddWithValue("@QDEPRD", objInserir.QDEPRD);
+            //command.Parameters.AddWithValue("@QDEPRDVND", objInserir.QDEPRD);
             command.Parameters.AddWithValue("@CODBARPRD", objInserir.CODBARPRD == null ? 0 : objInserir.CODBARPRD);
             command.Parameters.AddWithValue("@DATVNCPRD", objInserir.DATVNCPRD == null ? "" : objInserir.DATVNCPRD);
-            command.Parameters.AddWithValue("@VLRUNTPRD", Convert.ToDecimal(objInserir.VLRUNTPRD.Replace(".",",")));
+            command.Parameters.AddWithValue("@VLRUNTPRD", Convert.ToDecimal(objInserir.VLRUNTPRD));
             command.Parameters.AddWithValue("@DESPESPRD", objInserir.DESPESPRD);
+            //command.Parameters.AddWithValue("@DESPESPRDVND", objInserir.DESPESPRD);
             command.Parameters.AddWithValue("@CODORDRMS", objInserir.CODORDRMS);
             return (command.ExecuteNonQuery() == 1);
         }    
@@ -114,7 +118,7 @@ namespace SmartEstoque.Business
                     , CODSTAORDRMS = dr.GetInt32(7)
                     , DESSTAORDRMS = dr.GetString(8)
                     , QDEPRD = dr.GetInt32(9)
-                    , VLRLOTRMS = dr.GetDecimal(10)
+                    , VLRLOTRMS = dr.IsDBNull(10) ? "0,00" : dr.GetDecimal(10).ToString("N2")
                     , NUMLOTRMS = dr.GetInt32(11)
                     , CODBARPRD = dr.IsDBNull(12) ? "" : dr.GetString(12)
                     , DATFIM = dr.IsDBNull(13) ? "" : dr.GetString(13)
@@ -122,11 +126,11 @@ namespace SmartEstoque.Business
                     , CODNOTFSC = dr.IsDBNull(15) ? "" : dr.GetString(15)
                     , INDPESQTD = dr.GetInt32(16)
                     , DATVNCPRD = dr.IsDBNull(17) ? "" : dr.GetString(17)
-                    , VLRUNTPRD = dr.IsDBNull(18) ? 0 : dr.GetDecimal(18)
+                    , VLRUNTPRD = dr.IsDBNull(18) ? "0,00" : dr.GetDecimal(18).ToString("N2")
                     , DESPESPRD = dr.IsDBNull(19) ? 0 : dr.GetDecimal(19)
                     , DESPESPRDVND = dr.IsDBNull(20) ? 0 : dr.GetDecimal(20)                    
                     , QDEPRDVND = dr.IsDBNull(21) ? 0 : dr.GetInt32(21)
-                });
+                });;
             }
             return retorno;
         }

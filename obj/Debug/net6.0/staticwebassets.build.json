@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EaEeR6D/b8YngaSL5b3LNvYuZ5zUfWuypaykRmYrcjQ=",
+  "Hash": "N5XeDy7luy52ObduY/ppnHmlyck1kUdSqqNy3EJf9XY=",
   "Source": "SmartEstoque",
   "BasePath": "_content/SmartEstoque",
   "Mode": "Default",
@@ -882,23 +882,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\chosen.proto.min.js"
-    },
-    {
-      "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\js\\custom.js",
-      "SourceId": "SmartEstoque",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\",
-      "BasePath": "_content/SmartEstoque",
-      "RelativePath": "js/custom.js",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\custom.js"
     },
     {
       "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\js\\datatable.min.js",

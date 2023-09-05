@@ -18,9 +18,9 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodStaFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. status" style="width: 25%;" />
+        <input id="txtCodStaFil" class="ctrl-filtro numerico" maximo="9" maxlength="9" placeholder="Cód. status" style="width: 25%;" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesStaFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome da ordem" />
+        <input maxlength="50" id="txtDesStaFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome da ordem" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
           <select id="ddlStatus" class="form-control">
             <option value="0" selected="selected">Selecione um status...</option>
@@ -72,8 +72,7 @@
                             <strong class="strong-min-tgv">*Descrição:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtDescricaoOrdem" id="txtDescricaoOrdem" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" disabled></datalist>
+                            <input name="txtDescricaoOrdem" id="txtDescricaoOrdem" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="50">
                             <label class="mdl-textfield__label" for="txtDescricaoOrdem" disabled></label>
                         </div>
                     </div>
@@ -116,7 +115,7 @@
                         <div class="mdl-textfield mdl-js-textfield">
                             <div class="input-daterange input-daterangedmy">
                                 <div class="form-group filtro" style="margin-top:-5px">
-                                    <input id="txtDatFimOrdSvc" name="txtDatFimOrdSvc" data-required="1" type="text" class="mdl-textfield__input datedmy limparTooltipChange" placeholder="Data">
+                                    <input id="txtDatFimOrdSvc" name="txtDatFimOrdSvc" data-required="1" type="text" class="calendario mdl-textfield__input datedmy limparTooltipChange" placeholder="Data">
                                     <label class="mdl-textfield__label" for="txtDatFimOrdSvc"></label>
                                 </div>
                             </div>
@@ -127,8 +126,7 @@
                             <strong class="strong-min-tgv">*Nota fiscal:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtNotFsc" id="txtNotFsc" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" disabled></datalist>
+                            <input list="select" name="txtNotFsc" id="txtNotFsc" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="50">
                             <label class="mdl-textfield__label" for="txtNotFsc"></label>
                         </div>
                     </div>    
@@ -137,8 +135,7 @@
                             <strong class="strong-min-tgv">*Valor lote:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtValorLote" id="txtValorLote" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" disabled></datalist>
+                            <input name="txtValorLote" id="txtValorLote" class="dinheiro mdl-textfield__input text-uppercase limparTooltipKeyDown">
                             <label class="mdl-textfield__label" for="txtValorLote"></label>
                         </div>
                     </div>  
@@ -147,8 +144,7 @@
                             <strong class="strong-min-tgv">*Lote:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtLote" id="txtLote" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" disabled></datalist>
+                            <input list="select" name="txtLote" id="txtLote" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="50">
                             <label class="mdl-textfield__label" for="txtLote"></label>
                         </div>
                     </div> 
@@ -161,7 +157,7 @@
                         <div class="mdl-textfield mdl-js-textfield">
                             <div class="input-daterange input-daterangedmy">
                                 <div class="form-group filtro" style="margin-top:-5px">
-                                    <input id="txtDatVnc" name="txtDatVnc" data-required="1" type="text" class="mdl-textfield__input datedmy limparTooltipChange" placeholder="Data">
+                                    <input id="txtDatVnc" name="txtDatVnc" data-required="1" type="text" class="calendario mdl-textfield__input datedmy limparTooltipChange" placeholder="Data">
                                     <label class="mdl-textfield__label" for="txtDatVnc"></label>
                                 </div>
                             </div>
@@ -172,8 +168,7 @@
                             <strong class="strong-min-tgv">*Valor unitário:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtVlrUnt" id="txtVlrUnt" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                            <datalist id="select" disabled></datalist>
+                            <input list="select" name="txtVlrUnt" id="txtVlrUnt" class="dinheiro mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="10">
                             <label class="mdl-textfield__label" for="txtVlrUnt"></label>
                         </div>
                     </div>   
@@ -182,7 +177,7 @@
                             <strong class="strong-min-tgv">*Código de barras:</strong>
                         </label>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input list="select" name="txtCodigoBarras" id="txtCodigoBarras" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
+                            <input list="select" name="txtCodigoBarras" id="txtCodigoBarras" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="100">
                             <datalist id="select" disabled></datalist>
                             <label class="mdl-textfield__label" for="txtCodigoBarras"></label>
                         </div>
@@ -193,14 +188,13 @@
                                 <strong class="strong-min-tgv">*Peso(KG):</strong>
                             </label>
                             <div class="mdl-textfield mdl-js-textfield">
-                                <input list="select" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                                <datalist id="select" disabled></datalist>
+                                <input list="select" name="txtPesoPrd" id="txtPesoPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" maxlength="10">
                                 <label class="mdl-textfield__label" for="txtPesoPrd"></label>
                             </div>                         
                         </div>
                         <div class="col-md-7">
                             <label for="input-text-1" style="margin-bottom: 0px;">
-                                <strong class="strong-min-tgv">Peso restante(KG):</strong>
+                                <strong class="strong-min-tgv">Peso vendido(KG):</strong>
                             </label>
                             <div class="mdl-textfield mdl-js-textfield">
                                 <input list="select" name="txtPesoRstPrd" id="txtPesoRstPrd" class="mdl-textfield__input text-uppercase limparTooltipKeyDown" disabled>
@@ -215,11 +209,11 @@
                             <label for="input-text-1">
                                 <strong class="strong-min-tgv">*Quantidade:</strong>
                             </label>
-                            <input class="form-control" style="width:65px;" type="number" min='1' value="0" id="txtQdePrd">
+                            <input class="form-control" style="width:65px;" type="number" min='1' value="0" id="txtQdePrd" maxlength="5">
                         </div>     
                         <div class="col-md-7">
                             <label for="input-text-1">
-                                <strong class="strong-min-tgv">Quantidade restante:</strong>
+                                <strong class="strong-min-tgv">Quantidade vendida:</strong>
                             </label>
                             <input class="form-control" style="width:65px;" type="number" min='1' value="0" id="txtQdePrdRst" disabled>
                         </div>

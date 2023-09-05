@@ -18,9 +18,9 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodModFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Modelo" style="width: 25%;" />
+        <input id="txtCodModFil" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Modelo" style="width: 25%;" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesModFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Modelo" />
+        <input id="txtDesModFil" type="text" class="ctrl-filtro" maxlength="50" autocomplete="off" placeholder="Nome Modelo" />
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <select id="ddlTipoFil" class="form-control">
             <option value="0" selected="selected">Selecione um tipo...</option>
@@ -73,8 +73,7 @@
                         <strong class="strong-min-tgv">*Descrição:</strong>
                     </label>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input list="select" name="txtDescricaoModelo" id="txtDescricaoModelo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                        <datalist id="select" disabled></datalist>
+                        <input maxlength="50" name="txtDescricaoModelo" id="txtDescricaoModelo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                         <label class="mdl-textfield__label" for="txtDescricaoModelo" disabled></label>
                     </div>
                 </div>

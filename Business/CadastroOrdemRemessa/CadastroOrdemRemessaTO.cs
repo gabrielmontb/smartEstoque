@@ -15,7 +15,7 @@ namespace CadastroOrdemRemessaTO
         public int CODSTAORDRMS { get; set; }
         public string DESSTAORDRMS { get; set; }
         public int QDEPRD { get; set; }
-        public decimal VLRLOTRMS { get; set; }
+        public string VLRLOTRMS { get; set; }
         public int NUMLOTRMS { get; set; }
         public string CODBARPRD { get; set; }
         public string DATFIM { get; set; }
@@ -23,7 +23,7 @@ namespace CadastroOrdemRemessaTO
         public string CODNOTFSC { get; set; }
         public int INDPESQTD { get; set; }
         public string DATVNCPRD { get; set; }
-        public decimal VLRUNTPRD { get; set; }
+        public string VLRUNTPRD { get; set; }
         public decimal DESPESPRD { get; set; }
         public decimal DESPESPRDVND { get; set; }
         public int QDEPRDVND { get; set; }

@@ -55,7 +55,6 @@
         $(".divShowHide").show();            
         $("#divParametrosCadastro").show();
         $("#txtDescricaoVendas").val('');
-        $("#grdProdutos").DataTable().ajax.reload();
         $("#txtDescricaoProduto").val('');
         $("#txtQdeEstoque").val('');
         $("#txtValorProduto").val('');
@@ -66,6 +65,8 @@
         $("#txtIdProduto").val('');
         $("#divEditar").hide();
         $("#txtCodigoBarrasProduto").val('');
+        $("#txtCodVnd").val(0);
+        $("#grdProdutos").DataTable().ajax.reload();
         $.ajax({
             method: 'POST',
             url: '@Url.Content("/CadastroVendas/obterCodigoVenda")',

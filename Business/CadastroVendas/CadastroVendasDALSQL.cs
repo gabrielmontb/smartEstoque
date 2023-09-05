@@ -16,7 +16,7 @@ namespace SmartEstoque.Business
                         SELECT VND.codvndprd
                                 , TO_CHAR(VND.datcad, 'DD/MM/YYYY') datcad
                                 , VND.codtippag
-                                , 'R$'||VND.vlrvnd||',00'
+                                , 'R$'||VND.vlrvnd
                                 , CASE WHEN VND.codtippag = 1 THEN 'Crédito'
                                        WHEN VND.codtippag = 2 THEN 'Débito'
                                        WHEN VND.codtippag = 3 THEN 'Pix'

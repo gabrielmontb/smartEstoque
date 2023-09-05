@@ -18,9 +18,9 @@
     <div class="campos-holder">
         <i class="fas fa-search fa-lg" style="color: #293949;"></i>
         <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtCodTipPrdFil" type="number" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Tipo" style="width: 25%;" />
+        <input id="txtCodTipPrdFil" class="ctrl-filtro numerico" maximo="9" placeholder="Cód. Tipo" style="width: 25%;" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
-        <input id="txtDesTipPrdFil" type="text" class="ctrl-filtro" maximo="100" autocomplete="off" placeholder="Nome Tipo" />
+        <input id="txtDesTipPrdFil" type="text" class="ctrl-filtro" maxlength="50" autocomplete="off" placeholder="Nome Tipo" />
          <i class="fas fa-grip-lines-vertical" style="color: #293949;"></i>
         <select id="ddlGrupoFil" class="form-control">
             <option value="0" selected="selected">Selecione um grupo...</option>
@@ -73,8 +73,7 @@
                         <strong class="strong-min-tgv">*Descrição:</strong>
                     </label>
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input list="select" name="txtDescricaoTipo" id="txtDescricaoTipo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
-                        <datalist id="select" disabled></datalist>
+                        <input maxlength="50" name="txtDescricaoTipo" id="txtDescricaoTipo" class="mdl-textfield__input text-uppercase limparTooltipKeyDown">
                         <label class="mdl-textfield__label" for="txtDescricaoTipo" disabled></label>
                     </div>
                 </div>  

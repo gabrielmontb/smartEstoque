@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SmartEstoque.Models;
 using System.Diagnostics;
@@ -18,6 +19,8 @@ namespace SmartEstoque.Controllers
 
         public IActionResult Index()
         {
+            var tokenRevocation = HttpContext.GetTokenAsync("revoke_token");
+            var tokenAcesso = HttpContext.GetTokenAsync("access_token");
             return View();
         }
 

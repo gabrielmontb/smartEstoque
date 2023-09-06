@@ -45,7 +45,7 @@ public class Startup
             ClientId = Util.AppSettings.ClientId,
             ClientSecret = Util.AppSettings.ClientSecret,
             CallbackPath = Util.AppSettings.CallbackPath,
-            PostLogoutRedirectUri = "/Login/Login",
+            PostLogoutRedirectUri = "/Login/Logout",
             Scope = new List<string> { "openid", "profile", "email" },
 
         });
@@ -66,6 +66,11 @@ public class Startup
             options.SuppressXFrameOptionsHeader = false;
         });
         services.AddControllersWithViews();
+        services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(60);
+            options.Cookie.HttpOnly = true;
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -87,13 +92,14 @@ public class Startup
 
         app.UseAuthentication();
         app.UseAuthorization();
+        app.UseSession();
 
         app.UseCors("DevelopmentCorsPolicy");
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");            
+                pattern: "{controller=Login}/{action=Login}/{id?}");            
         });
         app.Use(async (context, next) =>
         {

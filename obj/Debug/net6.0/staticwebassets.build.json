@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jT+7DtA9MmhHstdYeU/ZPaXh/0CdXhDAGi5ONS49Ie4=",
+  "Hash": "NMwCrDL8IAiXSbR025PQqojYf1T7dqqQKEe62KJiy28=",
   "Source": "SmartEstoque",
   "BasePath": "_content/SmartEstoque",
   "Mode": "Default",
@@ -814,23 +814,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon2.ico"
-    },
-    {
-      "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\Img\\LogotipoMensagem.png",
-      "SourceId": "SmartEstoque",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\",
-      "BasePath": "_content/SmartEstoque",
-      "RelativePath": "Img/LogotipoMensagem.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Img\\LogotipoMensagem.png"
     },
     {
       "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\js\\additional-methods.min.js",
@@ -2939,6 +2922,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\LogotipoMensagem.jpeg",
+      "SourceId": "SmartEstoque",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\",
+      "BasePath": "_content/SmartEstoque",
+      "RelativePath": "LogotipoMensagem.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\LogotipoMensagem.jpeg"
     },
     {
       "Identity": "C:\\Users\\gabri\\OneDrive\\Área de Trabalho\\Tcc PUC\\Projeto\\smartEstoque\\wwwroot\\material.min.js.map",

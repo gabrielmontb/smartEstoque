@@ -25,16 +25,17 @@
             confirmButtonText: 'Sair!'
         }).then(function (result) {
             if (result.value) {
-                $.ajax({
-                    method: 'POST',
-                    url: '@Url.Content("/Login/Logout")',
-                    headers: { '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() },
-                    async: false,
-                    success: function (data) {
-                         //window.location.href = "https://google.com.br"
-                        //window.location.href = "https://dev-10223228.okta.com/oauth2/v1/logout";
-                    }
-                });
+                window.location.href = "https://dev-10223228.okta.com/oauth2/v1/logout";
+                //$.ajax({
+                //    method: 'POST',
+                //    url: '@Url.Content("/Login/Logout")',
+                //    headers: { '__RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() },
+                //    async: false,
+                //    success: function (data) {
+                //         //window.location.href = "https://google.com.br"
+                //        //window.location.href = "https://dev-10223228.okta.com/oauth2/v1/logout";
+                //    }
+                //});
             }
         });
     };

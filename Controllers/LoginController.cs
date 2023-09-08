@@ -32,7 +32,7 @@ public class LoginController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         return RedirectToAction("Index", "Home");
     } 
-    public async Task<IActionResult> Logout()
+    public async Task<IActionResult> Logout2()
     {
 
         //return new SignOutResult(new[] { OpenIdConnectDefaults.AuthenticationScheme, CookieAuthenticationDefaults.AuthenticationScheme });
@@ -57,13 +57,9 @@ public class LoginController : Controller
 
     }
     [HttpPost]
-    public async Task<IActionResult> Logout2()
+    public async Task<IActionResult> Logout()
     {
-        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        await HttpContext.SignOutAsync(); 
         return RedirectToAction("Index", "Home");
-    }
-    public async Task<string> GetUser()
-    {
-        return User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }

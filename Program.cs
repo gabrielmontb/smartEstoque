@@ -51,15 +51,23 @@ public class Startup
         });
 
         //Enable CORS
+        //services.AddCors(options =>
+        //{
+        //    options.AddPolicy("DevelopmentCorsPolicy",
+        //        builder => builderlog
+        //            .AllowAnyOrigin()
+        //            .AllowAnyMethod()
+        //            .AllowAnyHeader());   
+        //});
         services.AddCors(options =>
         {
-            options.AddPolicy("DevelopmentCorsPolicy",
-                builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
+            options.AddPolicy("AllowOktaRequests", builder =>
+            {
+                builder.WithOrigins("https://localhost:7220/") // Substitua com o domínio da sua aplicação
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
         });
-
         services.AddAntiforgery(options =>
         {
             options.HeaderName = "X-CSRF-TOKEN"; // Nome do cabeçalho personalizado (opcional)
@@ -94,7 +102,8 @@ public class Startup
         app.UseAuthorization();
         app.UseSession();
 
-        app.UseCors("DevelopmentCorsPolicy");
+        app.UseCors("AllowOktaRequests");
+
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(

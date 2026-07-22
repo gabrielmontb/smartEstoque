@@ -728,7 +728,7 @@ public bool inserirProdutos(CadastroProdutosModel.InserirCadastroProdutos objIns
 
 ## 📞 Suporte e Contato
 
-**Desenvolvedor**: Gabriel Monteiro de Oliveira  
+**Desenvolvedor**: Gabriel Montserrat
 **Email**: gabrielmontb@github.com  
 **Repositório**: https://github.com/gabrielmontb/smartEstoque  
 **Issues**: https://github.com/gabrielmontb/smartEstoque/issues

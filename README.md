@@ -42,7 +42,7 @@ SmartEstoque é uma aplicação web moderna desenvolvida em **ASP.NET Core 6.0**
 
 ### Backend
 - **Framework**: ASP.NET Core 6.0
-- **Linguagem**: C# 10.0
+- **Linguagem**: C# 6.0
 - **Banco de Dados**: PostgreSQL 7.0
 - **ORM/Query Builder**: Dapper 2.0.123
 - **Autenticação**: Okta ASP.NET Core SDK 4.4.2
@@ -50,8 +50,8 @@ SmartEstoque é uma aplicação web moderna desenvolvida em **ASP.NET Core 6.0**
 
 ### Frontend
 - **Markup**: HTML5
-- **Estilos**: CSS3 (6.8% do código)
-- **Scripts**: JavaScript (68.8% do código)
+- **Estilos**: CSS3 
+- **Scripts**: JavaScript 
 - **Engine de Visualização**: Razor Pages (.cshtml)
 
 ### Infraestrutura
@@ -723,25 +723,6 @@ public bool inserirProdutos(CadastroProdutosModel.InserirCadastroProdutos objIns
 ✅ Nomes de classes seguem padrão (BLL, DAL, TO)  
 ✅ Uso de async/await para operações assíncronas  
 ✅ Versionamento com Git  
-
----
-
-## 🤝 Contribuindo
-
-### Processo de Contribuição
-
-1. Faça fork do repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/MinhaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adicionar MinhaFeature'`)
-4. Push para a branch (`git push origin feature/MinhaFeature`)
-5. Abra um Pull Request
-
-### Diretrizes de Código
-
-- Siga a convenção de nomenclatura C# (PascalCase para classes, camelCase para variáveis)
-- Adicione comentários para lógica complexa
-- Teste manualmente antes de enviar PR
-- Atualize documentação se necessário
 
 ---
 
